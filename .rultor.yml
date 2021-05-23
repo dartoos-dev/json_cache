@@ -1,0 +1,31 @@
+docker:
+  image: cirrusci/flutter:stable
+  as_root: true
+architect:
+  - rafamizes
+assets:
+  credentials.json: rafamizes/secret#assets/publishing/flutter/credentials.json
+merge:
+  squash: true
+  rebase: true
+  script: |
+    flutter clean
+    flutter pub get
+    flutter test --no-pub
+    flutter pub publish --dry-run
+release:
+  # updates pubspec.yaml's version attribute to $tag;
+  # in CHANGELOG, places section '[$tag] - YYYY-mm-dd' under [Unreleaded];
+  # commits the $tag version and publishes to pub.dev;
+  # Rultor tags the lastest commit as $tag and push the new tag to the
+  # repository.
+  script: |-
+    sed -i "s/^\(version:\).*/\1 $tag/" pubspec.yaml
+    sed -i "/\[Unreleased\]/a\\\n## [$tag] - $(date '+%F')" CHANGELOG.md
+    mkdir -p ~/.pub-cache
+    mv ../credentials.json ~/.pub-cache/credentials.json
+    flutter pub publish -f
+    git commit -am "version $tag"
+    git checkout master
+    git merge __rultor
+    git checkout __rultor
