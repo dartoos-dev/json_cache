@@ -1,0 +1,9 @@
+include: package:lint/analysis_options_package.yaml
+linter:
+  rules:
+    # Always await.
+    unawaited_futures: true
+    # Make constructors the first thing in every class
+    sort_constructors_first: true
+    # Good packages document everything
+    public_member_api_docs: true

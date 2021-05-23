@@ -1,0 +1,18 @@
+name: json_cache
+description: A set of object-oriented classes for local caching of user data in json; a highly combinable layer on top of local storage packages, unifying them as an elegant cache API.
+version: 0.1.0
+homepage: https://dartoos.dev
+repository: https://github.com/dartoos-dev/json_cache
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lint: ^1.5.3
