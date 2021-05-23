@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: There is a problem in how brand palettes behaves.
+about: There is a problem in how json_cache behaves.
 title: ''
 labels: ''
 assignees: ''
