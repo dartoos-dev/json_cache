@@ -1,5 +1,8 @@
-<!-- @todo #1 replace the project name with its logo -->
-# json_cache
+## json_cache
+
+<center>
+  <img width="406" hight="192" alt="json cache logo" src="https://user-images.githubusercontent.com/24878574/119276278-56ef4a80-bbf0-11eb-8701-53a94f24f75b.png" align="middle">
+</center>
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![DevOps By Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor.com/p/dartoos-dev/json_cache)
@@ -12,10 +15,18 @@
 [![codecov](https://codecov.io/gh/dartoos-dev/json_cache/branch/master/graph/badge.svg?token=7T5VNQIIMZ)](https://codecov.io/gh/dartoos-dev/json_cache)
 [![Hits-of-Code](https://hitsofcode.com/github/dartoos-dev/json_cache)](https://hitsofcode.com/github/dartoos-dev/json_cache/view)
 
-**Json Cache** is a highly combinable layer on top of local storage packages,
-unifying them as an elegant cache API. This is achieved by providing a set of
-classes that can be selected and combined in many ways to solve specific caching
-requirements.
+**Json Cache** is an object-oriented package to serve as a layer on top of local
+storage packages, unifying them as an elegant cache API; which, in turn, is a
+set of classes that can be selected and combined in various ways to address
+specific caching requirements.
+
+**Why Json?**
+
+- Because most of the available local storage packages for Flutter applications
+  use json as the data format.
+- There is a one-to-one relationship between the Dart's built-in type
+  ```Map<String, dynamic>``` and json, which makes the json encoding/decoding a
+  trivial task.
 
 ## Getting Started
 <!-- @todo #1 Explain how this package is intended to be used -->
