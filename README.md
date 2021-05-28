@@ -16,7 +16,10 @@
 [![Hits-of-Code](https://hitsofcode.com/github/dartoos-dev/json_cache)](https://hitsofcode.com/github/dartoos-dev/json_cache/view)
 
 **Json Cache** is an object-oriented package to serve as a layer on top of local
-storage packages, unifying them as an elegant cache API; which, in turn, is a
+storage packages - packages that persist data locally on the user's device
+-, unifying them as an elegant cache API.
+
+In addition, this package gives the programmer great flexibility; it provides a
 set of classes that can be selected and combined in various ways to address
 specific caching requirements.
 
@@ -29,4 +32,37 @@ specific caching requirements.
   trivial task.
 
 ## Getting Started
-<!-- @todo #1 Explain how this package is intended to be used -->
+
+The concept of cached data is represented by the package's core interface
+```JsonCache```, which is defined as:
+
+```dart
+/// Represents a cached json data.
+abstract class JsonCache {
+  /// Frees up cache storage space.
+  Future<void> clear();
+
+  /// Refreshes some cached data by its associated key.
+  Future<void> refresh(String key, Map<String, dynamic> data);
+
+  /// Erases [key] and returns its associated data.
+  Future<Map<String, dynamic>?> erase(String key);
+
+  /// Recovers some cached data; null if a cache miss occurs - no [key] found.
+  Future<Map<String, dynamic>?> recover(String key);
+}
+```
+
+It's reasonable to consider each cache entry (pair of key/data) as a group of
+related data. Thus, it is expected to cache user data in groups, in which a key
+represents the name of a single group of data. Example:
+
+```dart
+'profile': {'name': 'John Doe', 'email': 'johndoe@email.com', 'accountType': 'premium'};
+'preferences': {'theme': {'dark': true}, 'notifications':{'enabled': true}}
+```
+
+Above the _'profile'_ key is associated with the group of profile related data;
+_'preferences'_, with preferences data.
+
+<!-- @todo #10 Some implementation is needed to add more examples -->
