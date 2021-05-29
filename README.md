@@ -25,16 +25,16 @@ specific caching requirements.
 
 **Why Json?**
 
-- Because most of the available local storage packages for Flutter applications
+- Because most of the local storage packages available for Flutter applications
   use json as the data format.
-- There is a one-to-one relationship between the Dart's built-in type
-  ```Map<String, dynamic>``` and json, which makes the json encoding/decoding a
+- There is an one-to-one relationship between the Dart's built-in type
+  ```Map<String, dynamic>``` and json, which makes json encoding/decoding a
   trivial task.
 
 ## Getting Started
 
-The concept of cached data is represented by the package's core interface
-```JsonCache```, which is defined as:
+```JsonCache``` - the core interface of this package - represents the concept of
+cached data. It is defined as:
 
 ```dart
 /// Represents a cached json data.
