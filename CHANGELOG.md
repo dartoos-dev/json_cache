@@ -8,4 +8,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 <!-- @todo #1 Describe initial release. -->
-## [0.1.0]
+
+## [0.0.1]
