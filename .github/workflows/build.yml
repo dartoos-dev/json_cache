@@ -2,11 +2,11 @@
 # building, and deploying using Github Actions.
 name: Flutter CI
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
 
   # Allows you to run this workflow manually from the Actions tab
@@ -31,19 +31,14 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
-          
       # Get flutter dependencies.
       - run: flutter pub get
-    
       # Check for any formatting issues in the code.
       - run: flutter format --set-exit-if-changed lib/ test/ example/
-    
       # Statically analyze the Dart code for any errors.
       - run: flutter analyze --no-current-package lib/ test/ example/
-    
       # Run widget tests for our flutter project.
       - run: flutter test --no-pub --coverage
-      
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
