@@ -6,7 +6,6 @@ architect:
 assets:
   credentials.json: rafamizes/secret#assets/publishing/flutter/credentials.json
 merge:
-  squash: true
   rebase: true
   script: |
     flutter clean
