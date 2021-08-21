@@ -28,8 +28,8 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 
 ## Overview
 
-**Json Cache** is an object-oriented layer on top of local storage packages to
-unify them as an elegant caching API.
+**Json Cache** is an object-oriented layer on top of local storage packages that
+unifies them as an elegant caching API.
 
 In addition, this package gives developers great flexibility by providing a set
 of classes that can be selected and grouped in various combinations to meet
