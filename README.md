@@ -50,22 +50,24 @@ cached data. It is defined as:
 ```dart
 /// Represents data cached in json.
 abstract class JsonCache {
-  /// Frees up cache storage space.
+  /// Frees up storage space.
   Future<void> clear();
 
-  /// Updates cached data found by its associated [key].
+  /// Updates data at [key] or creates a new cache line at [key] if there is no
+  /// previous data there.
   Future<void> refresh(String key, Map<String, dynamic> data);
 
-  /// Erases [key] and returns its associated data.
+  /// Removes data from cache at [key] and returns it or returns null if there
+  /// is no data at [key].
   Future<Map<String, dynamic>?> erase(String key);
 
-  /// Recovers cached data by [key]; returns null if a cache miss occurs.
+  /// Retrieves either the data at [key] or null if a cache miss occurs.
   Future<Map<String, dynamic>?> recover(String key);
 }
 ```
 
 It is reasonable to consider each cache entry (a key/data pair) as a group of
-related data. Thus, it is expected to cache user data into groups where a key
+related data. Thus, it is expected to cache data into groups, where a key
 represents the name of a single data group. For example:
 
 ```dart
@@ -73,8 +75,8 @@ represents the name of a single data group. For example:
 'preferences': {'theme': {'dark': true}, 'notifications':{'enabled': true}}
 ```
 
-Above the _'profile'_ key is associated with the group of profile related data;
-_'preferences'_, with preferences data.
+Above the _'profile'_ key is associated with the group of profile-related data,
+while _'preferences'_ is associated with preferences-related data.
 
 <!-- @todo #10 Some implementation is needed to add more examples -->
 
