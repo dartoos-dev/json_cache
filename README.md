@@ -75,8 +75,8 @@ represents the name of a single data group. For example:
 'preferences': {'theme': {'dark': true}, 'notifications':{'enabled': true}}
 ```
 
-Above the _'profile'_ key is associated with the group of profile-related data,
-while _'preferences'_ is associated with preferences-related data.
+Above, the _profile_ key is associated with the profile-related data group,
+while the _preferences_ key is associated with the preferences-related data.
 
 <!-- @todo #10 Some implementation is needed to add more examples -->
 
