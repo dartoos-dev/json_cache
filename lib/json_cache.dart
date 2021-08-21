@@ -1,7 +1,7 @@
+/// Collection of json cache decorators.
 library json_cache;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/json_cache.dart';
+export 'src/json_cache_fake.dart';
+export 'src/json_cache_mem.dart';
+export 'src/json_cache_wrap.dart';
