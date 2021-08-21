@@ -28,20 +28,19 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 
 ## Overview
 
-**Json Cache** is an object-oriented package to serve as a layer on top of local
-storage packages, unifying them as an elegant caching API.
+**Json Cache** is an object-oriented layer on top of local storage packages to
+unify them as an elegant caching API.
 
 In addition, this package gives developers great flexibility by providing a set
-of classes that can be selected and combined in various ways to meet specific
-requirements.
+of classes that can be selected and grouped in various combinations to meet
+specific cache requirements.
 
 **Why Json?**
 
 - Because most of the local storage packages available for Flutter applications
   use json as the data format.
-- There is an one-to-one relationship between the Dart's built-in type
-  `Map<String, dynamic>` and json, which makes json encoding/decoding a
-  trivial task.
+- There is a one-to-one relationship between Dart's built-in type `Map<String,
+  dynamic>` and json, which makes encoding/decoding data in json a trivial task.
 
 ## Getting Started
 
@@ -49,18 +48,18 @@ requirements.
 cached data. It is defined as:
 
 ```dart
-/// Represents a cached json data.
+/// Represents data cached in json.
 abstract class JsonCache {
   /// Frees up cache storage space.
   Future<void> clear();
 
-  /// Refreshes some cached data by its associated key.
+  /// Updates cached data found by its associated [key].
   Future<void> refresh(String key, Map<String, dynamic> data);
 
   /// Erases [key] and returns its associated data.
   Future<Map<String, dynamic>?> erase(String key);
 
-  /// Recovers some cached data; null if a cache miss occurs - no [key] found.
+  /// Recovers cached data by [key]; returns null if a cache miss occurs.
   Future<Map<String, dynamic>?> recover(String key);
 }
 ```
@@ -96,3 +95,6 @@ flutter run -d chrome
 This should launch the demo application on Chrome in debug mode.
 
 ## References
+
+- [Caching for objects](https://www.pragmaticobjects.com/chapters/012_caching_for_objects.html)
+- [Dart and race conditions](https://pub.dev/packages/mutex)
