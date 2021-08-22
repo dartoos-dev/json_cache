@@ -13,7 +13,7 @@ class JsonCacheFake implements JsonCache {
   /// in-memory storage.
   final Map<String, Map<String, dynamic>?> _memory;
 
-  static final Map<String, Map<String, dynamic>> _shrMem = {};
+  static late final Map<String, Map<String, dynamic>?> _shrMem = {};
 
   /// Clears the internal map.
   @override
