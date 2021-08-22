@@ -34,6 +34,7 @@ like [sharable_preferences](https://pub.dev/packages/shared_preferences) and
 [local storage](https://pub.dev/packages/localstorage) that unifies them as an
 elegant caching API.
 
+
 **Why Json?**
 
 - Because most of the local storage packages available for Flutter applications
