@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- JsonCachePrefs, a implementation on top of the shared_preferences package —
+  [26](https://github.com/dartoos-dev/json_cache/issues/26).
+
+### Changed
+
+- renaming JsonCache methods: erase to remove; recovery to value. **BREAKING
+  CHANGES**.
+
 ## [0.1.0] - 2021-08-22
 
 ### Added

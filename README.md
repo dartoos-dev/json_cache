@@ -1,8 +1,6 @@
 # json_cache
 
-<center>
-  <img width="406" hight="192" alt="json cache logo" src="https://user-images.githubusercontent.com/24878574/119276278-56ef4a80-bbf0-11eb-8701-53a94f24f75b.png" align="middle">
-</center>
+<img width="406" hight="192" alt="json cache logo" src="https://user-images.githubusercontent.com/24878574/119276278-56ef4a80-bbf0-11eb-8701-53a94f24f75b.png" align="middle">
 
 [![EO principles respected
 here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
@@ -27,6 +25,15 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 - [References](#references)
 
 ## Overview
+
+
+> Cache is a hardware or software component that stores data so that future
+> requests for that data can be served faster; the data stored in a cache might
+> be the result of an earlier computation or a copy of data stored elsewhere.
+>
+> — [Cache_(computing) (2021, August 22). In Wikipedia, The Free Encyclopedia.
+> Retrieved 09:55, August 22,
+> 2021](https://en.wikipedia.org/wiki/Cache_(computing))
 
 **Json Cache** is an object-oriented package to cache user data locally in json.
 It can also be thought of as a layer on top of Flutter's local storage packages
@@ -57,16 +64,17 @@ abstract class JsonCache {
   /// Frees up storage space.
   Future<void> clear();
 
-  /// Updates data at [key] or creates a new cache line at [key] if there is no
-  /// previous data there.
-  Future<void> refresh(String key, Map<String, dynamic> data);
+  /// It either updates the data found at [key] with [value] or, if there is no
+  /// previous data at [key], creates a new cache row at [key] with [value].
+  ///
+  /// **Note**: [value] must be json encodable.
+  Future<void> refresh(String key, Map<String, dynamic> value);
 
-  /// Removes data from cache at [key] and returns it or returns null if there
-  /// is no data at [key].
-  Future<Map<String, dynamic>?> erase(String key);
+  /// Removes data from cache at [key].
+  Future<void> remove(String key);
 
-  /// Retrieves either the data at [key] or null if a cache miss occurs.
-  Future<Map<String, dynamic>?> recover(String key);
+  /// Retrieves the data value at [key] or null if a cache miss occurs.
+  Future<Map<String, dynamic>?> value(String key);
 }
 ```
 
@@ -82,7 +90,24 @@ represents the name of a single data group. For example:
 Above, the _profile_ key is associated with the profile-related data group,
 while the _preferences_ key is associated with the preferences-related data.
 
-<!-- @todo #10 Some implementation is needed to add more examples -->
+### JsonCacheMem
+
+It is a thread-safe, in-memory implementation of the `JsonCache` interface.
+Moreover, it encapsulates a secondary cache or "slower level2 cache". Typically,
+the secondary cache instance is responsible for the local cache; that is, it is
+the cache instance that persists data on the user's device.
+
+#### JsonCacheMem Usage
+
+Due to the fact that `JsonCacheMem` is a decorator, you should always pass
+another `JsonCache` instance when you instantiates it. For example:
+
+```dart
+  …
+  final prefs = await SharedPreferences.getInstance();
+  final JsonCacheMem jsonCache = JsonCacheMem(JsonCachePrefs(prefs));
+  …
+```
 
 ## Demo application
 

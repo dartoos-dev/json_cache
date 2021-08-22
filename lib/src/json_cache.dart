@@ -1,16 +1,23 @@
 /// Represents data cached in json.
+///
+///> Cache is a hardware or software component that stores data so that future
+///> requests for that data can be served faster; the data stored in a cache
+///> might be the result of an earlier computation or a copy of data stored
+///> elsewhere.
+///> — [cache Wikipedia](https://en.wikipedia.org/wiki/Cache_(computing))
 abstract class JsonCache {
   /// Frees up storage space.
   Future<void> clear();
 
-  /// Updates data at [key] or creates a new cache line at [key] if there is no
-  /// previous data there.
-  Future<void> refresh(String key, Map<String, dynamic> data);
+  /// It either updates the data found at [key] with [value] or, if there is no
+  /// previous data at [key], creates a new cache row at [key] with [value].
+  ///
+  /// **Note**: [value] must be json encodable.
+  Future<void> refresh(String key, Map<String, dynamic> value);
 
-  /// Removes data from cache at [key]. It returns the removed data or null if
-  /// no removal was performed — there was no data at [key].
-  Future<Map<String, dynamic>?> erase(String key);
+  /// Removes data from cache at [key].
+  Future<void> remove(String key);
 
-  /// Retrieves either the data at [key] or null if a cache miss occurs.
-  Future<Map<String, dynamic>?> recover(String key);
+  /// Retrieves the data value at [key] or null if a cache miss occurs.
+  Future<Map<String, dynamic>?> value(String key);
 }

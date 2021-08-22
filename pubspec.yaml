@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   mutex: ^3.0.0
+  shared_preferences: ^2.0.6
 
 dev_dependencies:
   flutter_test:

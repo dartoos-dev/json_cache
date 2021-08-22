@@ -3,19 +3,16 @@ import 'package:json_cache/json_cache.dart';
 
 void main() {
   group('JsonCacheMem', () {
-    const profKey = 'profile';
-    const Map<String, dynamic> profData = <String, dynamic>{
-      'id': 1,
-      'name': 'John Due'
-    };
     group('clear, recover and refresh', () {
+      const profKey = 'profile';
+      const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
       test('default ctor', () async {
         final JsonCacheMem inMemCache = JsonCacheMem(JsonCacheFake());
         await inMemCache.refresh(profKey, profData);
-        final result = await inMemCache.recover(profKey);
+        final result = await inMemCache.value(profKey);
         expect(profData, result);
         await inMemCache.clear();
-        final mustBeNull = await inMemCache.recover(profKey);
+        final mustBeNull = await inMemCache.value(profKey);
         expect(mustBeNull, isNull);
       });
       test('mem ctor', () async {
@@ -23,34 +20,39 @@ void main() {
           profKey: Map<String, dynamic>.of(profData)
         };
         final inMemCache = JsonCacheMem.mem(JsonCacheFake.mem(copy), copy);
-        final result = await inMemCache.recover(profKey);
-        expect(result, profData);
+        var prof = await inMemCache.value(profKey);
+        expect(prof, profData);
         await inMemCache.clear();
         expect(copy.isEmpty, true);
-        final mustBeNull = await inMemCache.recover(profKey);
-        expect(mustBeNull, isNull);
+        prof = await inMemCache.value(profKey);
+        expect(prof, isNull);
       });
     });
 
-    test('erase', () async {
+    test('remove', () async {
       const profKey = 'profile';
-      const prefsKey = 'preferences';
-      final prof = <String, dynamic>{'id': 1, 'name': 'John Due'};
-      final prefs = <String, dynamic>{
-        'preferences': <String, dynamic>{
-          'theme': 'dark',
-          'notifications': {'enabled': true}
-        }
+      const prefKey = 'preferences';
+      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
+      final prefData = <String, dynamic>{
+        'theme': 'dark',
+        'notifications': {'enabled': true}
       };
-      final Map<String, Map<String, dynamic>> data = {
-        profKey: prof,
-        prefsKey: prefs
-      };
-      expect(data.containsKey(profKey), true);
-      expect(data.containsKey(prefsKey), true);
-      await JsonCacheMem.mem(JsonCacheFake.mem(data), data).erase(prefsKey);
-      expect(data.containsKey(prefsKey), false);
-      expect(data.containsKey(profKey), true);
+      final mem = JsonCacheMem(JsonCacheFake());
+      await mem.refresh(profKey, profData);
+      await mem.refresh(prefKey, prefData);
+
+      var prof = await mem.value(profKey);
+      expect(prof, profData);
+
+      await mem.remove(profKey);
+      prof = await mem.value(profKey);
+      expect(prof, isNull);
+
+      var pref = await mem.value(prefKey);
+      expect(pref, prefData);
+      await mem.remove(prefKey);
+      pref = await mem.value(prefKey);
+      expect(pref, isNull);
     });
   });
 }
