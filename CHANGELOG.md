@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-<!-- @todo #1 Describe initial release. -->
+## [0.1.0]
+
+### Added
+
+- JsonCache interface and the JsonFake, JsonWrap, and JsonMem implementations.
 
 ## [0.0.1]
+
+- structural organization:
+  - linter setup
+  - CI/CD pipelines
+  - dependencies
+  - README file
+  - CHANGELOG file
