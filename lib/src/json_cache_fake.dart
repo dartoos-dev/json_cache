@@ -4,7 +4,7 @@ import 'package:json_cache/json_cache.dart';
 ///
 /// **Warning**: do not use it in production code. It is not thread safe.
 class JsonCacheFake implements JsonCache {
-  /// Default ctor. Shares a static memory with other instances.
+  /// It will share a static memory with other instances.
   JsonCacheFake() : this.mem(_shrMem);
 
   /// Cache with custom memory.
@@ -26,12 +26,12 @@ class JsonCacheFake implements JsonCache {
 
   /// Removes data located at [key].
   @override
-  Future<Map<String, dynamic>?> erase(String key) async => _memory.remove(key);
+  Future<void> remove(String key) async => _memory.remove(key);
 
-  /// Retrieves the data at [key] or null if there is no data.
+  /// Retrieves a copy of the data at [key] or null if there is no data.
   @override
-  Future<Map<String, dynamic>?> recover(String key) async {
+  Future<Map<String, dynamic>?> value(String key) async {
     final cached = _memory[key];
-    return cached == null ? cached : Map<String, dynamic>.of(cached);
+    return cached == null ? null : Map<String, dynamic>.of(cached);
   }
 }

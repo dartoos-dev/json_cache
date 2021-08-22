@@ -11,21 +11,17 @@ import 'json_cache.dart';
 ///
 /// It encapsulates a slower chache but keeps its own data in-memory.
 class JsonCacheMem implements JsonCache {
-  /// Default ctor. [level2] the slower level 2 cache.
-  JsonCacheMem(JsonCache level2) : this.main(level2, _shrMem, _shrMutex);
+  /// Encapsulates a slower [level2] cache and utilizes a static memory that
+  /// will be shared (without race conditions) among all [JsonCacheMem] objects
+  /// that have been instantiated with this constructor.
+  JsonCacheMem(JsonCache level2) : this.mem(level2, _shrMem, _shrMutex);
 
-  /// Cache with custom memory.
-  JsonCacheMem.mem(JsonCache level2, Map<String, Map<String, dynamic>?> mem)
-      : this.main(level2, mem, ReadWriteMutex());
-
-  /// Main ctor.
-  JsonCacheMem.main(
-    JsonCache level2,
-    Map<String, Map<String, dynamic>?> mem,
-    ReadWriteMutex mutex,
-  )   : _level2 = level2,
+  /// Cache with custom memory and an optional custom mutex.
+  JsonCacheMem.mem(JsonCache level2, Map<String, Map<String, dynamic>?> mem,
+      [ReadWriteMutex? mutex])
+      : _level2 = level2,
         _memory = mem,
-        _mutex = mutex;
+        _mutex = mutex ?? ReadWriteMutex();
 
   /// Slower cache level.
   final JsonCache _level2;
@@ -70,22 +66,22 @@ class JsonCacheMem implements JsonCache {
     });
   }
 
-  /// Removes data located at [key] from both the level2 cache and in-memory
-  /// cache.
+  /// Removes the value located at [key] from both the level2 cache and
+  /// in-memory cache.
   @override
-  Future<Map<String, dynamic>?> erase(String key) async {
-    return _mutex.protectWrite(() async {
-      await _level2.erase(key);
-      return _memory.remove(key);
+  Future<void> remove(String key) async {
+    await _mutex.protectWrite(() async {
+      await _level2.remove(key);
+      _memory.remove(key);
     });
   }
 
-  /// Retrieves the data at [key] or null if there is no data.
+  /// Retrieves the value at [key] or null if there is no data.
   @override
-  Future<Map<String, dynamic>?> recover(String key) async {
+  Future<Map<String, dynamic>?> value(String key) async {
     return _mutex.protectRead(() async {
       if (!_memory.containsKey(key)) {
-        _memory[key] = await _level2.recover(key);
+        _memory[key] = await _level2.value(key);
       }
       final cached = _memory[key];
       return cached == null ? cached : Map<String, dynamic>.of(cached);
