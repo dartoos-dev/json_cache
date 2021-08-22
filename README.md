@@ -34,11 +34,6 @@ like [sharable_preferences](https://pub.dev/packages/shared_preferences) and
 [local storage](https://pub.dev/packages/localstorage) that unifies them as an
 elegant caching API.
 
-
-In addition, this package gives developers great flexibility by providing a set
-of classes that can be selected and grouped in various combinations to meet
-specific cache requirements.
-
 **Why Json?**
 
 - Because most of the local storage packages available for Flutter applications
@@ -47,6 +42,10 @@ specific cache requirements.
   dynamic>` and json, which makes encoding/decoding data in json a trivial task.
 
 ## Getting Started
+
+This package gives developers great flexibility by providing a set of classes that
+can be selected and grouped in various combinations to meet specific cache
+requirements.
 
 `JsonCache` is the core interface of this package and represents the concept of
 cached data. It is defined as:
