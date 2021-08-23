@@ -21,6 +21,10 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 
 - [Overview](#overview)
 - [Getting Started](#getting-started)
+- [List of JsonCache implementations](#list-of-jsoncache-implementations)
+  - [JsonCacheMem — Thread-safe In-memory cache](#jsoncachemem)
+  - [JsonCachePrefs — SharedPreferences](#jsoncacheprefs)
+  - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
 - [Demo application](#demo-application)
 - [References](#references)
 
@@ -90,22 +94,60 @@ represents the name of a single data group. For example:
 Above, the _profile_ key is associated with the profile-related data group,
 while the _preferences_ key is associated with the preferences-related data.
 
+## List of JsonCache Implementations
+
+The library
+[JsonCache](https://pub.dev/documentation/json_cache/latest/json_cache/json_cache-library.html)
+contains all the classes that implement the
+[JsonCache](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCache-class.html)
+interface with more in-depth details.
+
+The following sections are an overview of each implementation.
+
 ### JsonCacheMem
 
-It is a thread-safe, in-memory implementation of the `JsonCache` interface.
+[JsonCacheMem](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheMem-class.html)
+is is a thread-safe in-memory implementation of the `JsonCache` interface.
 Moreover, it encapsulates a secondary cache or "slower level2 cache". Typically,
 the secondary cache instance is responsible for the local cache; that is, it is
 the cache instance that persists data on the user's device.
 
-#### JsonCacheMem Usage
+#### Typical Usage
 
 Due to the fact that `JsonCacheMem` is a decorator, you should always pass
-another `JsonCache` instance when you instantiates it. For example:
+another `JsonCache` instance to it whenever you instantiates a `JsonCacheMem`
+object. For example:
 
 ```dart
   …
   final prefs = await SharedPreferences.getInstance();
   final JsonCacheMem jsonCache = JsonCacheMem(JsonCachePrefs(prefs));
+  …
+```
+
+### JsonCachePrefs
+
+[JsonCachePrefs](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCachePrefs-class.html)
+is an implementation on top of the
+[shared_preferences](https://pub.dev/packages/shared_preferences) package.
+
+```dart
+  …
+  final prefs = await SharedPreferences.getInstance();
+  final JsonCache jsonCache = JsonCacheMem(JsonCachePrefs(prefs));
+  …
+```
+
+### JsonCacheLocalStorage
+
+[JsonCacheLocalStorage](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheLocalStorage-class.html)
+is an implementation on top of the
+[shared_preferences](https://pub.dev/packages/shared_preferences) package.
+
+```dart
+  …
+  final LocalStorage storage = LocalStorage('my_data');
+  final JsonCache jsonCache = JsonCacheMem(JsonCacheLocalStorage(storage));
   …
 ```
 

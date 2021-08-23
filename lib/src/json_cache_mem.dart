@@ -2,7 +2,7 @@ import 'package:mutex/mutex.dart';
 
 import 'json_cache.dart';
 
-/// Thread-safe, in-memory [JsonCache] decorator.
+/// Thread-safe in-memory [JsonCache] decorator.
 ///
 /// It is a kind of level 1 cache.
 ///
