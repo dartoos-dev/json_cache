@@ -99,7 +99,7 @@ while the _preferences_ key is associated with the preferences-related data.
 
 The library
 [JsonCache](https://pub.dev/documentation/json_cache/latest/json_cache/json_cache-library.html)
-contains all the classes that implement the
+contains all classes that implement the
 [JsonCache](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCache-class.html)
 interface with more in-depth details.
 
