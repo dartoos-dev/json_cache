@@ -39,12 +39,13 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 > Retrieved 09:55, August 22,
 > 2021](https://en.wikipedia.org/wiki/Cache_(computing))
 
-**Json Cache** is an object-oriented package to cache user data locally in json.
+**JsonCache** is an object-oriented package to cache user data locally in json.
 It can also be thought of as a layer on top of Flutter's local storage packages
 like [sharable_preferences](https://pub.dev/packages/shared_preferences) and
-[local storage](https://pub.dev/packages/localstorage) that unifies them as an
-elegant caching API.
+[local storage](https://pub.dev/packages/localstorage).
 
+The ultimate goal of this package is to unify Flutter's local caching packages
+into one elegant caching API.
 
 **Why Json?**
 
