@@ -44,7 +44,7 @@ It can also be thought of as a layer on top of Flutter's local storage packages
 like the [sharable_preferences](https://pub.dev/packages/shared_preferences) and
 [localstorage](https://pub.dev/packages/localstorage) packages.
 
-The ultimate goal of this package is to unify Flutter's local caching packages
+The ultimate goal of this package is to unify Flutter's main local caching packages
 into an elegant caching API.
 
 **Why Json?**
