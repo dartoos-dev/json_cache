@@ -1,11 +1,17 @@
 import 'package:json_cache/json_cache.dart';
 
-/// In-memory cache. It is intended for unit testing and prototyping.
+/// In-memory cache without synchronization.
+///
+/// It is intended for unit testing and prototyping.
 ///
 /// **Warning**: do not use it in production code. It is not thread safe.
 class JsonCacheFake implements JsonCache {
   /// It will share a static memory with other instances.
   JsonCacheFake() : this.mem(_shrMem);
+
+  /// Initializes the cache with [init] — by performing a deep copy.
+  JsonCacheFake.init(Map<String, Map<String, dynamic>?> init)
+      : this.mem(Map<String, Map<String, dynamic>?>.of(init));
 
   /// Cache with custom memory.
   JsonCacheFake.mem(this._memory);

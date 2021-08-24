@@ -9,6 +9,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  cross_local_storage: ^2.0.1
   flutter:
     sdk: flutter
   localstorage: ^4.0.0+1
