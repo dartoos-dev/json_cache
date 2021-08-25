@@ -137,16 +137,17 @@ class JsonCacheMem implements JsonCache {
 
   /// Retrieves the value at [key] or null if there is no data.
   @override
-  Future<Map<String, dynamic>?> value(String key) async {
+  Future<Map<String, dynamic>?> value(String key) {
     return _mutex.protectRead(() async {
-      if (!_memory.containsKey(key)) {
-        final cachedL2 = await _level2.value(key);
-        if (cachedL2 != null) {
-          _memory[key] = cachedL2;
-        }
+      final cachedL1 = _memory[key];
+      if (cachedL1 != null) return Map<String, dynamic>.of(cachedL1);
+
+      final cachedL2 = await _level2.value(key);
+      if (cachedL2 != null) {
+        _memory[key] = cachedL2;
+        return Map<String, dynamic>.of(cachedL2);
       }
-      final cached = _memory[key];
-      return cached == null ? null : Map<String, dynamic>.of(cached);
+      return null;
     });
   }
 }
