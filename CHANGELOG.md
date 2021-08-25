@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- rename JsonCacheMem.mem constructor to JsonCacheMem.ext — **BREAKING CHANGE**.
+- JsonCacheMem.mem constructor parameters — **BREAKING CHANGE**.
 - improvements in several unit tests.
 - general improvements in many doc comments.
 
