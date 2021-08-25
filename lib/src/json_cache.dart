@@ -20,5 +20,4 @@ abstract class JsonCache {
   ///
   /// **Note**: [value] must be json encodable.
   Future<void> refresh(String key, Map<String, dynamic> value);
-
 }
