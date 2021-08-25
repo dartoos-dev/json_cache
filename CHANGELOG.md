@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- JsonCacheHollow: literally a "hollow" implementation of the JsonCache
+  interfaces. Indeed, there is no implementation under its methods. It is aimed
+  to be used as a placeholder whenever there is no need for a level2 cache.
+
+### Changed
+
+- rename JsonCacheMem.mem constructor to JsonCacheMem.ext — **BREAKING CHANGE**.
+- improvements in several unit tests.
+- general improvements in many doc comments.
+
+### Fixed
+
+- The internal copying logic of the JsonCacheMem.init contructor.
+
 ## [0.2.1] - 2021-08-23
 
 ### Added

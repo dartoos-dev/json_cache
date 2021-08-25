@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:json_cache/json_cache.dart';
 
 class JsonCacheFakeWrap extends JsonCacheWrap {
-  JsonCacheFakeWrap() : super(JsonCacheFake());
+  JsonCacheFakeWrap() : super(JsonCacheMem());
 }
 
 void main() {

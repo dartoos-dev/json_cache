@@ -44,8 +44,8 @@ It can also be thought of as a layer on top of Flutter's local storage packages
 like the [sharable_preferences](https://pub.dev/packages/shared_preferences) and
 [localstorage](https://pub.dev/packages/localstorage) packages.
 
-The ultimate goal of this package is to unify Flutter's main local caching packages
-into an elegant caching API.
+The ultimate goal of this package is to unify Flutter's main local caching
+packages into an elegant caching API.
 
 **Why Json?**
 
@@ -126,6 +126,18 @@ object. For example:
   …
 ```
 
+In addition, `JsonCacheMem` has the `JsonCacheMem.init` constructor whose
+purpose is the initialize the cache. Data is deep copied from the initialization
+buffer to its internal in-memory cache and to its level2 cache as well.
+
+```dart
+  …
+  final LocalStorage storage = LocalStorage('my_data');
+  final Map<String, Map<String, dynamic>?> initData = await fetchInfo();
+  final JsonCacheMem jsonCache = JsonCacheMem.init(initData, level2:JsonCacheLocalStorage(storage));
+  …
+```
+
 ### JsonCachePrefs
 
 [JsonCachePrefs](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCachePrefs-class.html)
@@ -143,7 +155,7 @@ is an implementation on top of the
 
 [JsonCacheLocalStorage](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheLocalStorage-class.html)
 is an implementation on top of the
-[shared_preferences](https://pub.dev/packages/shared_preferences) package.
+[localstorage](https://pub.dev/packages/localstorage)
 
 ```dart
   …
