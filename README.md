@@ -42,9 +42,9 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 
 **JsonCache** is an object-oriented package for the local caching of user data
 in json. It can also be thought of as a layer on top of Flutter's local storage
-packages like the
+packages like
 [sharable_preferences](https://pub.dev/packages/shared_preferences) and
-[localstorage](https://pub.dev/packages/localstorage) packages. Thus, this
+[localstorage](https://pub.dev/packages/localstorage). Thus, this
 package aims to unify most of Flutter's local caching packages into a stable and
 elegant caching API.
 
