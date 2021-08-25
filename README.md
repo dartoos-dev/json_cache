@@ -21,7 +21,7 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 
 - [Overview](#overview)
 - [Getting Started](#getting-started)
-- [List of JsonCache implementations](#list-of-jsoncache-implementations)
+- [Implementations](#implementations)
   - [JsonCacheMem — Thread-safe In-memory cache](#jsoncachemem)
   - [JsonCachePrefs — SharedPreferences](#jsoncacheprefs)
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
@@ -105,7 +105,7 @@ await jsonCache.refresh('profile', {'name': 'John Doe', 'email': 'johndoe@email.
 await jsonCache.refresh('preferences', {'theme': {'dark': true}, 'notifications':{'enabled': true}});
 ```
 
-## List of JsonCache Implementations
+## Implementations
 
 The library
 [JsonCache](https://pub.dev/documentation/json_cache/latest/json_cache/json_cache-library.html)
