@@ -25,6 +25,7 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
   - [JsonCacheMem — Thread-safe In-memory cache](#jsoncachemem)
   - [JsonCachePrefs — SharedPreferences](#jsoncacheprefs)
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
+  - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
 - [Demo application](#demo-application)
 - [References](#references)
 
@@ -39,13 +40,13 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 > Retrieved 09:55, August 22,
 > 2021](https://en.wikipedia.org/wiki/Cache_(computing))
 
-**JsonCache** is an object-oriented package to cache user data locally in json.
-It can also be thought of as a layer on top of Flutter's local storage packages
-like the [sharable_preferences](https://pub.dev/packages/shared_preferences) and
-[localstorage](https://pub.dev/packages/localstorage) packages.
-
-Therefore, this package aims to unify most of Flutter's local caching packages
-into an elegant caching API.
+**JsonCache** is an object-oriented package for the local caching of user data
+in json. It can also be thought of as a layer on top of Flutter's local storage
+packages like the
+[sharable_preferences](https://pub.dev/packages/shared_preferences) and
+[localstorage](https://pub.dev/packages/localstorage) packages. Thus, this
+package aims to unify most of Flutter's local caching packages into a stable and
+elegant caching API.
 
 **Why Json?**
 
@@ -181,12 +182,25 @@ is an implementation on top of the
 
 [JsonCacheLocalStorage](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheLocalStorage-class.html)
 is an implementation on top of the
-[localstorage](https://pub.dev/packages/localstorage)
+[localstorage](https://pub.dev/packages/localstorage) package.
 
 ```dart
   …
   final LocalStorage storage = LocalStorage('my_data');
   final JsonCache jsonCache = JsonCacheMem(JsonCacheLocalStorage(storage));
+  …
+```
+
+### JsonCacheCrossLocalStorage
+
+[JsonCacheLocalCrossStorage](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheCrossLocalStorage-class.html)
+is an implementation on top of the
+[cross_local_storage](https://pub.dev/packages/cross_local_storage) package.
+
+```dart
+  …
+  final LocalStorageInterface prefs = await LocalStorage.getInstance();
+  final JsonCache jsonCache = JsonCacheMem(JsonCacheCrossLocalStorage(prefs));
   …
 ```
 
