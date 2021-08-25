@@ -4,9 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:json_cache/json_cache.dart';
 
 /// Throws an exception after 'N' refreshes.
-class _JsonCacheThrowAfterN extends JsonCacheWrap {
+class _JsonCacheThrowsAfterN extends JsonCacheWrap {
   /// n how many times before throwing.
-  _JsonCacheThrowAfterN(this._n, Map<String, Map<String, dynamic>?> init)
+  _JsonCacheThrowsAfterN(this._n, Map<String, Map<String, dynamic>?> init)
       : super(JsonCacheFake.mem(init));
 
   final int _n;
@@ -36,7 +36,7 @@ void main() {
       prefKey: prefData
     };
 
-    group('JsonCacheMem.init', () {
+    group('JsonCacheMem.init constructor', () {
       const data = <String, Map<String, dynamic>?>{
         'firstRow': <String, dynamic>{'row1': true},
         'secondRow': <String, dynamic>{'row2': false},
@@ -50,13 +50,29 @@ void main() {
       });
       test('rollback on error', () async {
         final init = <String, Map<String, dynamic>?>{};
-        final JsonCacheMem initMemCache = JsonCacheMem.init(data,
-            level2: _JsonCacheThrowAfterN(2, init),
-            onInitError: (Object e, StackTrace s) {});
+        final JsonCacheMem initMemCache = JsonCacheMem.init(
+          data,
+          level2: _JsonCacheThrowsAfterN(2, init),
+          onInitError: (e, s) {},
+        );
         await initMemCache.value('key'); // wait..
-        /// init should have been reverted to its prevous state by the init's
-        /// internal logic.
+        /// init should have been reverted to its prevous state by the internal
+        /// logic of the init constructor.
         expect(init.isEmpty, true);
+      });
+      test('onInitError callback', () async {
+        final init = <String, Map<String, dynamic>?>{};
+        bool invoked = false;
+        final JsonCacheMem initMemCache = JsonCacheMem.init(
+          data,
+          level2: _JsonCacheThrowsAfterN(1, init),
+          onInitError: (e, s) {
+            invoked = true;
+          },
+        );
+        await initMemCache.value('key'); // wait..
+        /// The error callback must have been invoked.
+        expect(invoked, true);
       });
     });
     group('clear', () {
@@ -80,17 +96,6 @@ void main() {
         final cachedPref = await initMemCache.value(prefKey);
         expect(cachedPref, isNull);
       });
-<<<<<<< HEAD
-      test('ext ctor', () async {
-        final copy = Map<String, Map<String, dynamic>?>.of(data);
-        final JsonCacheMem extMemCache = JsonCacheMem.ext(copy);
-        await extMemCache.clear();
-
-        final cachedProf = await extMemCache.value(profKey);
-        expect(cachedProf, isNull);
-
-        final cachedPref = await extMemCache.value(prefKey);
-=======
       test('mem ctor', () async {
         final copy = Map<String, Map<String, dynamic>?>.of(data);
         final JsonCacheMem memCache = JsonCacheMem.mem(copy);
@@ -100,7 +105,6 @@ void main() {
         expect(cachedProf, isNull);
 
         final cachedPref = await memCache.value(prefKey);
->>>>>>> 32
         expect(cachedPref, isNull);
 
         expect(copy.isEmpty, true);
@@ -122,28 +126,12 @@ void main() {
         final JsonCacheMem initMemCache = JsonCacheMem.init(data);
         await initMemCache.refresh(profKey, profData);
         await initMemCache.refresh(prefKey, prefData);
-<<<<<<< HEAD
-
         await initMemCache.remove(profKey);
         final cachedProf = await initMemCache.value(profKey);
         expect(cachedProf, isNull);
 
         await initMemCache.remove(prefKey);
         final cachedPref = await initMemCache.value(prefKey);
-        expect(cachedPref, isNull);
-      });
-      test('ext ctor', () async {
-        final copy = Map<String, Map<String, dynamic>?>.of(data);
-        final JsonCacheMem extMemCache = JsonCacheMem.ext(copy);
-        await extMemCache.refresh(profKey, profData);
-        await extMemCache.refresh(prefKey, prefData);
-
-        await extMemCache.remove(profKey);
-        final cachedProf = await extMemCache.value(profKey);
-        expect(cachedProf, isNull);
-
-        await extMemCache.remove(prefKey);
-        final cachedPref = await extMemCache.value(prefKey);
         expect(cachedPref, isNull);
       });
     });
@@ -153,38 +141,6 @@ void main() {
         await memCache.refresh(profKey, profData);
         await memCache.refresh(prefKey, prefData);
 
-=======
-
-        await initMemCache.remove(profKey);
-        final cachedProf = await initMemCache.value(profKey);
-        expect(cachedProf, isNull);
-
-        await initMemCache.remove(prefKey);
-        final cachedPref = await initMemCache.value(prefKey);
-        expect(cachedPref, isNull);
-      });
-      test('mem ctor', () async {
-        final copy = Map<String, Map<String, dynamic>?>.of(data);
-        final JsonCacheMem memCache = JsonCacheMem.mem(copy);
-        await memCache.refresh(profKey, profData);
-        await memCache.refresh(prefKey, prefData);
-
-        await memCache.remove(profKey);
-        final cachedProf = await memCache.value(profKey);
-        expect(cachedProf, isNull);
-
-        await memCache.remove(prefKey);
-        final cachedPref = await memCache.value(prefKey);
-        expect(cachedPref, isNull);
-      });
-    });
-    group('refresh and value', () {
-      test('default ctor', () async {
-        final JsonCacheMem memCache = JsonCacheMem();
-        await memCache.refresh(profKey, profData);
-        await memCache.refresh(prefKey, prefData);
-
->>>>>>> 32
         final cachedProf = await memCache.value(profKey);
         expect(cachedProf, profData);
 
@@ -202,21 +158,6 @@ void main() {
         final cachedPref = await initMemCache.value(prefKey);
         expect(cachedPref, prefData);
       });
-<<<<<<< HEAD
-      test('ext ctor', () async {
-        final ext = <String, Map<String, dynamic>?>{};
-        final JsonCacheMem extMemCache = JsonCacheMem.ext(ext);
-        await extMemCache.refresh(profKey, profData);
-        await extMemCache.refresh(prefKey, prefData);
-
-        final cachedProf = await extMemCache.value(profKey);
-        expect(cachedProf, profData);
-
-        final cachedPref = await extMemCache.value(prefKey);
-        expect(cachedPref, prefData);
-        expect(ext[profKey], profData);
-        expect(ext[prefKey], prefData);
-=======
       test('mem ctor', () async {
         final mem = <String, Map<String, dynamic>?>{};
         final JsonCacheMem memCache = JsonCacheMem.mem(mem);
@@ -230,7 +171,6 @@ void main() {
         expect(cachedPref, prefData);
         expect(mem[profKey], profData);
         expect(mem[prefKey], prefData);
->>>>>>> 32
       });
     });
   });

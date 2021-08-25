@@ -28,22 +28,16 @@ class JsonCacheMem implements JsonCache {
   /// prototyping or mocking phase. However, its unlikely to be the right
   /// behavior in production code.
   JsonCacheMem([JsonCache? level2])
-<<<<<<< HEAD
-      : this.ext(_shrMem, level2: level2, mutex: _shrMutex);
-=======
       : this.mem(_shrMem, level2: level2, mutex: _shrMutex);
->>>>>>> 32
 
-  /// Cache with initial data.
-  ///
-  /// Besides copying data from [init] to its internal shared memory, it
-  /// encapsulates a [level2] cache that is supposed to persist data to the
-  /// user's device's local storage area.
+  /// Initializes both the level1 (internal memory) and level2 (user's device's
+  /// local storage area) caches with data.
   ///
   /// It also provides a type of transaction guarantee whereby, if an error
-  /// occurs while copying [init] to the cache, it tries to revert the cached
-  /// data to its previous state before rethrowing the exception. Finally, after
-  /// reverting the cached data, it invokes [onInitError].
+  /// occurs while copying [init] to cache, it will try to revert the cached
+  /// data to its previous state before rethrowing the exception that signaled
+  /// the error. Finally, after reverting the cached data, it invokes
+  /// [onInitError].
   JsonCacheMem.init(
     Map<String, Map<String, dynamic>?> init, {
     JsonCache? level2,
@@ -80,11 +74,7 @@ class JsonCacheMem implements JsonCache {
   /// Cache with an external memory and an optional custom mutex.
   ///
   /// **Note**: the memory [mem] will **not** be copied deeply.
-<<<<<<< HEAD
-  JsonCacheMem.ext(
-=======
   JsonCacheMem.mem(
->>>>>>> 32
     Map<String, Map<String, dynamic>?> mem, {
     JsonCache? level2,
     ReadWriteMutex? mutex,
@@ -149,16 +139,14 @@ class JsonCacheMem implements JsonCache {
   @override
   Future<Map<String, dynamic>?> value(String key) async {
     return _mutex.protectRead(() async {
-      final cachedL1 = _memory[key];
-      if (cachedL1 != null) return Map<String, dynamic>.of(cachedL1);
-
-      final cachedL2 = await _level2.value(key);
-      if (cachedL2 != null) {
-        _memory[key] = cachedL2;
-        return Map<String, dynamic>.of(cachedL2);
+      if (!_memory.containsKey(key)) {
+        final cachedL2 = await _level2.value(key);
+        if (cachedL2 != null) {
+          _memory[key] = cachedL2;
+        }
       }
-
-      return null;
+      final cached = _memory[key];
+      return cached == null ? null : Map<String, dynamic>.of(cached);
     });
   }
 }

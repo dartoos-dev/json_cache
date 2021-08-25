@@ -44,8 +44,8 @@ It can also be thought of as a layer on top of Flutter's local storage packages
 like the [sharable_preferences](https://pub.dev/packages/shared_preferences) and
 [localstorage](https://pub.dev/packages/localstorage) packages.
 
-The ultimate goal of this package is to unify Flutter's main local caching
-packages into an elegant caching API.
+Therefore, this package aims to unify most of Flutter's local caching packages
+into an elegant caching API.
 
 **Why Json?**
 
@@ -64,22 +64,22 @@ requirements.
 cached data. It is defined as:
 
 ```dart
-/// Represents data cached in json.
+/// Represents cached data in json format.
 abstract class JsonCache {
   /// Frees up storage space.
   Future<void> clear();
 
-  /// It either updates the data found at [key] with [value] or, if there is no
+  /// Removes cached data located at [key].
+  Future<void> remove(String key);
+
+  /// Retrieves cached data located at [key] or null if a cache miss occurs.
+  Future<Map<String, dynamic>?> value(String key);
+
+  /// It either updates data located at [key] with [value] or, if there is no
   /// previous data at [key], creates a new cache row at [key] with [value].
   ///
   /// **Note**: [value] must be json encodable.
   Future<void> refresh(String key, Map<String, dynamic> value);
-
-  /// Removes data from cache at [key].
-  Future<void> remove(String key);
-
-  /// Retrieves the data value at [key] or null if a cache miss occurs.
-  Future<Map<String, dynamic>?> value(String key);
 }
 ```
 
@@ -94,6 +94,15 @@ represents the name of a single data group. For example:
 
 Above, the _profile_ key is associated with the profile-related data group,
 while the _preferences_ key is associated with the preferences-related data.
+
+A typical code for saving the previous _profile_ and _preferences_ data is:
+
+```dart
+final JsonCache jsonCache = … retrieve one of the JsonCache implementations.
+…
+await jsonCache.refresh('profile', {'name': 'John Doe', 'email': 'johndoe@email.com', 'accountType': 'premium'});
+await jsonCache.refresh('preferences', {'theme': {'dark': true}, 'notifications':{'enabled': true}});
+```
 
 ## List of JsonCache Implementations
 
@@ -121,9 +130,26 @@ object. For example:
 
 ```dart
   …
+  /// Cache initialization
   final prefs = await SharedPreferences.getInstance();
   final JsonCacheMem jsonCache = JsonCacheMem(JsonCachePrefs(prefs));
   …
+  /// Saving profile and preferences data.
+  await jsonCache.refresh('profile', {'name': 'John Doe', 'email': 'johndoe@email.com', 'accountType': 'premium'});
+  await jsonCache.refresh('preferences', {'theme': {'dark': true}, 'notifications':{'enabled': true}});
+  …
+  /// Retrieving preferences data.
+  final Map<String, dynamic> preferences = await jsonCache.value('preferences');
+  …
+  /// Frees up cached data before the user leaves the application.
+  Future<void> signout() async {
+    await jsonCache.clear();
+  }
+  …
+  /// Removes cached data related to a specific user.
+  Future<void> signoutId(String userId) async {
+    await jsonCache.remove(userId);
+  }
 ```
 
 In addition, `JsonCacheMem` has the `JsonCacheMem.init` constructor whose

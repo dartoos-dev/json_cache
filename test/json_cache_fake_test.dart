@@ -38,15 +38,6 @@ void main() {
       });
       test('mem ctor', () async {
         final copy = Map<String, Map<String, dynamic>?>.of(data);
-<<<<<<< HEAD
-        final JsonCacheFake memMemCache = JsonCacheFake.mem(copy);
-        await memMemCache.clear();
-
-        final cachedProf = await memMemCache.value(profKey);
-        expect(cachedProf, isNull);
-
-        final cachedPref = await memMemCache.value(prefKey);
-=======
         final JsonCacheFake memCache = JsonCacheFake.mem(copy);
         await memCache.clear();
 
@@ -54,7 +45,6 @@ void main() {
         expect(cachedProf, isNull);
 
         final cachedPref = await memCache.value(prefKey);
->>>>>>> 32
         expect(cachedPref, isNull);
 
         expect(copy.isEmpty, true);
