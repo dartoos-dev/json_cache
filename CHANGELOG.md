@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- removal of _late_ modifier from the attributes of the JsonCacheMem class.
+
 ## [0.3.1] - 2021-08-25
 
 ### Added

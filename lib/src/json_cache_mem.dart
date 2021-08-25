@@ -92,10 +92,10 @@ class JsonCacheMem implements JsonCache {
   final ReadWriteMutex _mutex;
 
   /// in-memory shared storage.
-  static late final Map<String, Map<String, dynamic>?> _shrMem = {};
+  static final Map<String, Map<String, dynamic>?> _shrMem = {};
 
   /// shared mutex.
-  static late final _shrMutex = ReadWriteMutex();
+  static final _shrMutex = ReadWriteMutex();
 
   /// Frees up storage space in both the level2 cache and in-memory cache.
   @override
