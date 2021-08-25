@@ -28,7 +28,11 @@ class JsonCacheMem implements JsonCache {
   /// prototyping or mocking phase. However, its unlikely to be the right
   /// behavior in production code.
   JsonCacheMem([JsonCache? level2])
+<<<<<<< HEAD
       : this.ext(_shrMem, level2: level2, mutex: _shrMutex);
+=======
+      : this.mem(_shrMem, level2: level2, mutex: _shrMutex);
+>>>>>>> 32
 
   /// Cache with initial data.
   ///
@@ -76,7 +80,11 @@ class JsonCacheMem implements JsonCache {
   /// Cache with an external memory and an optional custom mutex.
   ///
   /// **Note**: the memory [mem] will **not** be copied deeply.
+<<<<<<< HEAD
   JsonCacheMem.ext(
+=======
+  JsonCacheMem.mem(
+>>>>>>> 32
     Map<String, Map<String, dynamic>?> mem, {
     JsonCache? level2,
     ReadWriteMutex? mutex,
