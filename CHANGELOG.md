@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- JsonCacheCrossLocalStorage: implementation on top of the cross_local_storage
+  package — [32](https://github.com/dartoos-dev/json_cache/issues/32).
+
 ### Changed
 
 - several fixes and improvements to documentation.
