@@ -152,10 +152,12 @@ object. For example:
     await jsonCache.remove(userId);
   }
 ```
+#### JsonCacheMem.init constructor
 
-In addition, `JsonCacheMem` has the `JsonCacheMem.init` constructor whose
-purpose is the initialize the cache. Data is deep copied from the initialization
-buffer to its internal in-memory cache and to its level2 cache as well.
+[JsonCacheMem.init](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheMem/JsonCacheMem.init.html)
+is the constructor whose purpose is to initialize the cache upon object
+instantiation. The data passed to the `init` parameter is deeply copied to both
+the internal in-memory cache and the level2 cache.
 
 ```dart
   …
