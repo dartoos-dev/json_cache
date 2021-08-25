@@ -23,8 +23,6 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 - [Getting Started](#getting-started)
 - [List of JsonCache implementations](#list-of-jsoncache-implementations)
   - [JsonCacheMem — Thread-safe In-memory cache](#jsoncachemem)
-    - [Typical Usage](#typicalusage)
-    - [Cache Initialization](#cacheinitializationconstructor) 
   - [JsonCachePrefs — SharedPreferences](#jsoncacheprefs)
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
   - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
@@ -59,8 +57,8 @@ elegant caching API.
 
 ## Getting Started
 
-This package gives developers great flexibility by providing a set of classes that
-can be selected and grouped in various combinations to meet specific cache
+This package gives developers great flexibility by providing a set of classes
+that can be selected and grouped in various combinations to meet specific cache
 requirements.
 
 `JsonCache` is the core interface of this package and represents the concept of
@@ -154,7 +152,7 @@ object. For example:
     await jsonCache.remove(userId);
   }
 ```
-#### Cache Initialization Constructor
+#### Cache Initialization
 
 [JsonCacheMem.init](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheMem/JsonCacheMem.init.html)
 is the constructor whose purpose is to initialize the cache upon object
