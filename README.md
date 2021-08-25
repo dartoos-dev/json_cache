@@ -118,7 +118,7 @@ The following sections are an overview of each implementation.
 ### JsonCacheMem
 
 [JsonCacheMem](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheMem-class.html)
-is is a thread-safe, in-memory implementation of the `JsonCache` interface.
+is is a thread-safe in-memory implementation of the `JsonCache` interface.
 Moreover, it encapsulates a secondary cache or "slower level2 cache". Typically,
 the secondary cache instance is responsible for the local cache; that is, it is
 the cache instance that persists data on the user's device.
