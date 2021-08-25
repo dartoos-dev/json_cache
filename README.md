@@ -152,7 +152,7 @@ object. For example:
     await jsonCache.remove(userId);
   }
 ```
-#### JsonCacheMem.init constructor
+#### JsonCacheMem.init
 
 [JsonCacheMem.init](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheMem/JsonCacheMem.init.html)
 is the constructor whose purpose is to initialize the cache upon object
