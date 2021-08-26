@@ -1,3 +1,4 @@
+import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:json_cache/json_cache.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,13 +9,13 @@ void main() {
     test('clear, value, refresh', () async {
       const profKey = 'profile';
       const profData = <String, Object>{'id': 1, 'name': 'John Due'};
-      final JsonCachePrefs prefsCache =
-          JsonCachePrefs(await SharedPreferences.getInstance());
-      await prefsCache.refresh(profKey, profData);
-      var prof = await prefsCache.value(profKey);
+      final JsonCacheEncPrefs encPrefsCache =
+          JsonCacheEncPrefs(EncryptedSharedPreferences());
+      await encPrefsCache.refresh(profKey, profData);
+      var prof = await encPrefsCache.value(profKey);
       expect(prof, profData);
-      await prefsCache.clear();
-      prof = await prefsCache.value(profKey);
+      await encPrefsCache.clear();
+      prof = await encPrefsCache.value(profKey);
       expect(prof, isNull);
     });
 
@@ -26,22 +27,22 @@ void main() {
         'theme': 'dark',
         'notifications': {'enabled': true}
       };
-      final JsonCachePrefs prefsCache =
-          JsonCachePrefs(await SharedPreferences.getInstance());
-      await prefsCache.refresh(profKey, profData);
-      await prefsCache.refresh(prefKey, prefData);
+      final JsonCacheEncPrefs encPrefsCache =
+          JsonCacheEncPrefs(EncryptedSharedPreferences());
+      await encPrefsCache.refresh(profKey, profData);
+      await encPrefsCache.refresh(prefKey, prefData);
 
-      var prof = await prefsCache.value(profKey);
+      var prof = await encPrefsCache.value(profKey);
       expect(prof, profData);
 
-      await prefsCache.remove(profKey);
-      prof = await prefsCache.value(profKey);
+      await encPrefsCache.remove(profKey);
+      prof = await encPrefsCache.value(profKey);
       expect(prof, isNull);
 
-      var pref = await prefsCache.value(prefKey);
+      var pref = await encPrefsCache.value(prefKey);
       expect(pref, prefData);
-      await prefsCache.remove(prefKey);
-      pref = await prefsCache.value(prefKey);
+      await encPrefsCache.remove(prefKey);
+      pref = await encPrefsCache.value(prefKey);
       expect(pref, isNull);
     });
   });
