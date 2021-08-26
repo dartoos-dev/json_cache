@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- JsonCacheEncPrefs: an implementation on top of the
+  [encrypted_shared_preferences](https://pub.dev/packages/encrypted_shared_preferences)
+  package — [30](https://github.com/dartoos-dev/json_cache/issues/30).
+
 ## [0.3.2] - 2021-08-25
 
 ### Changed
@@ -17,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- JsonCacheCrossLocalStorage: implementation on top of the cross_local_storage
+- JsonCacheCrossLocalStorage: an implementation on top of the cross_local_storage
   package — [32](https://github.com/dartoos-dev/json_cache/issues/32).
 
 ### Changed
@@ -47,7 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- JsonCacheLocalStorage: implementation on top of the localstorage package —
+- JsonCacheLocalStorage: an implementation on top of the localstorage package —
   [29](https://github.com/dartoos-dev/json_cache/issues/29).
 
 ### Added
@@ -58,7 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- JsonCachePrefs: implementation on top of the shared_preferences package —
+- JsonCachePrefs: an implementation on top of the shared_preferences package —
   [26](https://github.com/dartoos-dev/json_cache/issues/26).
 
 ### Changed
