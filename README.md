@@ -45,9 +45,10 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 in json. It can also be thought of as a layer on top of Flutter's local storage
 packages like
 [sharable_preferences](https://pub.dev/packages/shared_preferences) and
-[localstorage](https://pub.dev/packages/localstorage). Thus, this
+[localstorage](https://pub.dev/packages/localstorage). In this way, this
 package aims to unify most of Flutter's local caching packages into a stable and
-elegant caching API.
+elegant caching interface —
+_[JsonCache](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCache-class.html)_.
 
 **Why Json?**
 
@@ -94,8 +95,8 @@ represents the name of a single data group. For example:
 'preferences': {'theme': {'dark': true}, 'notifications':{'enabled': true}}
 ```
 
-Above, the _profile_ key is associated with the profile-related data group,
-while the _preferences_ key is associated with the preferences-related data.
+Above, the _profile_ key is associated with profile-related data, while
+the _preferences_ key is associated with the user's preferences.
 
 A typical code for saving the previous _profile_ and _preferences_ data is:
 
@@ -141,7 +142,7 @@ object. For example:
   await jsonCache.refresh('preferences', {'theme': {'dark': true}, 'notifications':{'enabled': true}});
   …
   /// Retrieving preferences data.
-  final Map<String, dynamic> preferences = await jsonCache.value('preferences');
+  final Map<String, dynamic>? preferences = await jsonCache.value('preferences');
   …
   /// Frees up cached data before the user leaves the application.
   Future<void> signout() async {
