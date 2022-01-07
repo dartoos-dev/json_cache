@@ -10,12 +10,12 @@ environment:
 
 dependencies:
   cross_local_storage: ^2.0.1
-  encrypted_shared_preferences: ^2.0.0
+  encrypted_shared_preferences: ^3.0.0
   flutter:
     sdk: flutter
   localstorage: ^4.0.0+1
   mutex: ^3.0.0
-  shared_preferences: ^2.0.6
+  shared_preferences: ^2.0.11
 
 dev_dependencies:
   flutter_test:
