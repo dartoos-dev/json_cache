@@ -1,4 +1,4 @@
-import 'json_cache.dart';
+import 'package:json_cache/json_cache.dart';
 
 ///  Decorator Envelope of [JsonCache].
 ///

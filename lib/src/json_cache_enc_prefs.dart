@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 
-import 'json_cache.dart';
+import 'package:json_cache/json_cache.dart';
 
 /// Shared Preferences as encrypted values.
 ///

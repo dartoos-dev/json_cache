@@ -1,6 +1,5 @@
+import 'package:json_cache/json_cache.dart';
 import 'package:localstorage/localstorage.dart';
-
-import 'json_cache.dart';
 
 /// Implementation on top of the LocalStorage package.
 ///

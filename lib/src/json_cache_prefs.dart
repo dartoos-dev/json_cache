@@ -1,8 +1,7 @@
 import 'dart:convert';
 
+import 'package:json_cache/json_cache.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'json_cache.dart';
 
 /// Persistent preferences file cache.
 class JsonCachePrefs implements JsonCache {

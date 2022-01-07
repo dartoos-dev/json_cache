@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- stricter linting rules — [48](https://github.com/dartoos-dev/json_cache/issues/48).
+- bump up dependencies — [49](https://github.com/dartoos-dev/json_cache/issues/49).
+
 ## [0.3.4] - 2021-08-26
 
 ### Added

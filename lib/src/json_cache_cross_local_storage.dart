@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:cross_local_storage/cross_local_storage.dart';
-
-import 'json_cache.dart';
+import 'package:json_cache/json_cache.dart';
 
 /// [JsonCache] on top of the Cross Local Storage package.
 ///
