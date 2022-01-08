@@ -12,9 +12,6 @@ typedef OnInitError = FutureOr<Null> Function(Object, StackTrace);
 ///
 /// It is a kind of level 1 cache.
 ///
-/// TODO: limit the maximum number of cache entries via "size" parameter in
-/// constructors.
-///
 /// It encapsulates a slower cache and keeps its own data in-memory.
 class JsonCacheMem implements JsonCache {
   /// In-memory level1 cache with an optional level2 instance.
@@ -108,14 +105,14 @@ class JsonCacheMem implements JsonCache {
   /// cache.
   @override
   Future<void> refresh(String key, Map<String, dynamic> data) async {
-    /// ATTENTION: It is safer to copy the content of [data] before calling an
-    /// asynchronous method that will copy it to avoid data races. For example,
-    /// if the client code clears [data] right after passing it to this method,
-    /// there's a high chance of having _level2 and this object with different
-    /// contents.
-    ///
-    /// In Dart, synchronous code cannot be interrupted, so there is no need to
-    /// protect it using mutual exclusion.
+    // ATTENTION: It is safer to copy the content of [data] before calling an
+    // asynchronous method that will copy it to avoid data races. For example,
+    // if the client code clears [data] right after passing it to this method,
+    // there's a high chance of having _level2 and this object with different
+    // contents.
+    //
+    // In Dart, synchronous code cannot be interrupted, so there is no need to
+    // protect it using mutual exclusion.
     final copy = Map<String, dynamic>.of(data);
     await _mutex.protectWrite(() async {
       await _level2.refresh(key, copy);

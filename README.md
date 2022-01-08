@@ -28,6 +28,7 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
   - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
 - [Demo application](#demo-application)
+- [Contribute](#contribute)
 - [References](#references)
 
 ## Overview
@@ -49,9 +50,9 @@ _[JsonCache](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCach
 **Why Json?**
 
 - Because most of the local storage packages available for Flutter applications
-  use json as the data format.
+  use Json as the data format.
 - There is a one-to-one relationship between Dart's built-in type `Map<String,
-  dynamic>` and json, which makes encoding/decoding data in json a trivial task.
+  dynamic>` and Json, which makes encoding/decoding data in Json a trivial task.
 
 ## Getting Started
 
@@ -150,6 +151,7 @@ object. For example:
     await jsonCache.remove(userId);
   }
 ```
+
 #### Cache Initialization
 
 [JsonCacheMem.init](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheMem/JsonCacheMem.init.html)
@@ -227,12 +229,29 @@ with it.
 To run the demo application:
 
 ```shell
-git clone https://github.com/dartoos-dev/json_cache.git
-cd json_cache/example/
-flutter run -d chrome
+  git clone https://github.com/dartoos-dev/json_cache.git
+  cd json_cache/example/
+  flutter run -d chrome
 ```
 
 This should launch the demo application on Chrome in debug mode.
+
+## Contribute
+
+Contributors are welcome!
+
+1. Open an issue regarding an improvement, a bug you noticed, or ask to be
+   assigned to an existing one.
+2. If the issue is confirmed, fork the repository, do the changes on a separate
+   branch and make a Pull Request.
+3. After review and acceptance, the PR is merged and closed.
+
+Make sure the commands below **passes** before making a Pull Request.
+
+```shell
+  flutter analyze
+  flutter test
+```
 
 ## References
 
