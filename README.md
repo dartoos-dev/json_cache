@@ -44,7 +44,7 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 
 **JsonCache** is an object-oriented package for local caching of user data
 in json. It can also be considered as a layer on top of Flutter's local storage
-packages that aims to unify them as a stable and elegant caching interface —
+packages that aims to unify them with a stable and elegant interface —
 _[JsonCache](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCache-class.html)_.
 
 **Why Json?**
@@ -60,8 +60,8 @@ This package gives developers great flexibility by providing a set of classes
 that can be selected and grouped in various combinations to meet specific cache
 requirements.
 
-`JsonCache` is the core interface of this package and represents the concept of
-cached data. It is defined as:
+[JsonCache](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCache-class.html)
+is the core interface of this package and represents the concept of cached data. It is defined as:
 
 ```dart
 /// Represents cached data in json format.
