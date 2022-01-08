@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:json_cache/json_cache.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Throws an exception after 'N' refreshes.
 class _JsonCacheThrowsAfterN extends JsonCacheWrap {
@@ -169,6 +170,15 @@ void main() {
         expect(cachedPref, prefData);
         expect(mem[profKey], profData);
         expect(mem[prefKey], prefData);
+      });
+      test('value missing from L1 cache', () async {
+        const key = 'aValue';
+        const value = <String, dynamic>{'must be a json encodable value': true};
+        final prefs = JsonCachePrefs(await SharedPreferences.getInstance());
+        await prefs.refresh(key, value);
+        final JsonCacheMem memCache = JsonCacheMem(prefs);
+        final cacheL2Value = await memCache.value(key);
+        expect(cacheL2Value, value);
       });
     });
   });
