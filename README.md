@@ -249,8 +249,7 @@ Contributors are welcome!
 Make sure the commands below **passes** before making a Pull Request.
 
 ```shell
-  flutter analyze
-  flutter test
+  flutter analyze && flutter test
 ```
 
 ## References
