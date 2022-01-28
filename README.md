@@ -207,7 +207,8 @@ is an implementation on top of the
   …
   final secStorage = FlutterSecureStorage(…);
   final JsonCache jsonCache = JsonCacheSecStorage(secStorage);
-  // Write a simple string value defining it as a key of the literal map.
+  // In order to write a string value, define it as a map key whose associated
+  // value is a boolean placeholder value set to 'true'.
   final Map<String, dynamic> info = {'an secret info': true};
   jsonCache.refresh('secret', info);
 
