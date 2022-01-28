@@ -1,6 +1,8 @@
 # json_cache
 
-<img width="406" hight="192" alt="json cache logo" src="https://user-images.githubusercontent.com/24878574/119276278-56ef4a80-bbf0-11eb-8701-53a94f24f75b.png" align="middle">
+<img width="406" hight="192" alt="json cache logo"
+src="https://user-images.githubusercontent.com/24878574/119276278-56ef4a80-bbf0-11eb-8701-53a94f24f75b.png"
+align="middle">
 
 [![EO principles respected
 here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
@@ -25,6 +27,7 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
   - [JsonCacheMem — Thread-safe In-memory cache](#jsoncachemem)
   - [JsonCachePrefs — SharedPreferences](#jsoncacheprefs)
   - [JsonCacheEncPrefs — EncryptedSharedPreferences](#jsoncacheencprefs)
+  - [JsonCacheSecStorage — FlutterSecureStorage](#jsoncachesecstorage)
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
   - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
 - [Demo application](#demo-application)
@@ -32,7 +35,6 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 - [References](#references)
 
 ## Overview
-
 
 > Cache is a hardware or software component that stores data so that future
 > requests for that data can be served faster; the data stored in a cache might
@@ -61,12 +63,13 @@ that can be selected and grouped in various combinations to meet specific cache
 requirements.
 
 [JsonCache](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCache-class.html)
-is the core interface of this package and represents the concept of cached data. It is defined as:
+is the core interface of this package and represents the concept of cached data.
+It is defined as:
 
 ```dart
 /// Represents cached data in json format.
 abstract class JsonCache {
-  /// Frees up storage space.
+  /// Frees up storage space — deletes all keys with associated values.
   Future<void> clear();
 
   /// Removes cached data located at [key].
@@ -147,14 +150,14 @@ object. For example:
   }
   …
   /// Removes cached data related to a specific user.
-  Future<void> signoutId(String userId) async {
+  Future<void> signoutId(String userId) async
     await jsonCache.remove(userId);
   }
 ```
 
 #### Cache Initialization
 
-[JsonCacheMem.init](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheMem/JsonCacheMem.init.html)
+[JsonCacheMem.init](https://p.dev/documentatijson_cache/latest/json_cache/JsonCacheMem/JsonCacheMem.init.html)
 is the constructor whose purpose is to initialize the cache upon object
 instantiation. The data passed to the `init` parameter is deeply copied to both
 the internal in-memory cache and the level2 cache.
@@ -192,6 +195,26 @@ package.
   final encPrefs = EncryptedSharedPreferences();
   final JsonCache jsonCache = JsonCacheMem(JsonCacheEncPrefs(encPrefs));
   …
+```
+
+### JsonCacheSecStorage
+
+JsonCacheSecStorage
+is an implementation on top of the
+[flutter_secure_storage](https://pub.dev/packages/flutter_secure_storage) package.
+
+```dart
+  …
+  final secStorage = FlutterSecureStorage(…);
+  final JsonCache jsonCache = JsonCacheSecStorage(secStorage);
+  // Write a simple string value defining it as a key of the literal map.
+  final Map<String, dynamic> info = {'an secret info': true};
+  jsonCache.refresh('secret', info);
+
+  // later on…
+
+  final mappedInfo = await jsonCache.value('secret')!;
+  final originalInfo = mappedInfo.keys.first; // 'an secret info'
 ```
 
 ### JsonCacheLocalStorage

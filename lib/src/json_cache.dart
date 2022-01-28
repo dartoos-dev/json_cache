@@ -6,7 +6,7 @@
 ///> elsewhere.
 ///> — [cache Wikipedia](https://en.wikipedia.org/wiki/Cache_(computing))
 abstract class JsonCache {
-  /// Frees up storage space.
+  /// Frees up storage space — deletes all keys with associated values.
   Future<void> clear();
 
   /// Removes cached data located at [key].

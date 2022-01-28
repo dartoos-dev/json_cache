@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- JsonCacheSecStorage: an implementation on top of the flutter_secure_storage
+  package — [58](https://github.com/dartoos-dev/json_cache/issues/58).
+
 ## [1.0.0] - 2022-01-08
 
 ### Added
