@@ -213,7 +213,7 @@ is an implementation on top of the
 
   // later on…
 
-  final mappedInfo = await jsonCache.value('secret')!;
+  final mappedInfo = (await jsonCache.value('secret'))!;
   final originalInfo = mappedInfo.keys.first; // 'an secret info'
 ```
 
