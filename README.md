@@ -128,7 +128,7 @@ the cache instance that persists data on the user's device.
 #### Typical Usage
 
 Due to the fact that `JsonCacheMem` is a decorator, you should always pass
-another `JsonCache` instance to it whenever you instantiates a `JsonCacheMem`
+another `JsonCache` instance to it whenever you instantiate a `JsonCacheMem`
 object. For example:
 
 ```dart
