@@ -31,7 +31,9 @@ class JsonCacheHollow implements JsonCache {
   @override
   Future<void> remove(String key) async {}
 
-  /// Does nothing.
+  /// Always returns null.
   @override
-  Future<Map<String, dynamic>?> value(String key) async {}
+  Future<Map<String, dynamic>?> value(String key) async {
+    return null;
+  }
 }
