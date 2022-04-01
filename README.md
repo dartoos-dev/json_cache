@@ -29,6 +29,7 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
   - [JsonCacheEncPrefs — EncryptedSharedPreferences](#jsoncacheencprefs)
   - [JsonCacheSecStorage — FlutterSecureStorage](#jsoncachesecstorage)
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
+  - [JsonCacheHive — Hive](#jsoncachehive)
   - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
 - [Demo application](#demo-application)
 - [Contribute](#contribute)
@@ -79,7 +80,7 @@ abstract class JsonCache {
   Future<Map<String, dynamic>?> value(String key);
 
   /// It either updates data located at [key] with [value] or, if there is no
-  /// previous data at [key], creates a new cache row at [key] with [value].
+  /// data at [key], creates a new cache row at [key] with [value].
   ///
   /// **Note**: [value] must be json encodable.
   Future<void> refresh(String key, Map<String, dynamic> value);
@@ -127,7 +128,7 @@ the cache instance that persists data on the user's device.
 
 #### Typical Usage
 
-Due to the fact that `JsonCacheMem` is a decorator, you should always pass
+Due to the fact that `JsonCacheMem` is a decorator, you should normally pass
 another `JsonCache` instance to it whenever you instantiate a `JsonCacheMem`
 object. For example:
 
@@ -231,6 +232,20 @@ is an implementation on top of the
   …
 ```
 
+### JsonCacheHive
+
+[JsonCacheHive](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheHive.html)
+is an implementation on top of the [hive](https://pub.dev/packages/hive)
+package.
+
+```dart
+  …
+  await Hive.initFlutter(); // mandatory initialization.
+  final box = await Hive.openBox<String>('appBox'); // it must be a Box<String>.
+  final JsonCache hiveCache = JsonCacheMem(JsonCacheHive(box));
+  …
+```
+
 ### JsonCacheCrossLocalStorage
 
 [JsonCacheLocalCrossStorage](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheCrossLocalStorage-class.html)
@@ -270,7 +285,7 @@ Contributors are welcome!
    branch and make a Pull Request.
 3. After review and acceptance, the PR is merged and closed.
 
-Make sure the commands below **passes** before making a Pull Request.
+Make sure the command below **passes** before making a Pull Request.
 
 ```shell
   flutter analyze && flutter test

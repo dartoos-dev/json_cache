@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- JsonCacheHive: an implementation on top of the Hive package —
+  [64](https://github.com/dartoos-dev/json_cache/issues/64).
+
 ## [1.1.2] - 2022-01-28
 
 ### Fixed
