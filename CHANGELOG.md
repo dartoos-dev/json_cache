@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Bump up dependencies —
+  [69](https://github.com/dartoos-dev/json_cache/issues/69).
+
 ### Fixed
 
 - The project's logo image — [67](https://github.com/dartoos-dev/json_cache/issues/67).
