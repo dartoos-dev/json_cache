@@ -1,8 +1,10 @@
 # json_cache
 
-<img width="406" hight="192" alt="json cache logo"
-src="https://user-images.githubusercontent.com/24878574/119276278-56ef4a80-bbf0-11eb-8701-53a94f24f75b.png"
-align="middle">
+</br>
+<center>
+<img width="156" alt="json_cache_img" src="https://user-images.githubusercontent.com/24878574/161399703-c99ef48d-e193-4e4e-a557-bc511d2dfe5e.png" align="center">
+</center>
+</br>
 
 [![EO principles respected
 here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
