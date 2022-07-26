@@ -31,6 +31,11 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
   - [JsonCacheHive — Hive](#jsoncachehive)
   - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
+- [Unit Test Tips](#unit-test-tips)
+  - [Suggested Dependency Relationship](#suggested-dependency-relationship)
+  - [Using Fake Implementation](#using-fake-implementation)
+  - [Widget Testing](#widget-testing)
+    - [Example of Widget Test Code](#example-of-widget-test-code)
 - [Demo application](#demo-application)
 - [Contribute](#contribute)
 - [References](#references)
@@ -256,7 +261,80 @@ is an implementation on top of the
   …
   final LocalStorageInterface prefs = await LocalStorage.getInstance();
   final JsonCache jsonCache = JsonCacheMem(JsonCacheCrossLocalStorage(prefs));
-  …
+```
+
+## Unit Test Tips
+
+This package has been designed with unit testing in mind. This is one of the
+reasons for the existence of the `JsonCache` interface.
+
+### Suggested Dependency Relationship
+
+Whenever a function, method, or class needs to interact with user data, it
+should do so via a reference to the `JsonCache` interface rather than relying on
+an actual implementation.
+
+See the code snippet below:
+
+```dart
+/// Stores/retrieves user data from the device's local storage.
+class JsonCacheRepository implements ILocalRepository {
+  /// Sets the [JsonCache] instance.
+  const JsonCacheRepository(this._cache);
+  // This class depends on an interface rather than any actual implementation
+  final JsonCache _cache;
+
+  /// Retrieves a cached email by [userId] or `null` if not found.
+  @override
+  Future<String?> getUserEmail(String userId) async {
+    final userData = await _cache.value(userId);
+    if (userData != null) {
+      // the email value or null if absent.
+      return userData['email'] as String?; 
+    }
+    // There is no data associated with [userId].
+    return null;
+  }
+}
+```
+
+By depending on an interface rather than an actual implementation, the code
+above is [loosely coupled](https://en.wikipedia.org/wiki/Loose_coupling) to this
+package — which means it's easy to test as you can
+[mock](https://docs.flutter.dev/cookbook/testing/unit/mocking) the `JsonCache`
+dependency.
+
+### Using Fake Implementation
+
+In addition to mocking, there is another approach to unit testing: making use of
+a 'fake' implementation. Usually this so called 'fake' implementation provides
+the functionality required by the `JsonCache` interface without touching the
+device's local storage. An example of this implementation is the
+[JsonCacheFake](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheFake-class.html)
+class — whose sole purpose is to help developers with unit tests.
+
+### Widget Testing
+
+Because of the asynchronous nature of dealing with cached data, you're better
+off putting all your test code inside a `tester.runAsync` method; otherwise,
+your test case may stall due to a
+[deadlock](https://en.wikipedia.org/wiki/Deadlock) caused by a [race
+condition](https://stackoverflow.com/questions/34510/what-is-a-race-condition)
+as there might be multiple `Futures` trying to access the same resources.
+
+#### Example of Widget Test Code
+
+Your widget test code should look similar to the following code snippet:
+
+```dart
+testWidgets('refresh cached value', (WidgetTester tester) async {
+  final LocalStorage localStorage = LocalStorage('my_cached_data');
+  final jsonCache = JsonCacheMem(JsonCacheLocalStorage(localStorage));
+  tester.runAsync(() async {
+    // asynchronous code inside runAsync.
+    await jsonCache.refresh('test', <String, dynamic>{'aKey': 'aValue'});
+  });
+});
 ```
 
 ## Demo application
@@ -293,5 +371,4 @@ Make sure the command below **passes** before making a Pull Request.
 
 ## References
 
-- [Caching for objects](https://www.pragmaticobjects.com/chapters/012_caching_for_objects.html)
 - [Dart and race conditions](https://pub.dev/packages/mutex)

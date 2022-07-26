@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Unit testing tips to the README file —
+  [73](https://github.com/dartoos-dev/json_cache/issues/73).
+
 ## [1.2.1] - 2022-04-02
 
 ### Changed
