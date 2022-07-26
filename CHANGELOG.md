@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- move 'Suggested Dependency Relationship' section upwards in the README file —
+  [83](https://github.com/dartoos-dev/json_cache/issues/83).
+
 ## [1.2.4] - 2022-07-26
 
 ### Fixed

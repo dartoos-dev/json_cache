@@ -23,6 +23,7 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 
 - [Overview](#overview)
 - [Getting Started](#getting-started)
+  - [Suggested Dependency Relationship](#suggested-dependency-relationship)
 - [Implementations](#implementations)
   - [JsonCacheMem — Thread-safe In-memory cache](#jsoncachemem)
   - [JsonCachePrefs — SharedPreferences](#jsoncacheprefs)
@@ -32,8 +33,8 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
   - [JsonCacheHive — Hive](#jsoncachehive)
   - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
 - [Unit Test Tips](#unit-test-tips)
-  - [Suggested Dependency Relationship](#suggested-dependency-relationship)
-  - [Using Fake Implementation](#using-fake-implementation)
+  - [Mocking](#mocking)
+  - [Fake Implementations](#using-fake-implementation)
   - [Widget Testing](#widget-testing)
     - [Example of Widget Test Code](#example-of-widget-test-code)
   - [SharedPreferences in Tests](#sharedpreferences-in-tests)
@@ -99,7 +100,7 @@ represents the name of a single data group. For example:
 
 ```dart
 'profile': {'name': 'John Doe', 'email': 'johndoe@email.com', 'accountType': 'premium'};
-'preferences': {'theme': {'dark': true}, 'notifications':{'enabled': true}}
+'preferences': {'theme': {'dark': true}, 'notifications': {'enabled': true}}
 ```
 
 Above, the _profile_ key is associated with profile-related data, while
@@ -113,6 +114,39 @@ final JsonCache jsonCache = … retrieve one of the JsonCache implementations.
 await jsonCache.refresh('profile', {'name': 'John Doe', 'email': 'johndoe@email.com', 'accountType': 'premium'});
 await jsonCache.refresh('preferences', {'theme': {'dark': true}, 'notifications':{'enabled': true}});
 ```
+
+### Suggested Dependency Relationship
+
+Whenever a function, method, or class needs to interact with cached user data,
+it should do so via a reference to the `JsonCache` interface.
+
+See the code snippet below:
+
+```dart
+/// Stores/retrieves user data from the device's local storage.
+class JsonCacheRepository implements ILocalRepository {
+  /// Sets the [JsonCache] instance.
+  const JsonCacheRepository(this._cache);
+  // This class depends on an interface rather than any actual implementation
+  final JsonCache _cache;
+
+  /// Retrieves a cached email by [userId] or `null` if not found.
+  @override
+  Future<String?> getUserEmail(String userId) async {
+    final userData = await _cache.value(userId);
+    if (userData != null) {
+      // the email value or null if absent.
+      return userData['email'] as String?; 
+    }
+    // There is no data associated with [userId].
+    return null;
+  }
+}
+```
+
+By depending on an interface rather than an actual implementation, your code
+becomes [loosely coupled](https://en.wikipedia.org/wiki/Loose_coupling) to this
+package — which makes unit testing a lot easier.
 
 ## Implementations
 
@@ -269,43 +303,58 @@ is an implementation on top of the
 This package has been designed with unit testing in mind. This is one of the
 reasons for the existence of the `JsonCache` interface.
 
-### Suggested Dependency Relationship
+### Mocking
 
-Whenever a function, method, or class needs to interact with user data, it
-should do so via a reference to the `JsonCache` interface rather than relying on
-an actual implementation.
+Since `JsonCache` is the core interface of this package, you can easily
+[mock](https://docs.flutter.dev/cookbook/testing/unit/mocking) a implementation
+that suits you when unit testing your code.
 
-See the code snippet below:
+For example, with [mocktail](https://pub.dev/packages/mocktail) a mock
+implementation should look like this:
 
 ```dart
-/// Stores/retrieves user data from the device's local storage.
-class JsonCacheRepository implements ILocalRepository {
-  /// Sets the [JsonCache] instance.
-  const JsonCacheRepository(this._cache);
-  // This class depends on an interface rather than any actual implementation
-  final JsonCache _cache;
+import 'package:mocktail/mocktail.dart';
 
-  /// Retrieves a cached email by [userId] or `null` if not found.
-  @override
-  Future<String?> getUserEmail(String userId) async {
-    final userData = await _cache.value(userId);
-    if (userData != null) {
-      // the email value or null if absent.
-      return userData['email'] as String?; 
-    }
-    // There is no data associated with [userId].
-    return null;
-  }
+class JsonCacheMock extends Mock implements JsonCache {}
+
+void main() {
+  // the mock instance.
+  final jsonCacheMock = JsonCacheMock();
+
+  test('should retrieve the preferences data', () async {
+    // Stub the 'value' method.
+    when(() => jsonCacheMock.value('preferences')).thenAnswer(
+      (_) async => <String, dynamic>{
+        'theme': {'dark': true},
+        'notifications': {'enabled': true}
+      },
+    );
+
+    // Verify no interactions have occurred.
+    verifyNever(() => jsonCacheMock.value('preferences'));
+
+    // Interact with the jsonCacheMock instance.
+    final preferencesData = await jsonCacheMock.value('preferences');
+
+    // Assert
+    expect(
+      preferencesData,
+      equals(
+        <String, dynamic>{
+          'theme': {'dark': true},
+          'notifications': {'enabled': true}
+        },
+      ),
+    );
+
+    // Check if the interaction occurred only once.
+    verify(() => jsonCacheMock.value('preferences')).called(1);
+  });
 }
+
 ```
 
-By depending on an interface rather than an actual implementation, the code
-above is [loosely coupled](https://en.wikipedia.org/wiki/Loose_coupling) to this
-package — which means it's easy to test as you can
-[mock](https://docs.flutter.dev/cookbook/testing/unit/mocking) the `JsonCache`
-dependency.
-
-### Using Fake Implementation
+### Fake Implementations
 
 In addition to mocking, there is another approach to unit testing: making use of
 a 'fake' implementation. Usually this so called 'fake' implementation provides
