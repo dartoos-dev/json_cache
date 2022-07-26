@@ -13,8 +13,6 @@ linter:
     sort_constructors_first: true
     # Good packages document everything
     public_member_api_docs: true
-    # Always await.
-    unawaited_futures: true
     always_declare_return_types: true
     cancel_subscriptions: true
     close_sinks: true
