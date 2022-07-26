@@ -118,7 +118,7 @@ await jsonCache.refresh('preferences', {'theme': {'dark': true}, 'notifications'
 ### Suggested Dependency Relationship
 
 Whenever a function, method, or class needs to interact with cached user data,
-it should do so via a reference to the `JsonCache` interface.
+this should be done via a reference to the `JsonCache` interface.
 
 See the code snippet below:
 
