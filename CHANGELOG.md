@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.5] - 2022-07-26
+
 ### Changed
 
 - move 'Suggested Dependency Relationship' section upwards in the README file —
