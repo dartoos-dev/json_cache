@@ -34,7 +34,7 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
   - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
 - [Unit Test Tips](#unit-test-tips)
   - [Mocking](#mocking)
-  - [Fake Implementations](#using-fake-implementation)
+  - [Fake Implementations](#fake-implementations)
   - [Widget Testing](#widget-testing)
     - [Example of Widget Test Code](#example-of-widget-test-code)
   - [SharedPreferences in Tests](#sharedpreferences-in-tests)
