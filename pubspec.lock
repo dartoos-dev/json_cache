@@ -112,7 +112,7 @@ packages:
       name: encrypted_shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -211,7 +211,7 @@ packages:
       name: hive
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.2.3"
   http_multi_server:
     dependency: transitive
     description:
@@ -400,7 +400,7 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.13"
+    version: "2.0.15"
   shared_preferences_android:
     dependency: transitive
     description:

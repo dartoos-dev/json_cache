@@ -36,6 +36,7 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
   - [Using Fake Implementation](#using-fake-implementation)
   - [Widget Testing](#widget-testing)
     - [Example of Widget Test Code](#example-of-widget-test-code)
+  - [SharedPreferences in Tests](#sharedpreferences-in-tests)
 - [Demo application](#demo-application)
 - [Contribute](#contribute)
 - [References](#references)
@@ -335,6 +336,25 @@ testWidgets('refresh cached value', (WidgetTester tester) async {
     await jsonCache.refresh('test', <String, dynamic>{'aKey': 'aValue'});
   });
 });
+```
+
+### SharedPreferences in Tests
+
+Whenever you run any unit tests involving the
+[shared_preferences](https://pub.dev/packages/shared_preferences) package, you
+must call the `SharedPreferences.setMockInitialValues()` function at the very
+beginning of the test file; otherwise, the system may throw an error whose
+description is: 'Binding has not yet been initialized'.
+
+Example:
+
+```dart
+
+void main() {
+  SharedPreferences.setMockInitialValues({});
+  // the test cases come below
+  … 
+}
 ```
 
 ## Demo application

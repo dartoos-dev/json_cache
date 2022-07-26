@@ -22,6 +22,7 @@ class _JsonCacheThrowsAfterN extends JsonCacheWrap {
 }
 
 void main() {
+  SharedPreferences.setMockInitialValues({});
   group('JsonCacheMem', () {
     const profKey = 'profile';
     const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
