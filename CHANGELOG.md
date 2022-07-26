@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- the value of the version field of the pubspec file.
+
 ### Added
 
 - Unit testing tips to the README file —
