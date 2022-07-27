@@ -30,8 +30,8 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
   - [JsonCacheEncPrefs — EncryptedSharedPreferences](#jsoncacheencprefs)
   - [JsonCacheSecStorage — FlutterSecureStorage](#jsoncachesecstorage)
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
-  - [JsonCacheHive — Hive](#jsoncachehive)
   - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
+  - [JsonCacheHive — Hive](#jsoncachehive)
 - [Unit Test Tips](#unit-test-tips)
   - [Mocking](#mocking)
   - [Fake Implementations](#fake-implementations)
@@ -272,6 +272,18 @@ is an implementation on top of the
   …
 ```
 
+### JsonCacheCrossLocalStorage
+
+[JsonCacheLocalCrossStorage](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheCrossLocalStorage-class.html)
+is an implementation on top of the
+[cross_local_storage](https://pub.dev/packages/cross_local_storage) package.
+
+```dart
+  …
+  final LocalStorageInterface prefs = await LocalStorage.getInstance();
+  final JsonCache jsonCache = JsonCacheMem(JsonCacheCrossLocalStorage(prefs));
+```
+
 ### JsonCacheHive
 
 [JsonCacheHive](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheHive.html)
@@ -285,19 +297,6 @@ package.
   final JsonCache hiveCache = JsonCacheMem(JsonCacheHive(box));
   …
 ```
-
-### JsonCacheCrossLocalStorage
-
-[JsonCacheLocalCrossStorage](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheCrossLocalStorage-class.html)
-is an implementation on top of the
-[cross_local_storage](https://pub.dev/packages/cross_local_storage) package.
-
-```dart
-  …
-  final LocalStorageInterface prefs = await LocalStorage.getInstance();
-  final JsonCache jsonCache = JsonCacheMem(JsonCacheCrossLocalStorage(prefs));
-```
-
 ## Unit Test Tips
 
 This package has been designed with unit testing in mind. This is one of the
