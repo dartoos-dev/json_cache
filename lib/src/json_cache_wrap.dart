@@ -1,6 +1,6 @@
 import 'package:json_cache/json_cache.dart';
 
-///  Decorator Envelope of [JsonCache].
+/// Decorator Envelope of [JsonCache].
 ///
 /// It just forwards method calls to its encapsulated [JsonCache] instance.
 abstract class JsonCacheWrap implements JsonCache {

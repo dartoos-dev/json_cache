@@ -16,12 +16,12 @@ typedef OnInitError = FutureOr<Null> Function(Object, StackTrace);
 class JsonCacheMem implements JsonCache {
   /// In-memory level1 cache with an optional level2 instance.
   ///
-  /// ATTENTION: if you do not pass an object to the parameter [level2], the
-  /// data will remain cached in-memory only; that is, no data will be persited
-  /// to the user's device's local storage area. Indeed, not persisting data on
-  /// the user's device might be the desired behavior if you are at the
-  /// prototyping or mocking phase. However, its unlikely to be the right
-  /// behavior in production code.
+  /// **Note**: if you do not pass an object to the parameter [level2], the data
+  /// will remain cached in-memory only; that is, no data will be persited to
+  /// the user's device's local storage area. Indeed, not persisting data on the
+  /// user's device might be the desired behavior if you are at the prototyping
+  /// or mocking phase. However, its unlikely to be the right behavior in
+  /// production code.
   JsonCacheMem([JsonCache? level2])
       : this.mem(_shrMem, level2: level2, mutex: _shrMutex);
 
@@ -73,14 +73,14 @@ class JsonCacheMem implements JsonCache {
     Map<String, Map<String, dynamic>?> mem, {
     JsonCache? level2,
     ReadWriteMutex? mutex,
-  })  : _level2 = level2 ?? const JsonCacheHollow(),
-        _memory = mem,
+  })  : _memory = mem,
+        _level2 = level2 ?? const JsonCacheHollow(),
         _mutex = mutex ?? ReadWriteMutex();
 
   /// Slower cache level.
   final JsonCache _level2;
 
-  /// in-memory storage.
+  /// In-memory storage.
   final Map<String, Map<String, dynamic>?> _memory;
 
   /// Mutex lock-guard.
@@ -135,8 +135,9 @@ class JsonCacheMem implements JsonCache {
   Future<Map<String, dynamic>?> value(String key) {
     return _mutex.protectRead(() async {
       final cachedL1 = _memory[key];
-      if (cachedL1 != null) return Map<String, dynamic>.of(cachedL1);
-
+      if (cachedL1 != null) {
+        return Map<String, dynamic>.of(cachedL1);
+      }
       final cachedL2 = await _level2.value(key);
       if (cachedL2 != null) {
         _memory[key] = cachedL2;
