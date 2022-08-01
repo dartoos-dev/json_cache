@@ -8,7 +8,7 @@
 here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![DevOps By
 Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor.com/p/dartoos-dev/json_cache)
-
+    
 [![pub](https://img.shields.io/pub/v/json_cache)](https://pub.dev/packages/json_cache)
 [![license](https://img.shields.io/badge/license-mit-green.svg)](https://github.com/dartoos-dev/json_cache/blob/master/LICENSE)
 [![PDD status](https://www.0pdd.com/svg?name=dartoos-dev/json_cache)](https://www.0pdd.com/p?name=dartoos-dev/json_cache)
@@ -169,8 +169,8 @@ device.
 
 #### Typical Usage
 
-Due to the fact that `JsonCacheMem` is a decorator, you should normally pass
-another `JsonCache` instance to it whenever you instantiate a `JsonCacheMem`
+Due to the fact that `JsonCacheMem` is a [Decorator](https://en.wikipedia.org/wiki/Decorator_pattern),
+you should normally pass another `JsonCache` instance to it whenever you instantiate a `JsonCacheMem`
 object. For example:
 
 ```dart
