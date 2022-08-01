@@ -1,6 +1,6 @@
 name: json_cache
 description: An object-oriented package for caching user data locally in json; a combinable layer on top of local storage packages that unifies them with an elegant caching API.
-version: 1.2.5
+version: 1.2.6
 homepage: https://dartoos.dev
 repository: https://github.com/dartoos-dev/json_cache
 
