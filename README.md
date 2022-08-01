@@ -161,10 +161,11 @@ The following sections are an overview of each implementation.
 ### JsonCacheMem
 
 [JsonCacheMem](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheMem-class.html)
-is is a thread-safe in-memory implementation of the `JsonCache` interface.
+is a thread-safe in-memory implementation of the `JsonCache` interface.
 Moreover, it encapsulates a secondary cache or "slower level2 cache". Typically,
-the secondary cache instance is responsible for the local cache; that is, it is
-the cache instance that persists data on the user's device.
+this secondary cache instance is responsible for the local cache; that is, it is
+the `JsonCache` implementation that actually persists the data on the user's
+device.
 
 #### Typical Usage
 
@@ -356,7 +357,7 @@ void main() {
 ### Fake Implementations
 
 In addition to mocking, there is another approach to unit testing: making use of
-a 'fake' implementation. Usually this so called 'fake' implementation provides
+a 'fake' implementation. Usually this so-called 'fake' implementation provides
 the functionality required by the `JsonCache` interface without touching the
 device's local storage. An example of this implementation is the
 [JsonCacheFake](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheFake-class.html)
@@ -369,7 +370,8 @@ off putting all your test code inside a `tester.runAsync` method; otherwise,
 your test case may stall due to a
 [deadlock](https://en.wikipedia.org/wiki/Deadlock) caused by a [race
 condition](https://stackoverflow.com/questions/34510/what-is-a-race-condition)
-as there might be multiple `Futures` trying to access the same resources.
+as there might be multiple `Futures` trying to access the same resources at the
+same time.
 
 #### Example of Widget Test Code
 
@@ -425,10 +427,10 @@ This should launch the demo application on Chrome in debug mode.
 
 Contributors are welcome!
 
-1. Open an issue regarding an improvement, a bug you noticed, or ask to be
+1. Open an **issue** regarding an improvement, a bug you noticed, or ask to be
    assigned to an existing one.
-2. If the issue is confirmed, fork the repository, do the changes on a separate
-   branch and make a Pull Request.
+2. If the issue is confirmed, **fork** the repository, do the changes on a
+   separate branch and make a **Pull Request**.
 3. After review and acceptance, the PR is merged and closed.
 
 Make sure the command below **passes** before making a Pull Request.
