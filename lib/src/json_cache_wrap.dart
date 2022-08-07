@@ -26,4 +26,8 @@ abstract class JsonCacheWrap implements JsonCache {
   @override
   Future<void> refresh(String key, Map<String, dynamic> data) =>
       _wrapped.refresh(key, data);
+
+  /// Forwards to the [JsonCache.contains] of its wrapped instance.
+  @override
+  Future<bool> contains(String key) => _wrapped.contains(key);
 }

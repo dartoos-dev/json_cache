@@ -10,7 +10,6 @@ class JsonCacheHive implements JsonCache {
   /// Sets the Hive [Box] instance.
   const JsonCacheHive(this._box);
 
-  // final Box<String> _box;
   final Box<String> _box;
 
   @override
@@ -32,5 +31,10 @@ class JsonCacheHive implements JsonCache {
   Future<Map<String, dynamic>?> value(String key) async {
     final data = _box.get(key);
     return data == null ? null : json.decode(data) as Map<String, dynamic>;
+  }
+
+  @override
+  Future<bool> contains(String key) async {
+    return _box.containsKey(key);
   }
 }

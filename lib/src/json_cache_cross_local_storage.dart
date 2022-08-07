@@ -43,4 +43,10 @@ class JsonCacheCrossLocalStorage implements JsonCache {
         ? null
         : json.decode(strJson) as Map<String, dynamic>;
   }
+
+  /// Checks whether there is cached data at [key].
+  @override
+  Future<bool> contains(String key) async {
+    return _prefs.containsKey(key);
+  }
 }

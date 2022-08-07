@@ -91,6 +91,11 @@ abstract class JsonCache {
   ///
   /// **Note**: [value] must be json encodable.
   Future<void> refresh(String key, Map<String, dynamic> value);
+
+  /// Checks whether there is cached data at [key].
+  ///
+  /// Returns `true` if there is cached data at [key]; `false` otherwise.
+  Future<bool> contains(String key);
 }
 ```
 

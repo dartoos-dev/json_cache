@@ -23,6 +23,32 @@ void main() {
       prof = await hiveCache.value(profKey);
       expect(prof, isNull);
     });
+
+    test('contains', () async {
+      const profKey = 'profile';
+      const prefKey = 'preferences';
+      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
+      final prefData = <String, dynamic>{
+        'theme': 'dark',
+        'notifications': {'enabled': true}
+      };
+      final box = await Hive.openBox<String>('test-contains-method');
+      final JsonCacheHive hiveCache = JsonCacheHive(box);
+      // update data
+      await hiveCache.refresh(profKey, profData);
+      await hiveCache.refresh(prefKey, prefData);
+
+      // test for `true`
+      expect(await hiveCache.contains(profKey), true);
+      expect(await hiveCache.contains(prefKey), true);
+
+      // test for `false`
+      expect(await hiveCache.contains('a key'), false);
+      await hiveCache.remove(profKey);
+      expect(await hiveCache.contains(profKey), false);
+      await hiveCache.remove(prefKey);
+      expect(await hiveCache.contains(prefKey), false);
+    });
     test('remove', () async {
       const profKey = 'profile';
       const prefKey = 'preferences';

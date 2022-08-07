@@ -25,6 +25,31 @@ void main() {
       expect(secStorageMock.readInvokations, 2);
     });
 
+    test('contains', () async {
+      const profKey = 'profile';
+      const prefKey = 'preferences';
+      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
+      final prefData = <String, dynamic>{
+        'theme': 'dark',
+        'notifications': {'enabled': true}
+      };
+      final secStorageMock = FlutterSecureStorageMock();
+      final JsonCacheSecStorage secCache = JsonCacheSecStorage(secStorageMock);
+      // update data
+      await secCache.refresh(profKey, profData);
+      await secCache.refresh(prefKey, prefData);
+
+      // test for `true`
+      expect(await secCache.contains(profKey), true);
+      expect(await secCache.contains(prefKey), true);
+
+      // test for `false`
+      expect(await secCache.contains('a key'), false);
+      await secCache.remove(profKey);
+      expect(await secCache.contains(profKey), false);
+      await secCache.remove(prefKey);
+      expect(await secCache.contains(prefKey), false);
+    });
     test('remove', () async {
       final secStorageMock = FlutterSecureStorageMock();
       final JsonCacheSecStorage secCache = JsonCacheSecStorage(secStorageMock);

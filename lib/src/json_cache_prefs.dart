@@ -25,8 +25,8 @@ class JsonCachePrefs implements JsonCache {
 
   /// Writes [value] to the preferences file.
   ///
-  /// **Note**: [value] must be json encodable — `json.encode()` is called under
-  /// the hood.
+  /// **Note**: [value] must be json encodable because `json.encode()` is called
+  /// under the hood.
   @override
   Future<void> refresh(String key, Map<String, dynamic> value) async {
     await _prefs.setString(key, json.encode(value));
@@ -40,5 +40,11 @@ class JsonCachePrefs implements JsonCache {
     return strJson == null
         ? null
         : json.decode(strJson) as Map<String, dynamic>;
+  }
+
+  /// Checks whether there is data in the preferences at [key].
+  @override
+  Future<bool> contains(String key) async {
+    return _prefs.containsKey(key);
   }
 }

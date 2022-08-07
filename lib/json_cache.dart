@@ -1,4 +1,4 @@
-/// Collection of json cache decorators.
+/// A collection of [JsonCache] decorators.
 library json_cache;
 
 export 'src/json_cache.dart';

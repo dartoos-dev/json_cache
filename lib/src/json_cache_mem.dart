@@ -146,4 +146,17 @@ class JsonCacheMem implements JsonCache {
       return null;
     });
   }
+
+  /// Checks whether the in-memory or the level2 chache contains cached data at
+  /// [key].
+  @override
+  Future<bool> contains(String key) {
+    return _mutex.protectRead(() async {
+      bool found = _memory.containsKey(key);
+      if (!found) {
+        found = await _level2.contains(key);
+      }
+      return found;
+    });
+  }
 }

@@ -35,4 +35,11 @@ class JsonCacheLocalStorage implements JsonCache {
     await _getReady;
     return await _storage.getItem(key) as Map<String, dynamic>?;
   }
+
+  @override
+  Future<bool> contains(String key) async {
+    await _getReady;
+    final Object? item = _storage.getItem(key);
+    return item != null;
+  }
 }

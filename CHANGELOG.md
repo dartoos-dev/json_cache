@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- implementation of the 'contains' method —
+  [92](https://github.com/dartoos-dev/json_cache/issues/92).
+
 ## [1.2.6] - 2022-08-01
 
 ### Changed

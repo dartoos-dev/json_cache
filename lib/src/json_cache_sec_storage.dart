@@ -36,4 +36,9 @@ class JsonCacheSecStorage implements JsonCache {
         ? null
         : json.decode(encrypted) as Map<String, dynamic>;
   }
+
+  @override
+  Future<bool> contains(String key) async {
+    return _storage.containsKey(key: key);
+  }
 }

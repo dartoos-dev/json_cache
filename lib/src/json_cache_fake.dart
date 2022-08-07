@@ -23,21 +23,31 @@ class JsonCacheFake implements JsonCache {
 
   /// Clears its internal in-memory storage.
   @override
-  Future<void> clear() async => _memory.clear();
+  Future<void> clear() async {
+    _memory.clear();
+  }
 
   /// Updates data located at [key].
   @override
-  Future<void> refresh(String key, Map<String, dynamic> data) async =>
-      _memory[key] = Map<String, dynamic>.of(data);
+  Future<void> refresh(String key, Map<String, dynamic> data) async {
+    _memory[key] = Map<String, dynamic>.of(data);
+  }
 
   /// Removes data located at [key].
   @override
-  Future<void> remove(String key) async => _memory.remove(key);
+  Future<void> remove(String key) async {
+    _memory.remove(key);
+  }
 
   /// Retrieves a copy of the data at [key] or `null` if there is no data.
   @override
   Future<Map<String, dynamic>?> value(String key) async {
     final cached = _memory[key];
     return cached == null ? null : Map<String, dynamic>.of(cached);
+  }
+
+  @override
+  Future<bool> contains(String key) async {
+    return _memory.containsKey(key);
   }
 }

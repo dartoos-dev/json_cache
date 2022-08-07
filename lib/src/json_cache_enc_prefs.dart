@@ -40,4 +40,9 @@ class JsonCacheEncPrefs implements JsonCache {
     }
     return null;
   }
+
+  @override
+  Future<bool> contains(String key) async {
+    return (await _encPrefs.getInstance()).containsKey(key);
+  }
 }

@@ -50,6 +50,26 @@ void main() {
         expect(copy.isEmpty, true);
       });
     });
+
+    test('contains', () async {
+      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
+      final prefData = <String, dynamic>{
+        'theme': 'dark',
+        'notifications': {'enabled': true}
+      };
+      final fake = JsonCacheFake();
+      // update data
+      await fake.refresh(profKey, profData);
+      await fake.refresh(prefKey, prefData);
+
+      // test for `true`
+      expect(await fake.contains(profKey), true);
+      expect(await fake.contains(prefKey), true);
+
+      await fake.remove(prefKey);
+      expect(await fake.contains(prefKey), false);
+      expect(await fake.contains('a key'), false);
+    });
     group('remove', () {
       test('default ctor', () async {
         final JsonCacheFake fakeCache = JsonCacheFake();

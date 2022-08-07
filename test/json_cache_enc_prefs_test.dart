@@ -19,6 +19,31 @@ void main() {
       expect(prof, isNull);
     });
 
+    test('contains', () async {
+      const profKey = 'profile';
+      const prefKey = 'preferences';
+      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
+      final prefData = <String, dynamic>{
+        'theme': 'dark',
+        'notifications': {'enabled': true}
+      };
+      final JsonCacheEncPrefs encPrefsCache =
+          JsonCacheEncPrefs(EncryptedSharedPreferences());
+      // update data
+      await encPrefsCache.refresh(profKey, profData);
+      await encPrefsCache.refresh(prefKey, prefData);
+
+      // test for `true`
+      expect(await encPrefsCache.contains(profKey), true);
+      expect(await encPrefsCache.contains(prefKey), true);
+
+      // test for `false`
+      expect(await encPrefsCache.contains('a key'), false);
+      await encPrefsCache.remove(profKey);
+      expect(await encPrefsCache.contains(profKey), false);
+      await encPrefsCache.remove(prefKey);
+      expect(await encPrefsCache.contains(prefKey), false);
+    });
     test('remove', () async {
       const profKey = 'profile';
       const prefKey = 'preferences';

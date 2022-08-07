@@ -1,38 +1,57 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:json_cache/json_cache.dart';
 
-class JsonCacheFakeWrap extends JsonCacheWrap {
-  JsonCacheFakeWrap() : super(JsonCacheMem());
+class JsonCacheTestWrap extends JsonCacheWrap {
+  JsonCacheTestWrap() : super(JsonCacheMem());
 }
 
 void main() {
   group('JsonCacheWrap', () {
     const profKey = 'profile';
-    const Map<String, dynamic> profData = <String, dynamic>{
-      'id': 1,
-      'name': 'John Due'
-    };
+    const prefKey = 'preferences';
     group('clear, value and refresh', () {
       test('default ctor', () async {
-        final JsonCache wrap = JsonCacheFakeWrap();
-        await wrap.refresh(profKey, profData);
+        const Map<String, dynamic> data = <String, dynamic>{
+          'id': 1,
+          'name': 'John Due'
+        };
+        final JsonCache wrap = JsonCacheTestWrap();
+        await wrap.refresh(profKey, data);
         final result = await wrap.value(profKey);
-        expect(profData, result);
+        expect(data, result);
         await wrap.clear();
         final mustBeNull = await wrap.value(profKey);
         expect(mustBeNull, isNull);
       });
     });
-
-    test('remove', () async {
-      const profKey = 'profile';
-      const prefKey = 'preferences';
+    test('contains', () async {
       final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
       final prefData = <String, dynamic>{
         'theme': 'dark',
         'notifications': {'enabled': true}
       };
-      final wrap = JsonCacheFakeWrap();
+      final wrap = JsonCacheTestWrap();
+
+      // update data
+      await wrap.refresh(profKey, profData);
+      await wrap.refresh(prefKey, prefData);
+
+      // test for `true`
+      expect(await wrap.contains(profKey), true);
+      expect(await wrap.contains(prefKey), true);
+
+      // test for `false`
+      await wrap.remove(prefKey);
+      expect(await wrap.contains(prefKey), false);
+      expect(await wrap.contains('a key'), false);
+    });
+    test('remove', () async {
+      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
+      final prefData = <String, dynamic>{
+        'theme': 'dark',
+        'notifications': {'enabled': true}
+      };
+      final wrap = JsonCacheTestWrap();
       await wrap.refresh(profKey, profData);
       await wrap.refresh(prefKey, prefData);
 

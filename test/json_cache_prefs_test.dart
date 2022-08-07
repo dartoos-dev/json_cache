@@ -18,6 +18,31 @@ void main() {
       expect(prof, isNull);
     });
 
+    test('contains', () async {
+      const profKey = 'profile';
+      const prefKey = 'preferences';
+      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
+      final prefData = <String, dynamic>{
+        'theme': 'dark',
+        'notifications': {'enabled': true}
+      };
+      final JsonCachePrefs prefs =
+          JsonCachePrefs(await SharedPreferences.getInstance());
+      // update data
+      await prefs.refresh(profKey, profData);
+      await prefs.refresh(prefKey, prefData);
+
+      // test for `true`
+      expect(await prefs.contains(profKey), true);
+      expect(await prefs.contains(prefKey), true);
+
+      // test for `false`
+      expect(await prefs.contains('a key'), false);
+      await prefs.remove(profKey);
+      expect(await prefs.contains(profKey), false);
+      await prefs.remove(prefKey);
+      expect(await prefs.contains(prefKey), false);
+    });
     test('remove', () async {
       const profKey = 'profile';
       const prefKey = 'preferences';
