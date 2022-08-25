@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- update 'flutter_secure_storage' dependency to version 6.0.0 —
+  [97](https://github.com/dartoos-dev/json_cache/issues/97).
+
 - documentation improvements —
   [95](https://github.com/dartoos-dev/json_cache/issues/95).
 
