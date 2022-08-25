@@ -77,13 +77,13 @@ It is defined as:
 ```dart
 /// Represents cached data in json format.
 abstract class JsonCache {
-  /// Frees up storage space — deletes all keys with associated values.
+  /// Frees up storage space — deletes all keys and values.
   Future<void> clear();
 
   /// Removes cached data located at [key].
   Future<void> remove(String key);
 
-  /// Retrieves cached data located at [key] or null if a cache miss occurs.
+  /// Retrieves cached data located at [key] or `null` if a cache miss occurs.
   Future<Map<String, dynamic>?> value(String key);
 
   /// It either updates data located at [key] with [value] or, if there is no
@@ -92,7 +92,7 @@ abstract class JsonCache {
   /// **Note**: [value] must be json encodable.
   Future<void> refresh(String key, Map<String, dynamic> value);
 
-  /// Checks whether there is cached data at [key].
+  /// Checks for cached data located at [key].
   ///
   /// Returns `true` if there is cached data at [key]; `false` otherwise.
   Future<bool> contains(String key);
@@ -256,13 +256,13 @@ is an implementation on top of the
   final JsonCache jsonCache = JsonCacheSecStorage(secStorage);
   // In order to write a string value, define it as a map key whose associated
   // value is a boolean placeholder value set to 'true'.
-  final Map<String, dynamic> info = {'an secret info': true};
+  final Map<String, dynamic> info = {'a secret info': true};
   jsonCache.refresh('secret', info);
 
   // later on…
 
   final mappedInfo = (await jsonCache.value('secret'))!;
-  final originalInfo = mappedInfo.keys.first; // 'an secret info'
+  final originalInfo = mappedInfo.keys.first; // 'a secret info'
 ```
 
 ### JsonCacheLocalStorage
