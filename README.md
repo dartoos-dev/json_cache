@@ -23,13 +23,14 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 
 - [Overview](#overview)
 - [Getting Started](#getting-started)
+  - [Storing Simple Values](#storing-simple-values)
   - [Suggested Dependency Relationship](#suggested-dependency-relationship)
 - [Implementations](#implementations)
   - [JsonCacheMem — Thread-safe In-memory cache](#jsoncachemem)
   - [JsonCachePrefs — SharedPreferences](#jsoncacheprefs)
   - [JsonCacheEncPrefs — EncryptedSharedPreferences](#jsoncacheencprefs)
-  - [JsonCacheSecStorage — FlutterSecureStorage](#jsoncachesecstorage)
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
+  - [JsonCacheSecStorage — FlutterSecureStorage](#jsoncachesecstorage)
   - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
   - [JsonCacheHive — Hive](#jsoncachehive)
 - [Unit Test Tips](#unit-test-tips)
@@ -118,6 +119,25 @@ final JsonCache jsonCache = … retrieve one of the JsonCache implementations.
 …
 await jsonCache.refresh('profile', {'name': 'John Doe', 'email': 'johndoe@email.com', 'accountType': 'premium'});
 await jsonCache.refresh('preferences', {'theme': {'dark': true}, 'notifications':{'enabled': true}});
+```
+### Storing Simple Values
+
+In order to store a simple value such as a `string`, `int`, `double`, etc,
+define it as a **map key** whose associated value is a boolean placeholder value
+set to `true`. For example:
+
+```dart
+  /// Storing a simple text information.
+  jsonCache.refresh('info', {'an important information': true});
+
+  // later on…
+
+  // This variable is a Map containing a single key.
+  final cachedInfo = await memCache.value('info');
+  // The key itself is the content of the stored information.
+  final info = cachedInfo?.keys.first;
+  print(info); // 'an important information'
+
 ```
 
 ### Suggested Dependency Relationship
@@ -243,6 +263,19 @@ package.
   final JsonCache jsonCache = JsonCacheMem(JsonCacheEncPrefs(encPrefs));
   …
 ```
+### JsonCacheLocalStorage
+
+[JsonCacheLocalStorage](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheLocalStorage-class.html)
+is an implementation on top of the
+[localstorage](https://pub.dev/packages/localstorage) package.
+
+```dart
+  …
+  final LocalStorage storage = LocalStorage('my_data');
+  final JsonCache jsonCache = JsonCacheMem(JsonCacheLocalStorage(storage));
+  …
+```
+
 
 ### JsonCacheSecStorage
 
@@ -256,26 +289,12 @@ is an implementation on top of the
   final JsonCache jsonCache = JsonCacheSecStorage(secStorage);
   // In order to write a string value, define it as a map key whose associated
   // value is a boolean placeholder value set to 'true'.
-  final Map<String, dynamic> info = {'a secret info': true};
-  jsonCache.refresh('secret', info);
+  jsonCache.refresh('secret', {'a secret info': true});
 
   // later on…
 
-  final mappedInfo = (await jsonCache.value('secret'))!;
-  final originalInfo = mappedInfo.keys.first; // 'a secret info'
-```
-
-### JsonCacheLocalStorage
-
-[JsonCacheLocalStorage](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheLocalStorage-class.html)
-is an implementation on top of the
-[localstorage](https://pub.dev/packages/localstorage) package.
-
-```dart
-  …
-  final LocalStorage storage = LocalStorage('my_data');
-  final JsonCache jsonCache = JsonCacheMem(JsonCacheLocalStorage(storage));
-  …
+  final cachedInfo = await jsonCache.value('secret');
+  final info = cachedInfo?.keys.first; // 'a secret info'
 ```
 
 ### JsonCacheCrossLocalStorage
