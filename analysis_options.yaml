@@ -6,7 +6,7 @@ analyzer:
     implicit-casts: false
     # A value of false ensures that the type inference engine never chooses the
     # dynamic type when it can’t determine a static type.
-    implicit-dynamic: false
+    # implicit-dynamic: false
 linter:
   rules:
     # Make constructors the first thing in every class
