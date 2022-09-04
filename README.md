@@ -133,7 +133,7 @@ set to `true`. For example:
   // later on…
 
   // This variable is a Map containing a single key.
-  final cachedInfo = await memCache.value('info');
+  final cachedInfo = await jsonCache.value('info');
   // The key itself is the content of the stored information.
   final info = cachedInfo?.keys.first;
   print(info); // 'an important information'
