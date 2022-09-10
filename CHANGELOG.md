@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- export `JsonCacheTry` —
+  [103](https://github.com/dartoos-dev/json_cache/issues/103).
+
 ## [1.4.0] - 2022-09-10
 
 ### Added
