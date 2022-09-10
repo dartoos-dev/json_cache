@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:json_cache/json_cache.dart';
-import 'package:json_cache/src/json_cache_try.dart';
 import 'package:mocktail/mocktail.dart';
 
 class JsonCacheMock extends Mock implements JsonCache {}
