@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- JsonCacheTry: an implementation that throws a `JsonCacheException` when a
+  cache failure occurs —
+  [100](https://github.com/dartoos-dev/json_cache/issues/100).
+
+- JsonCacheException: an exception that conveys enhanced diagnostic messages
+  about cache operation failures —
+  [100](https://github.com/dartoos-dev/json_cache/issues/100).
+
+### Changed
+
+- Improvements to the README file.
+
 ## [1.3.1] - 2022-08-25
 
 ### Changed
