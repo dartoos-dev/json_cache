@@ -27,6 +27,7 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
   - [Suggested Dependency Relationship](#suggested-dependency-relationship)
 - [Implementations](#implementations)
   - [JsonCacheMem — Thread-safe In-memory cache](#jsoncachemem)
+  - [JsonCacheTry — Enhanced Diagnostic Messages](#jsoncachetry)
   - [JsonCachePrefs — SharedPreferences](#jsoncacheprefs)
   - [JsonCacheEncPrefs — EncryptedSharedPreferences](#jsoncacheencprefs)
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
@@ -194,9 +195,10 @@ device.
 
 #### Typical Usage
 
-Due to the fact that `JsonCacheMem` is a [Decorator](https://en.wikipedia.org/wiki/Decorator_pattern),
-you should normally pass another `JsonCache` instance to it whenever you instantiate a `JsonCacheMem`
-object. For example:
+Since `JsonCacheMem` is a
+[Decorator](https://en.wikipedia.org/wiki/Decorator_pattern), you should
+normally pass another `JsonCache` instance to it whenever you instantiate a
+`JsonCacheMem` object. For example:
 
 ```dart
   …
@@ -232,8 +234,31 @@ the internal in-memory cache and the level2 cache.
 ```dart
   …
   final LocalStorage storage = LocalStorage('my_data');
-  final Map<String, Map<String, dynamic>?> initData = await fetchInfo();
+  final Map<String, Map<String, dynamic>?> initData = await fetchData();
   final JsonCacheMem jsonCache = JsonCacheMem.init(initData, level2:JsonCacheLocalStorage(storage));
+  …
+```
+
+### JsonCacheTry
+
+[JsonCacheTry](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheTry-class.html)
+is an implementation of the `JsonCache` interface whose sole purpose is to
+supply enhanced diagnostic information when a cache failure occurs. It does this
+by throwing a
+[JsonCacheException](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheException-class.html)
+exception.
+
+Since `JsonCacheTry` is a
+[Decorator](https://en.wikipedia.org/wiki/Decorator_pattern), you must pass
+another `JsonCache` instance to it whenever you instantiate a `JsonCacheTry`
+object. For example:
+
+```dart
+  …
+  // Local storage cache initialization
+  final prefs = await SharedPreferences.getInstance();
+  // JsonCacheTry instance initialized with in-memory and local storage caches.
+  final jsonCacheTry = JsonCacheTry(JsonCacheMem(JsonCachePrefs(prefs)));
   …
 ```
 
