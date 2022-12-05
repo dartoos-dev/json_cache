@@ -1,6 +1,6 @@
 /// An exception to indicate cache operation failures.
 class JsonCacheException<T extends Object> implements Exception {
-  /// Sets [extra] as aditional information and [exception] as the original
+  /// Sets [extra] as the aditional information and [exception] as the original
   /// exception.
   const JsonCacheException({required this.extra, this.exception});
 
@@ -15,7 +15,8 @@ class JsonCacheException<T extends Object> implements Exception {
 
   /// Returns [extra] along with the original exception message.
   @override
-  String toString() => '$extra$_separator$_originalExceptionMessage';
+  String toString() =>
+      'JsonCacheException: $extra$_separator$_originalExceptionMessage';
 
   /// Returns '\n' if [exception] is set; otherwise, the empty string ''.
   String get _separator => exception != null ? '\n' : '';

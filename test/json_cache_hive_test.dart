@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_test/hive_test.dart';
 import 'package:json_cache/src/json_cache_hive.dart';
 
 void main() {
-  setUp(() {
-    Hive.init('test');
+  setUp(() async {
+    await setUpTestHive();
   });
   tearDown(() async {
-    await Hive.deleteFromDisk();
-    await Hive.close();
+    await tearDownTestHive();
   });
   group('JsonCacheHive', () {
     test('clear, value, refresh', () async {

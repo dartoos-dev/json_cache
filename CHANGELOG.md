@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- made class `JsonCacheTry` to throw `JsonCacheException` with associated
+  stack trace — [109](https://github.com/dartoos-dev/json_cache/issues/109).
+
+- `JsonCacheException` prefixes error messages with 'JsonCacheException: '.
+
+- bump up dependencies.
+
 ## [1.4.2] - 2022-09-10
 
 ### Fixed
