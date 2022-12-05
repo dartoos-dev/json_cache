@@ -13,7 +13,7 @@ void main() {
         throwsAssertionError,
       );
     });
-    test('clear', () async {
+    test('clear should throw "JsonCacheException"', () async {
       final JsonCacheTry jsonCacheTry = JsonCacheTry(jsonCacheMock);
       // Stub the 'clear' method.
       when(() => jsonCacheMock.clear()).thenThrow(Exception('Cache Failure'));
@@ -27,7 +27,7 @@ void main() {
       // Check if the interaction occurred only once.
       verify(() => jsonCacheMock.clear()).called(1);
     });
-    test('contains', () async {
+    test('contains should throw "JsonCacheException"', () async {
       final JsonCacheTry jsonCacheTry = JsonCacheTry(jsonCacheMock);
       // Stub the 'contains' method.
       when(() => jsonCacheMock.contains('aKey'))
@@ -42,7 +42,7 @@ void main() {
       // Check if the interaction occurred only once.
       verify(() => jsonCacheMock.contains('aKey')).called(1);
     });
-    test('refresh', () async {
+    test('refresh should throw "JsonCacheException"', () async {
       final JsonCacheTry jsonCacheTry = JsonCacheTry(jsonCacheMock);
       // Stub the 'refresh' method.
       when(() => jsonCacheMock.refresh('aKey', {}))
@@ -57,7 +57,7 @@ void main() {
       // Check if the interaction occurred only once.
       verify(() => jsonCacheMock.refresh('aKey', {})).called(1);
     });
-    test('remove', () async {
+    test('remove should throw "JsonCacheException"', () async {
       final JsonCacheTry jsonCacheTry = JsonCacheTry(jsonCacheMock);
       // Stub the 'remove' method.
       when(() => jsonCacheMock.remove('aKey'))
@@ -72,7 +72,7 @@ void main() {
       // Check if the interaction occurred only once.
       verify(() => jsonCacheMock.remove('aKey')).called(1);
     });
-    test('value', () async {
+    test('value should throw "JsonCacheException"', () async {
       final JsonCacheTry jsonCacheTry = JsonCacheTry(jsonCacheMock);
       // Stub the 'value' method.
       when(() => jsonCacheMock.value('aKey'))

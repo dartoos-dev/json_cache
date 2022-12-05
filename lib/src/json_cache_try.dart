@@ -21,10 +21,13 @@ class JsonCacheTry implements JsonCache {
   Future<void> clear() async {
     try {
       await _wrapped.clear();
-    } on Exception catch (ex) {
-      throw JsonCacheException(
-        extra: 'Error clearing cached data.',
-        exception: ex,
+    } on Exception catch (ex, st) {
+      Error.throwWithStackTrace(
+        JsonCacheException(
+          extra: 'Error clearing cached data.',
+          exception: ex,
+        ),
+        st,
       );
     }
   }
@@ -36,10 +39,13 @@ class JsonCacheTry implements JsonCache {
   Future<void> refresh(String key, Map<String, dynamic> value) async {
     try {
       await _wrapped.refresh(key, value);
-    } on Exception catch (ex) {
-      throw JsonCacheException(
-        extra: "Error refreshing cached data at index '$key'.",
-        exception: ex,
+    } on Exception catch (ex, st) {
+      Error.throwWithStackTrace(
+        JsonCacheException(
+          extra: "Error refreshing cached data at index '$key'.",
+          exception: ex,
+        ),
+        st,
       );
     }
   }
@@ -51,10 +57,13 @@ class JsonCacheTry implements JsonCache {
   Future<void> remove(String key) async {
     try {
       await _wrapped.remove(key);
-    } on Exception catch (ex) {
-      throw JsonCacheException(
-        extra: "Error removing cached data at index '$key'.",
-        exception: ex,
+    } on Exception catch (ex, st) {
+      Error.throwWithStackTrace(
+        JsonCacheException(
+          extra: "Error removing cached data at index '$key'.",
+          exception: ex,
+        ),
+        st,
       );
     }
   }
@@ -66,10 +75,13 @@ class JsonCacheTry implements JsonCache {
   Future<Map<String, dynamic>?> value(String key) async {
     try {
       return await _wrapped.value(key);
-    } on Exception catch (ex) {
-      throw JsonCacheException(
-        extra: "Error retrieving cached data at index '$key'.",
-        exception: ex,
+    } on Exception catch (ex, st) {
+      Error.throwWithStackTrace(
+        JsonCacheException(
+          extra: "Error retrieving cached data at index '$key'.",
+          exception: ex,
+        ),
+        st,
       );
     }
   }
@@ -81,10 +93,13 @@ class JsonCacheTry implements JsonCache {
   Future<bool> contains(String key) async {
     try {
       return await _wrapped.contains(key);
-    } on Exception catch (ex) {
-      throw JsonCacheException(
-        extra: "Error checking for cached data at index '$key'.",
-        exception: ex,
+    } on Exception catch (ex, st) {
+      Error.throwWithStackTrace(
+        JsonCacheException(
+          extra: "Error checking for cached data at index '$key'.",
+          exception: ex,
+        ),
+        st,
       );
     }
   }
