@@ -244,9 +244,8 @@ the internal in-memory cache and the level2 cache.
 [JsonCacheTry](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheTry-class.html)
 is an implementation of the `JsonCache` interface whose sole purpose is to
 supply enhanced diagnostic information when a cache failure occurs. It does this
-by throwing a
-[JsonCacheException](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheException-class.html)
-exception.
+by throwing [JsonCacheException](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheException-class.html)
+with the underlying stack trace.
 
 Since `JsonCacheTry` is a
 [Decorator](https://en.wikipedia.org/wiki/Decorator_pattern), you must pass
