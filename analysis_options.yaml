@@ -1,4 +1,4 @@
-include: package:lint/analysis_options_package.yaml
+include: package:lint/package.yaml
 analyzer:
   strong-mode:
     # A value of false ensures that the type inference engine never implicitly casts

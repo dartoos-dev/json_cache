@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- bump up dependencies — [109](https://github.com/dartoos-dev/json_cache/issues/112).
+
 ## [1.5.0] - 2022-12-05
 
 ### Changed
