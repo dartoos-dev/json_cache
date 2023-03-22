@@ -7,11 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- fix comment in JsonCacheHive class constructor — [120](https://github.com/dartoos-dev/json_cache/issues/120).
+
 ## [1.5.2] - 2023-02-28
+
+### Changed
 
 - bump up dependencies — [117](https://github.com/dartoos-dev/json_cache/issues/117).
 
 ## [1.5.1] - 2023-02-05
+
+### Changed
 
 - bump up dependencies — [112](https://github.com/dartoos-dev/json_cache/issues/112).
 
