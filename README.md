@@ -30,7 +30,7 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
   - [JsonCacheTry — Enhanced Diagnostic Messages](#jsoncachetry)
   - [JsonCachePrefs — SharedPreferences](#jsoncacheprefs)
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
-  - [JsonCacheSecStorage — FlutterSecureStorage](#jsoncachesecstorage)
+  - [JsonCacheFlutterSecureStorage — FlutterSecureStorage](#jsoncachefluttersecurestorage)
   - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
   - [JsonCacheHive — Hive](#jsoncachehive)
 - [Unit Test Tips](#unit-test-tips)
@@ -286,16 +286,16 @@ is an implementation on top of the
 ```
 
 
-### JsonCacheSecStorage
+### JsonCacheFlutterSecureStorage
 
-JsonCacheSecStorage
+JsonCacheFlutterSecureStorage
 is an implementation on top of the
 [flutter_secure_storage](https://pub.dev/packages/flutter_secure_storage) package.
 
 ```dart
   …
-  final secStorage = FlutterSecureStorage(…);
-  final JsonCache jsonCache = JsonCacheSecStorage(secStorage);
+  final flutterSecureStorage = FlutterSecureStorage(…);
+  final JsonCache jsonCache = JsonCacheFlutterSecureStorage(flutterSecureStorage);
   // In order to write a string value, define it as a map key whose associated
   // value is a boolean placeholder value set to 'true'.
   jsonCache.refresh('secret', {'a secret info': true});

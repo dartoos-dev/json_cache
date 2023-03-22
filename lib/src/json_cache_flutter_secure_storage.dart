@@ -7,11 +7,11 @@ import 'package:json_cache/json_cache.dart';
 ///
 /// See also:
 /// - [flutter_secure_storage](https://pub.dev/packages/flutter_secure_storage).
-class JsonCacheSecStorage implements JsonCache {
+class JsonCacheFlutterSecureStorage implements JsonCache {
   /// Sets the [FlutterSecureStorage] instance.
-  const JsonCacheSecStorage(this._storage);
+  const JsonCacheFlutterSecureStorage(this._storage);
 
-  // the encapsulated [FlutterSecureStorage] instance.
+  // The encapsulated [FlutterSecureStorage] instance.
   final FlutterSecureStorage _storage;
 
   @override
