@@ -11,9 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - fix comment in JsonCacheHive class constructor — [120](https://github.com/dartoos-dev/json_cache/issues/120).
 
+- rename class JsonCacheSecStorage to JsonCacheFlutterSecureStorage — **BREAKING CHANGE** — [126](https://github.com/dartoos-dev/json_cache/issues/126).
+
 ### Removed
 
-- drop support for the 'EncryptedSharedPreferences' package — **BREAKING CHANGE** — [125](https://github.com/dartoos-dev/json_cache/issues/125).
+- support for the 'EncryptedSharedPreferences' package — **BREAKING CHANGE** — [125](https://github.com/dartoos-dev/json_cache/issues/125).
 
 ## [1.5.2] - 2023-02-28
 

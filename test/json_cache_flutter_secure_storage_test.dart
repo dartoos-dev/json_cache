@@ -4,23 +4,24 @@ import 'package:json_cache/json_cache.dart';
 import 'flutter_secure_storage_mock.dart';
 
 void main() {
-  group('JsonCacheSecStorage', () {
+  group('JsonCacheFlutterSecureStorage', () {
     test('clear, value, refresh', () async {
       final secStorageMock = FlutterSecureStorageMock();
-      final JsonCacheSecStorage secCache = JsonCacheSecStorage(secStorageMock);
+      final JsonCacheFlutterSecureStorage flutterSecureCache =
+          JsonCacheFlutterSecureStorage(secStorageMock);
       const profKey = 'profile';
       const profData = <String, Object>{'id': 1, 'name': 'John Due'};
-      await secCache.refresh(profKey, profData);
+      await flutterSecureCache.refresh(profKey, profData);
       expect(secStorageMock.writeInvokations, 1);
 
-      var prof = await secCache.value(profKey);
+      var prof = await flutterSecureCache.value(profKey);
       expect(prof, profData);
       expect(secStorageMock.readInvokations, 1);
 
-      await secCache.clear();
+      await flutterSecureCache.clear();
       expect(secStorageMock.deleteAllInvokations, 1);
 
-      prof = await secCache.value(profKey);
+      prof = await flutterSecureCache.value(profKey);
       expect(prof, isNull);
       expect(secStorageMock.readInvokations, 2);
     });
@@ -34,25 +35,27 @@ void main() {
         'notifications': {'enabled': true}
       };
       final secStorageMock = FlutterSecureStorageMock();
-      final JsonCacheSecStorage secCache = JsonCacheSecStorage(secStorageMock);
+      final JsonCacheFlutterSecureStorage flutterSecureCache =
+          JsonCacheFlutterSecureStorage(secStorageMock);
       // update data
-      await secCache.refresh(profKey, profData);
-      await secCache.refresh(prefKey, prefData);
+      await flutterSecureCache.refresh(profKey, profData);
+      await flutterSecureCache.refresh(prefKey, prefData);
 
       // test for `true`
-      expect(await secCache.contains(profKey), true);
-      expect(await secCache.contains(prefKey), true);
+      expect(await flutterSecureCache.contains(profKey), true);
+      expect(await flutterSecureCache.contains(prefKey), true);
 
       // test for `false`
-      expect(await secCache.contains('a key'), false);
-      await secCache.remove(profKey);
-      expect(await secCache.contains(profKey), false);
-      await secCache.remove(prefKey);
-      expect(await secCache.contains(prefKey), false);
+      expect(await flutterSecureCache.contains('a key'), false);
+      await flutterSecureCache.remove(profKey);
+      expect(await flutterSecureCache.contains(profKey), false);
+      await flutterSecureCache.remove(prefKey);
+      expect(await flutterSecureCache.contains(prefKey), false);
     });
     test('remove', () async {
       final secStorageMock = FlutterSecureStorageMock();
-      final JsonCacheSecStorage secCache = JsonCacheSecStorage(secStorageMock);
+      final JsonCacheFlutterSecureStorage flutterSecureCache =
+          JsonCacheFlutterSecureStorage(secStorageMock);
       const profKey = 'profile';
       const prefKey = 'preferences';
       final profData = <String, Object>{'id': 1, 'name': 'John Due'};
@@ -60,26 +63,26 @@ void main() {
         'theme': 'dark',
         'notifications': {'enabled': true}
       };
-      await secCache.refresh(profKey, profData);
-      await secCache.refresh(prefKey, prefData);
+      await flutterSecureCache.refresh(profKey, profData);
+      await flutterSecureCache.refresh(prefKey, prefData);
       expect(secStorageMock.writeInvokations, 2);
 
-      var prof = await secCache.value(profKey);
+      var prof = await flutterSecureCache.value(profKey);
       expect(prof, profData);
       expect(secStorageMock.readInvokations, 1);
 
-      await secCache.remove(profKey);
+      await flutterSecureCache.remove(profKey);
       expect(secStorageMock.deleteInvokations, 1);
-      prof = await secCache.value(profKey);
+      prof = await flutterSecureCache.value(profKey);
       expect(prof, isNull);
       expect(secStorageMock.readInvokations, 2);
 
-      var pref = await secCache.value(prefKey);
+      var pref = await flutterSecureCache.value(prefKey);
       expect(pref, prefData);
       expect(secStorageMock.readInvokations, 3);
-      await secCache.remove(prefKey);
+      await flutterSecureCache.remove(prefKey);
       expect(secStorageMock.deleteInvokations, 2);
-      pref = await secCache.value(prefKey);
+      pref = await flutterSecureCache.value(prefKey);
       expect(pref, isNull);
       expect(secStorageMock.readInvokations, 4);
     });
