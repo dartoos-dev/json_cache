@@ -10,7 +10,6 @@ environment:
 
 dependencies:
   cross_local_storage: ^2.0.1
-  encrypted_shared_preferences: ^3.0.1
   flutter:
     sdk: flutter
   flutter_secure_storage: ^8.0.0

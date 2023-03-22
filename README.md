@@ -29,7 +29,6 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
   - [JsonCacheMem — Thread-safe In-memory cache](#jsoncachemem)
   - [JsonCacheTry — Enhanced Diagnostic Messages](#jsoncachetry)
   - [JsonCachePrefs — SharedPreferences](#jsoncacheprefs)
-  - [JsonCacheEncPrefs — EncryptedSharedPreferences](#jsoncacheencprefs)
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
   - [JsonCacheSecStorage — FlutterSecureStorage](#jsoncachesecstorage)
   - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
@@ -271,20 +270,6 @@ is an implementation on top of the
   …
   final prefs = await SharedPreferences.getInstance();
   final JsonCache jsonCache = JsonCacheMem(JsonCachePrefs(prefs));
-  …
-```
-
-### JsonCacheEncPrefs
-
-[JsonCacheEncPrefs](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheEncPrefs-class.html)
-is an implementation on top of the
-[encrypted_shared_preferences](https://pub.dev/packages/encrypted_shared_preferences)
-package.
-
-```dart
-  …
-  final encPrefs = EncryptedSharedPreferences();
-  final JsonCache jsonCache = JsonCacheMem(JsonCacheEncPrefs(encPrefs));
   …
 ```
 ### JsonCacheLocalStorage
