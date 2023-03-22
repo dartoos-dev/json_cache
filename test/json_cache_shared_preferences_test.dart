@@ -4,12 +4,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   SharedPreferences.setMockInitialValues({});
-  group('JsonCachePrefs', () {
+  group('JsonCacheSharedPreferences', () {
     test('clear, value, refresh', () async {
       const profKey = 'profile';
       const profData = <String, Object>{'id': 1, 'name': 'John Due'};
-      final JsonCachePrefs prefsCache =
-          JsonCachePrefs(await SharedPreferences.getInstance());
+      final JsonCacheSharedPreferences prefsCache =
+          JsonCacheSharedPreferences(await SharedPreferences.getInstance());
       await prefsCache.refresh(profKey, profData);
       var prof = await prefsCache.value(profKey);
       expect(prof, profData);
@@ -26,8 +26,8 @@ void main() {
         'theme': 'dark',
         'notifications': {'enabled': true}
       };
-      final JsonCachePrefs prefs =
-          JsonCachePrefs(await SharedPreferences.getInstance());
+      final JsonCacheSharedPreferences prefs =
+          JsonCacheSharedPreferences(await SharedPreferences.getInstance());
       // update data
       await prefs.refresh(profKey, profData);
       await prefs.refresh(prefKey, prefData);
@@ -51,8 +51,8 @@ void main() {
         'theme': 'dark',
         'notifications': {'enabled': true}
       };
-      final JsonCachePrefs prefsCache =
-          JsonCachePrefs(await SharedPreferences.getInstance());
+      final JsonCacheSharedPreferences prefsCache =
+          JsonCacheSharedPreferences(await SharedPreferences.getInstance());
       await prefsCache.refresh(profKey, profData);
       await prefsCache.refresh(prefKey, prefData);
 

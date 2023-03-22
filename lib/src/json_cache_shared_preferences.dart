@@ -4,23 +4,23 @@ import 'package:json_cache/json_cache.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Persistent preferences file cache.
-class JsonCachePrefs implements JsonCache {
-  /// [_prefs] a [SharedPreferences] instance.
-  const JsonCachePrefs(this._prefs);
+class JsonCacheSharedPreferences implements JsonCache {
+  /// Sets the [SharedPreferences] instance.
+  const JsonCacheSharedPreferences(this._sharedPreferences);
 
-  // The preferences file object.
-  final SharedPreferences _prefs;
+  // The shared preferences file object.
+  final SharedPreferences _sharedPreferences;
 
   /// Frees up the preferences file space.
   @override
   Future<void> clear() async {
-    await _prefs.clear();
+    await _sharedPreferences.clear();
   }
 
   /// Removes an entry from the preferences file storage at [key].
   @override
   Future<void> remove(String key) async {
-    await _prefs.remove(key);
+    await _sharedPreferences.remove(key);
   }
 
   /// Writes [value] to the preferences file.
@@ -29,14 +29,14 @@ class JsonCachePrefs implements JsonCache {
   /// under the hood.
   @override
   Future<void> refresh(String key, Map<String, dynamic> value) async {
-    await _prefs.setString(key, json.encode(value));
+    await _sharedPreferences.setString(key, json.encode(value));
   }
 
   /// The value at [key] from the preferences file; it returns null if a cache
   /// miss occurs.
   @override
   Future<Map<String, dynamic>?> value(String key) async {
-    final strJson = _prefs.getString(key);
+    final strJson = _sharedPreferences.getString(key);
     return strJson == null
         ? null
         : json.decode(strJson) as Map<String, dynamic>;
@@ -45,6 +45,6 @@ class JsonCachePrefs implements JsonCache {
   /// Checks whether there is data in the preferences at [key].
   @override
   Future<bool> contains(String key) async {
-    return _prefs.containsKey(key);
+    return _sharedPreferences.containsKey(key);
   }
 }

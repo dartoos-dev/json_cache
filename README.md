@@ -28,7 +28,7 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
 - [Implementations](#implementations)
   - [JsonCacheMem — Thread-safe In-memory cache](#jsoncachemem)
   - [JsonCacheTry — Enhanced Diagnostic Messages](#jsoncachetry)
-  - [JsonCachePrefs — SharedPreferences](#jsoncacheprefs)
+  - [JsonCacheSharedPreferences — SharedPreferences](#jsoncachesharedpreferences)
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
   - [JsonCacheFlutterSecureStorage — FlutterSecureStorage](#jsoncachefluttersecurestorage)
   - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
@@ -202,8 +202,8 @@ normally pass another `JsonCache` instance to it whenever you instantiate a
 ```dart
   …
   /// Cache initialization
-  final prefs = await SharedPreferences.getInstance();
-  final JsonCacheMem jsonCache = JsonCacheMem(JsonCachePrefs(prefs));
+  final sharedPrefs = await SharedPreferences.getInstance();
+  final JsonCacheMem jsonCache = JsonCacheMem(JsonCacheSharedPreferences(sharedPrefs));
   …
   /// Saving profile and preferences data.
   await jsonCache.refresh('profile', {'name': 'John Doe', 'email': 'johndoe@email.com', 'accountType': 'premium'});
@@ -254,22 +254,22 @@ object. For example:
 ```dart
   …
   // Local storage cache initialization
-  final prefs = await SharedPreferences.getInstance();
+  final sharedPrefs = await SharedPreferences.getInstance();
   // JsonCacheTry instance initialized with in-memory and local storage caches.
-  final jsonCacheTry = JsonCacheTry(JsonCacheMem(JsonCachePrefs(prefs)));
+  final jsonCacheTry = JsonCacheTry(JsonCacheMem(JsonCacheSharedPreferences(sharedPrefs)));
   …
 ```
 
-### JsonCachePrefs
+### JsonCacheSharedPreferences
 
-[JsonCachePrefs](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCachePrefs-class.html)
+[JsonCacheSharedPreferences](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheSharedPreferences-class.html)
 is an implementation on top of the
 [shared_preferences](https://pub.dev/packages/shared_preferences) package.
 
 ```dart
   …
-  final prefs = await SharedPreferences.getInstance();
-  final JsonCache jsonCache = JsonCacheMem(JsonCachePrefs(prefs));
+  final sharedPrefs = await SharedPreferences.getInstance();
+  final JsonCache jsonCache = JsonCacheMem(JsonCacheSharedPreferences(sharedPrefs));
   …
 ```
 ### JsonCacheLocalStorage
@@ -314,8 +314,8 @@ is an implementation on top of the
 
 ```dart
   …
-  final LocalStorageInterface prefs = await LocalStorage.getInstance();
-  final JsonCache jsonCache = JsonCacheMem(JsonCacheCrossLocalStorage(prefs));
+  final LocalStorageInterface localStorage = await LocalStorage.getInstance();
+  final JsonCache jsonCache = JsonCacheMem(JsonCacheCrossLocalStorage(localStorage));
 ```
 
 ### JsonCacheHive

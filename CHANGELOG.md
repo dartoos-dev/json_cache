@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - rename class JsonCacheSecStorage to JsonCacheFlutterSecureStorage — **BREAKING CHANGE** — [126](https://github.com/dartoos-dev/json_cache/issues/126).
 
+- rename class JsonCachePrefs to JsonCacheSharedPreferences — **BREAKING CHANGE** — [127](https://github.com/dartoos-dev/json_cache/issues/127).
+
 ### Removed
 
 - support for the 'EncryptedSharedPreferences' package — **BREAKING CHANGE** — [125](https://github.com/dartoos-dev/json_cache/issues/125).

@@ -195,7 +195,8 @@ void main() {
       test('value missing from L1 cache', () async {
         const key = 'aValue';
         const value = <String, dynamic>{'must be a json encodable value': true};
-        final prefs = JsonCachePrefs(await SharedPreferences.getInstance());
+        final prefs =
+            JsonCacheSharedPreferences(await SharedPreferences.getInstance());
         await prefs.refresh(key, value);
         final JsonCacheMem memCache = JsonCacheMem(prefs);
         final cacheL2Value = await memCache.value(key);
