@@ -9,7 +9,7 @@ import 'package:json_cache/json_cache.dart';
 /// - [cross local storage](https://pub.dev/packages/cross_local_storage)
 class JsonCacheCrossLocalStorage implements JsonCache {
   /// Ctor.
-  JsonCacheCrossLocalStorage(this._prefs);
+  const JsonCacheCrossLocalStorage(this._prefs);
 
   final LocalStorageInterface _prefs;
 
