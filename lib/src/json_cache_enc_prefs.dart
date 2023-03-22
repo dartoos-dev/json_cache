@@ -11,7 +11,7 @@ import 'package:json_cache/json_cache.dart';
 /// [encrypted_shared_preferences](https://pub.dev/packages/encrypted_shared_preferences)
 class JsonCacheEncPrefs implements JsonCache {
   /// [_encPrefs] an [EncryptedSharedPreferences] instance.
-  JsonCacheEncPrefs(this._encPrefs);
+  const JsonCacheEncPrefs(this._encPrefs);
 
   // The encrypted preferences file object.
   final EncryptedSharedPreferences _encPrefs;

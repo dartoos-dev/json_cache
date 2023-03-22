@@ -5,7 +5,7 @@ import 'package:json_cache/json_cache.dart';
 
 /// Implementation on top of the Hive package.
 ///
-/// See: [local storage](https://pub.dev/packages/hive)
+/// See: [hive](https://pub.dev/packages/hive)
 class JsonCacheHive implements JsonCache {
   /// Sets the Hive [Box] instance.
   const JsonCacheHive(this._box);

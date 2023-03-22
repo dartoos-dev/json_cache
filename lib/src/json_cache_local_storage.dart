@@ -6,11 +6,9 @@ import 'package:localstorage/localstorage.dart';
 /// See: [local storage](https://pub.dev/packages/localstorage)
 class JsonCacheLocalStorage implements JsonCache {
   /// Encapsulates a [LocalStorage] instance.
-  JsonCacheLocalStorage(this._storage);
+  const JsonCacheLocalStorage(this._storage);
 
   final LocalStorage _storage;
-
-  Future<bool> get _getReady => _storage.ready;
 
   @override
   Future<void> clear() async {
@@ -42,4 +40,6 @@ class JsonCacheLocalStorage implements JsonCache {
     final Object? item = _storage.getItem(key);
     return item != null;
   }
+
+  Future<bool> get _getReady => _storage.ready;
 }
