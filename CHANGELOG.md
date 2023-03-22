@@ -15,9 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - drop support for the 'EncryptedSharedPreferences' package — [125](https://github.com/dartoos-dev/json_cache/issues/125).
 
-
 ## [1.5.2] - 2023-02-28
-
 
 ### Changed
 
