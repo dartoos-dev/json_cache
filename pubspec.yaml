@@ -16,6 +16,7 @@ dependencies:
   hive: ^2.2.3
   localstorage: ^4.0.1+2
   mutex: ^3.0.1
+  safe_local_storage: ^1.0.0
   shared_preferences: ^2.0.18
 
 dev_dependencies:

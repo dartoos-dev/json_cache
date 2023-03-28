@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- JsonCacheSafeLocalStorage: an implementation on top of the safe_local_storage package - [124](https://github.com/dartoos-dev/json_cache/issues/124).
+
 ## [2.0.0] - 2023-03-22
 
 ### Changed
