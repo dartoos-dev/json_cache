@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:json_cache/src/json_cache_safe_local_storage.dart';
 import 'package:safe_local_storage/safe_local_storage.dart';
@@ -109,6 +110,16 @@ void main() {
           // Check for multiple data.
           expect(await jsonCacheSafeLocalStorage.contains(profKey), true);
           expect(await jsonCacheSafeLocalStorage.contains(prefKey), true);
+
+          // Remove data from the cache.
+          await jsonCacheSafeLocalStorage.remove(profKey);
+          expect(await jsonCacheSafeLocalStorage.contains(profKey), false);
+          expect(await jsonCacheSafeLocalStorage.contains(prefKey), true);
+
+          // Remove data from the cache.
+          await jsonCacheSafeLocalStorage.remove(prefKey);
+          expect(await jsonCacheSafeLocalStorage.contains(profKey), false);
+          expect(await jsonCacheSafeLocalStorage.contains(prefKey), false);
         },
       );
 
@@ -119,12 +130,15 @@ void main() {
           await jsonCacheSafeLocalStorage.refresh(profKey, profData);
           await jsonCacheSafeLocalStorage.refresh(prefKey, prefData);
 
-          // Clear it.
+          // Clear it. All data should be deleted with the file.
           await jsonCacheSafeLocalStorage.clear();
 
           // No data should remain in the cache.
           final cachedValue = await jsonCacheSafeLocalStorage.value(profKey);
           expect(cachedValue, isNull);
+
+          // Insert a single piece of data into the cache. This refresh avoids errors on operational systems.
+          await jsonCacheSafeLocalStorage.refresh(profKey, profData);
         },
       );
     },
@@ -133,7 +147,6 @@ void main() {
   tearDown(
     () async {
       await storage.delete();
-      await tempDir.delete_();
     },
   );
 }
