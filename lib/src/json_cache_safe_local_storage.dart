@@ -19,26 +19,32 @@ class JsonCacheSafeLocalStorage implements JsonCache {
 
   @override
   Future<bool> contains(String key) async {
-    final item = await _localStorage.read();
-    return item[key] != null;
+    return (await _cachedData).containsKey(key);
   }
 
   @override
   Future<void> refresh(String key, Map<String, dynamic> value) async {
-    final data = {key: value};
-    await _localStorage.write(data);
+    final dataCopied = Map<dynamic, dynamic>.of(await _cachedData);
+    dataCopied[key] = value;
+    await _localStorage.write(dataCopied);
   }
 
   @override
   Future<void> remove(String key) async {
-    final data = await _localStorage.read() as Map<String, dynamic>;
-    data.removeWhere((keyMap, valueMap) => keyMap == key);
-    await _localStorage.write(data);
+    final data = await _cachedData;
+    if (data.containsKey(key)) {
+      data.remove(key);
+      await _localStorage.write(data);
+    }
   }
 
   @override
   Future<Map<String, dynamic>?> value(String key) async {
-    final data = await _localStorage.read();
-    return data[key] == null ? null : data[key] as Map<String, dynamic>;
+    return (await _cachedData)[key] as Map<String, dynamic>?;
+  }
+
+  /// Gets the cached data stored in the local storage file.
+  Future<Map<dynamic, dynamic>> get _cachedData async {
+    return await _localStorage.read() as Map<dynamic, dynamic>;
   }
 }
