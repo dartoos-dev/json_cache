@@ -30,6 +30,7 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
   - [JsonCacheTry — Enhanced Diagnostic Messages](#jsoncachetry)
   - [JsonCacheSharedPreferences — SharedPreferences](#jsoncachesharedpreferences)
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
+  - [JsonCacheSafeLocalStorage — SafeLocalStorage](#jsoncachesafelocalstorage)
   - [JsonCacheFlutterSecureStorage — FlutterSecureStorage](#jsoncachefluttersecurestorage)
   - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
   - [JsonCacheHive — Hive](#jsoncachehive)
@@ -120,6 +121,7 @@ final JsonCache jsonCache = … retrieve one of the JsonCache implementations.
 await jsonCache.refresh('profile', {'name': 'John Doe', 'email': 'johndoe@email.com', 'accountType': 'premium'});
 await jsonCache.refresh('preferences', {'theme': {'dark': true}, 'notifications':{'enabled': true}});
 ```
+
 ### Storing Simple Values
 
 In order to store a simple value such as a `string`, `int`, `double`, etc,
@@ -272,6 +274,7 @@ is an implementation on top of the
   final JsonCache jsonCache = JsonCacheMem(JsonCacheSharedPreferences(sharedPrefs));
   …
 ```
+
 ### JsonCacheLocalStorage
 
 [JsonCacheLocalStorage](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheLocalStorage-class.html)
@@ -285,6 +288,18 @@ is an implementation on top of the
   …
 ```
 
+### JsonCacheSafeLocalStorage
+
+[JsonCacheSafeLocalStorage](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheSafeLocalStorage-class.html)
+is an implementation on top of the
+[safe_local_storage](https://pub.dev/packages/safe_local_storage) package.
+
+```dart
+  …
+  final storage = SafeLocalStorage('/path/to/your/cache/file.json');
+  final JsonCache jsonCache = JsonCacheMem(JsonCacheSafeLocalStorage(storage));
+  …
+```
 
 ### JsonCacheFlutterSecureStorage
 
@@ -331,6 +346,7 @@ package.
   final JsonCache hiveCache = JsonCacheMem(JsonCacheHive(box));
   …
 ```
+
 ## Unit Test Tips
 
 This package has been designed with unit testing in mind. This is one of the
