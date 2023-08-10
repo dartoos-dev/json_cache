@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- support for the 'cross_local_storage' package — **BREAKING CHANGE** —
+  [125](https://github.com/dartoos-dev/json_cache/issues/125).
+
 ### Fixed
 
 - Refactor code warnings marked on pub.dev —
