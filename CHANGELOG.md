@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2023-08-10
+
 ### Removed
 
 - support for the 'cross_local_storage' package — **BREAKING CHANGE** —
