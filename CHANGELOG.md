@@ -7,11 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fix
+### Fixed
 
-- Refactor code warnings marked on pub.dev - [137](https://github.com/dartoos-dev/json_cache/issues/137). 
+- Refactor code warnings marked on pub.dev —
+  [137](https://github.com/dartoos-dev/json_cache/issues/137). 
 
-- Add JsonCacheSafeLocalStorage info to README - [134](https://github.com/dartoos-dev/json_cache/issues/134).
+- Add JsonCacheSafeLocalStorage info to README —
+  [134](https://github.com/dartoos-dev/json_cache/issues/134).
+
+### Changed
+
+- Bump up dependencies —
+  [139](https://github.com/dartoos-dev/json_cache/issues/139).
 
 ## [2.1.0] - 2023-03-31
 

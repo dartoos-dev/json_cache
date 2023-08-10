@@ -14,15 +14,15 @@ dependencies:
     sdk: flutter
   flutter_secure_storage: ^8.0.0
   hive: ^2.2.3
-  localstorage: ^4.0.1+2
+  localstorage: ^4.0.1+4
   mutex: ^3.0.1
   safe_local_storage: ^1.0.2
-  shared_preferences: ^2.0.18
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_test: ^1.0.1
   lint: ^2.0.1
-  mocktail: ^0.3.0
+  mocktail: ^1.0.0
   test: ^1.18.2
