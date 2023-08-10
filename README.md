@@ -32,7 +32,6 @@ Rultor.com](https://www.rultor.com/b/dartoos-dev/json_cache)](https://www.rultor
   - [JsonCacheLocalStorage — LocalStorage](#jsoncachelocalstorage)
   - [JsonCacheSafeLocalStorage — SafeLocalStorage](#jsoncachesafelocalstorage)
   - [JsonCacheFlutterSecureStorage — FlutterSecureStorage](#jsoncachefluttersecurestorage)
-  - [JsonCacheCrossLocalStorage — CrossLocalStorage](#jsoncachecrosslocalstorage)
   - [JsonCacheHive — Hive](#jsoncachehive)
 - [Unit Test Tips](#unit-test-tips)
   - [Mocking](#mocking)
@@ -129,8 +128,8 @@ define it as a **map key** whose associated value is a boolean placeholder value
 set to `true`. For example:
 
 ```dart
-  /// Storing a simple text information.
-  jsonCache.refresh('info', {'an important information': true});
+  /// Storing a phrase.
+  jsonCache.refresh('info', {'This is very important information.': true});
 
   // later on…
 
@@ -138,7 +137,7 @@ set to `true`. For example:
   final cachedInfo = await jsonCache.value('info');
   // The key itself is the content of the stored information.
   final info = cachedInfo?.keys.first;
-  print(info); // 'an important information'
+  print(info); // 'This is very important information.'
 
 ```
 
@@ -319,18 +318,6 @@ is an implementation on top of the
 
   final cachedInfo = await jsonCache.value('secret');
   final info = cachedInfo?.keys.first; // 'a secret info'
-```
-
-### JsonCacheCrossLocalStorage
-
-[JsonCacheLocalCrossStorage](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCacheCrossLocalStorage-class.html)
-is an implementation on top of the
-[cross_local_storage](https://pub.dev/packages/cross_local_storage) package.
-
-```dart
-  …
-  final LocalStorageInterface localStorage = await LocalStorage.getInstance();
-  final JsonCache jsonCache = JsonCacheMem(JsonCacheCrossLocalStorage(localStorage));
 ```
 
 ### JsonCacheHive
