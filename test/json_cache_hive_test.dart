@@ -30,7 +30,7 @@ void main() {
       final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
       final prefData = <String, dynamic>{
         'theme': 'dark',
-        'notifications': {'enabled': true}
+        'notifications': {'enabled': true},
       };
       final box = await Hive.openBox<String>('test-contains-method');
       final JsonCacheHive hiveCache = JsonCacheHive(box);
@@ -55,7 +55,7 @@ void main() {
       final profData = <String, Object>{'id': 1, 'name': 'John Due'};
       final prefData = <String, Object>{
         'theme': 'dark',
-        'notifications': {'enabled': true}
+        'notifications': {'enabled': true},
       };
       final box = await Hive.openBox<String>('test-remove');
       final hiveCache = JsonCacheHive(box);

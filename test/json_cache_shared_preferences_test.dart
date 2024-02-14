@@ -24,7 +24,7 @@ void main() {
       final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
       final prefData = <String, dynamic>{
         'theme': 'dark',
-        'notifications': {'enabled': true}
+        'notifications': {'enabled': true},
       };
       final JsonCacheSharedPreferences prefs =
           JsonCacheSharedPreferences(await SharedPreferences.getInstance());
@@ -49,7 +49,7 @@ void main() {
       final profData = <String, Object>{'id': 1, 'name': 'John Due'};
       final prefData = <String, Object>{
         'theme': 'dark',
-        'notifications': {'enabled': true}
+        'notifications': {'enabled': true},
       };
       final JsonCacheSharedPreferences prefsCache =
           JsonCacheSharedPreferences(await SharedPreferences.getInstance());

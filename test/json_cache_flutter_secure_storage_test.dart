@@ -32,7 +32,7 @@ void main() {
       final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
       final prefData = <String, dynamic>{
         'theme': 'dark',
-        'notifications': {'enabled': true}
+        'notifications': {'enabled': true},
       };
       final secStorageMock = FlutterSecureStorageMock();
       final JsonCacheFlutterSecureStorage flutterSecureCache =
@@ -61,7 +61,7 @@ void main() {
       final profData = <String, Object>{'id': 1, 'name': 'John Due'};
       final prefData = <String, Object>{
         'theme': 'dark',
-        'notifications': {'enabled': true}
+        'notifications': {'enabled': true},
       };
       await flutterSecureCache.refresh(profKey, profData);
       await flutterSecureCache.refresh(prefKey, prefData);

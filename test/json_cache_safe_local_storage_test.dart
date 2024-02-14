@@ -25,7 +25,7 @@ void main() {
   const prefKey = 'preferences';
   const prefData = {
     'theme': 'light',
-    'notifications': {'enabled': true}
+    'notifications': {'enabled': true},
   };
 
   setUp(

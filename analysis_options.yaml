@@ -2,6 +2,7 @@ include: package:lint/package.yaml
 
 analyzer:
   strong-mode:
+    implicit-casts: false
 
 linter:
   rules:

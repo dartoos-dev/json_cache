@@ -13,7 +13,7 @@ void main() {
       test('default ctor', () async {
         const Map<String, dynamic> data = <String, dynamic>{
           'id': 1,
-          'name': 'John Due'
+          'name': 'John Due',
         };
         final JsonCache wrap = JsonCacheTestWrap();
         await wrap.refresh(profKey, data);
@@ -28,7 +28,7 @@ void main() {
       final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
       final prefData = <String, dynamic>{
         'theme': 'dark',
-        'notifications': {'enabled': true}
+        'notifications': {'enabled': true},
       };
       final wrap = JsonCacheTestWrap();
 
@@ -49,7 +49,7 @@ void main() {
       final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
       final prefData = <String, dynamic>{
         'theme': 'dark',
-        'notifications': {'enabled': true}
+        'notifications': {'enabled': true},
       };
       final wrap = JsonCacheTestWrap();
       await wrap.refresh(profKey, profData);

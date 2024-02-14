@@ -29,11 +29,11 @@ void main() {
     const prefKey = 'preferences';
     const prefData = <String, dynamic>{
       'theme': 'dark',
-      'notifications': {'enabled': true}
+      'notifications': {'enabled': true},
     };
     const data = <String, Map<String, dynamic>?>{
       profKey: profData,
-      prefKey: prefData
+      prefKey: prefData,
     };
 
     group('JsonCacheMem.init constructor', () {
@@ -114,7 +114,7 @@ void main() {
       final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
       final prefData = <String, dynamic>{
         'theme': 'dark',
-        'notifications': {'enabled': true}
+        'notifications': {'enabled': true},
       };
       final memCache = JsonCacheMem();
       // update data
