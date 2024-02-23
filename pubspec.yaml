@@ -14,9 +14,9 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   hive: ^2.2.3
   localstorage: ^4.0.1+4
-  mutex: ^3.0.1
+  mutex: ^3.1.0
   safe_local_storage: ^1.0.2
-  shared_preferences: ^2.2.0
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
