@@ -5,9 +5,12 @@ name: Flutter CI
 # Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
+  # Runs this action when you push on master
   push:
-    branches: [master]
+    branches: [ "master" ]
+  # Runs this when a PR against master is created
   pull_request:
+    branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -22,28 +25,35 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      # Java environment.
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '12.x'
+      - name: Clone repository
+        uses: actions/checkout@v4
+
       # Setup the flutter environment.
-      - uses: subosito/flutter-action@v2
+      - name: Setup Flutter 
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.3.2"
           channel: 'stable'
           cache: true
+
+      - name: Verify Flutter version
+        run: flutter --version
+
       # Get flutter dependencies.
-      - run: flutter pub get
+      - name: Getting dependencies 
+        run: flutter pub get
+
       # Check for any formatting issues in the code.
-      - run: flutter format --set-exit-if-changed lib/ test/ example/
-      # Statically analyze the Dart code for any errors.
-      - run: flutter analyze --no-current-package lib/ test/ example/
-      # Run widget tests for our flutter project.
-      - run: flutter test --no-pub --coverage
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed lib/ test/ example/
+
+      - name: Analyze project source
+        run: dart analyze --fatal-infos --fatal-warnings lib/ test/ example/
+
+      - name: Run tests
+        run: flutter test --no-pub --coverage
+
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/lcov.info
