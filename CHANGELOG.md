@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Bump up dependencies —
+  [154](https://github.com/dartoos-dev/json_cache/issues/154).
+
 ### Fixed
 
 - Removed code warnings and upgraded dart SDK range and each dependency to latest resolvable version available - [148](https://github.com/dartoos-dev/json_cache/issues/148).
