@@ -10,7 +10,6 @@ on:
     branches: [ "master" ]
   # Runs this when a PR against master is created
   pull_request:
-    branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
