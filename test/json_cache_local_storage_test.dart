@@ -1,21 +1,19 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:json_cache/json_cache.dart';
-import 'package:localstorage/localstorage.dart';
+
+import 'fake_local_storage.dart';
 
 void main() {
-  final LocalStorage storage =
-      LocalStorage('json_cache_local_storage_unit_test');
   group('JsonCacheLocalStorage', () {
     test('clear, recover and refresh', () async {
       const profKey = 'profile';
       const profData = <String, Object>{'id': 1, 'name': 'John Due'};
-      final JsonCacheLocalStorage localStorageCache =
-          JsonCacheLocalStorage(storage);
-      await localStorageCache.refresh(profKey, profData);
-      var prof = await localStorageCache.value(profKey);
+      final JsonCacheLocalStorage jsonCache = _fakeInstance;
+      await jsonCache.refresh(profKey, profData);
+      var prof = await jsonCache.value(profKey);
       expect(prof, profData);
-      await localStorageCache.clear();
-      prof = await localStorageCache.value(profKey);
+      await jsonCache.clear();
+      prof = await jsonCache.value(profKey);
       expect(prof, isNull);
     });
 
@@ -27,21 +25,21 @@ void main() {
         'theme': 'dark',
         'notifications': {'enabled': true},
       };
-      final crossLocal = JsonCacheLocalStorage(storage);
+      final JsonCacheLocalStorage jsonCache = _fakeInstance;
       // update data
-      await crossLocal.refresh(profKey, profData);
-      await crossLocal.refresh(prefKey, prefData);
+      await jsonCache.refresh(profKey, profData);
+      await jsonCache.refresh(prefKey, prefData);
 
       // test for `true`
-      expect(await crossLocal.contains(profKey), true);
-      expect(await crossLocal.contains(prefKey), true);
+      expect(await jsonCache.contains(profKey), true);
+      expect(await jsonCache.contains(prefKey), true);
 
       // test for `false`
-      expect(await crossLocal.contains('a key'), false);
-      await crossLocal.remove(profKey);
-      expect(await crossLocal.contains(profKey), false);
-      await crossLocal.remove(prefKey);
-      expect(await crossLocal.contains(prefKey), false);
+      expect(await jsonCache.contains('a key'), false);
+      await jsonCache.remove(profKey);
+      expect(await jsonCache.contains(profKey), false);
+      await jsonCache.remove(prefKey);
+      expect(await jsonCache.contains(prefKey), false);
     });
     test('remove', () async {
       const profKey = 'profile';
@@ -51,23 +49,27 @@ void main() {
         'theme': 'dark',
         'notifications': {'enabled': true},
       };
-      final JsonCacheLocalStorage localStorageCache =
-          JsonCacheLocalStorage(storage);
-      await localStorageCache.refresh(profKey, profData);
-      await localStorageCache.refresh(prefKey, prefData);
+      final JsonCacheLocalStorage jsonCache = _fakeInstance;
+      await jsonCache.refresh(profKey, profData);
+      await jsonCache.refresh(prefKey, prefData);
 
-      var prof = await localStorageCache.value(profKey);
+      var prof = await jsonCache.value(profKey);
       expect(prof, profData);
 
-      await localStorageCache.remove(profKey);
-      prof = await localStorageCache.value(profKey);
+      await jsonCache.remove(profKey);
+      prof = await jsonCache.value(profKey);
       expect(prof, isNull);
 
-      var pref = await localStorageCache.value(prefKey);
+      var pref = await jsonCache.value(prefKey);
       expect(pref, prefData);
-      await localStorageCache.remove(prefKey);
-      pref = await localStorageCache.value(prefKey);
+      await jsonCache.remove(prefKey);
+      pref = await jsonCache.value(prefKey);
       expect(pref, isNull);
     });
   });
+}
+
+/// Helper factory getter.
+JsonCacheLocalStorage get _fakeInstance {
+  return JsonCacheLocalStorage(FakeLocalStorage());
 }

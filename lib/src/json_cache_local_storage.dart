@@ -1,45 +1,47 @@
+import 'dart:convert';
+
 import 'package:json_cache/json_cache.dart';
 import 'package:localstorage/localstorage.dart';
 
+/// {@template json_cache_local_storage}
+///
 /// Implementation on top of the LocalStorage package.
 ///
+/// Before using it, don't forget to call:
+///
+/// ```dart
+///   WidgetsFlutterBinding.ensureInitialized();
+///   await initLocalStorage();
+/// ```
+///
 /// See: [local storage](https://pub.dev/packages/localstorage)
-class JsonCacheLocalStorage implements JsonCache {
-  /// Encapsulates a [LocalStorage] instance.
-  const JsonCacheLocalStorage(this._storage);
+///
+/// {@endtemplate}
+final class JsonCacheLocalStorage implements JsonCache {
+  /// {@macro json_cache_local_storage}
+  JsonCacheLocalStorage([LocalStorage? customLocalStorage])
+      : _storage = customLocalStorage ?? localStorage;
 
   final LocalStorage _storage;
 
   @override
-  Future<void> clear() async {
-    await _getReady;
-    await _storage.clear();
-  }
+  Future<void> clear() async => _storage.clear();
 
   @override
-  Future<void> refresh(String key, Map<String, dynamic> value) async {
-    await _getReady;
-    await _storage.setItem(key, value);
-  }
+  Future<void> refresh(String key, Map<String, dynamic> value) async =>
+      _storage.setItem(key, json.encode(value));
 
   @override
-  Future<void> remove(String key) async {
-    await _getReady;
-    await _storage.deleteItem(key);
-  }
+  Future<void> remove(String key) async => _storage.removeItem(key);
 
   @override
   Future<Map<String, dynamic>?> value(String key) async {
-    await _getReady;
-    return await _storage.getItem(key) as Map<String, dynamic>?;
+    final strJson = _storage.getItem(key);
+    return strJson == null
+        ? null
+        : json.decode(strJson) as Map<String, dynamic>;
   }
 
   @override
-  Future<bool> contains(String key) async {
-    await _getReady;
-    final Object? item = _storage.getItem(key);
-    return item != null;
-  }
-
-  Future<bool> get _getReady => _storage.ready;
+  Future<bool> contains(String key) async => _storage.getItem(key) != null;
 }

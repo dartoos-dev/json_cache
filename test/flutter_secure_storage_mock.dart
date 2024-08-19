@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/src/foundation/basic_types.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:json_cache/json_cache.dart';
 
@@ -13,10 +14,6 @@ class FlutterSecureStorageMock implements FlutterSecureStorage {
 
   final JsonCache _fakeCache;
 
-  /// throws [UnimplementedError].
-  @override
-  AndroidOptions get aOptions => throw UnimplementedError();
-
   /// Tells how many times [write] has been invoked.
   int writeInvokations = 0;
 
@@ -28,6 +25,7 @@ class FlutterSecureStorageMock implements FlutterSecureStorage {
 
   /// Tells how many times [deleteAll] has been invoked.
   int deleteAllInvokations = 0;
+
   @override
   Future<bool> containsKey({
     required String key,
@@ -68,18 +66,6 @@ class FlutterSecureStorageMock implements FlutterSecureStorage {
     await _fakeCache.clear();
   }
 
-  /// throws [UnimplementedError].
-  @override
-  IOSOptions get iOptions => throw UnimplementedError();
-
-  /// throws [UnimplementedError].
-  @override
-  LinuxOptions get lOptions => throw UnimplementedError();
-
-  /// throws [UnimplementedError].
-  @override
-  MacOsOptions get mOptions => throw UnimplementedError();
-
   @override
   Future<String?> read({
     required String key,
@@ -109,14 +95,6 @@ class FlutterSecureStorageMock implements FlutterSecureStorage {
     throw UnimplementedError();
   }
 
-  /// throws [UnimplementedError].
-  @override
-  WindowsOptions get wOptions => throw UnimplementedError();
-
-  /// throws [UnimplementedError].
-  @override
-  WebOptions get webOptions => throw UnimplementedError();
-
   @override
   Future<void> write({
     required String key,
@@ -133,4 +111,63 @@ class FlutterSecureStorageMock implements FlutterSecureStorage {
       await _fakeCache.refresh(key, json.decode(value) as Map<String, dynamic>);
     }
   }
+
+  /// throws [UnimplementedError].
+  @override
+  WindowsOptions get wOptions => throw UnimplementedError();
+
+  /// throws [UnimplementedError].
+  @override
+  WebOptions get webOptions => throw UnimplementedError();
+
+  /// throws [UnimplementedError].
+  @override
+  AndroidOptions get aOptions => throw UnimplementedError();
+
+  /// throws [UnimplementedError].
+  @override
+  IOSOptions get iOptions => throw UnimplementedError();
+
+  /// throws [UnimplementedError].
+  @override
+  LinuxOptions get lOptions => throw UnimplementedError();
+
+  /// throws [UnimplementedError].
+  @override
+  MacOsOptions get mOptions => throw UnimplementedError();
+
+  /// throws [UnimplementedError].
+  @override
+  Future<bool?> isCupertinoProtectedDataAvailable() =>
+      throw UnimplementedError();
+
+  /// throws [UnimplementedError].
+  @override
+  Stream<bool>? get onCupertinoProtectedDataAvailabilityChanged =>
+      throw UnimplementedError();
+
+  /// throws [UnimplementedError].
+  @override
+  void registerListener({
+    required String key,
+    required ValueChanged<String?> listener,
+  }) =>
+      throw UnimplementedError();
+
+  /// throws [UnimplementedError].
+  @override
+  void unregisterAllListeners() => throw UnimplementedError();
+
+  /// throws [UnimplementedError].
+  @override
+  void unregisterAllListenersForKey({required String key}) =>
+      throw UnimplementedError();
+
+  /// throws [UnimplementedError].
+  @override
+  void unregisterListener({
+    required String key,
+    required ValueChanged<String?> listener,
+  }) =>
+      throw UnimplementedError();
 }
