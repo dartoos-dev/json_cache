@@ -1,17 +1,17 @@
 include: package:lint/package.yaml
 
 analyzer:
-  strong-mode:
-    implicit-casts: false
-
+  exclude:
+    - '**.freezed.dart'
+    - '**.g.dart'
 linter:
   rules:
     # Make constructors the first thing in every class
+    sort_unnamed_constructors_first: true
     sort_constructors_first: true
+    avoid_catches_without_on_clauses: true
+    avoid_equals_and_hash_code_on_mutable_classes: true
+    cancel_subscriptions: true
     # Good packages document everything
     public_member_api_docs: true
-    always_declare_return_types: true
-    cancel_subscriptions: true
-    close_sinks: true
-    only_throw_errors: true
     package_api_docs: true
