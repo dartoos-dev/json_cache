@@ -4,8 +4,8 @@ import 'package:json_cache/json_cache.dart';
 void main() {
   group('JsonCacheFake', () {
     const profKey = 'profile';
-    const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
     const prefKey = 'preferences';
+    const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
     const prefData = <String, dynamic>{
       'theme': 'dark',
       'notifications': {'enabled': true},
@@ -52,11 +52,6 @@ void main() {
     });
 
     test('contains', () async {
-      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
-      final prefData = <String, dynamic>{
-        'theme': 'dark',
-        'notifications': {'enabled': true},
-      };
       final fake = JsonCacheFake();
       // update data
       await fake.refresh(profKey, profData);
@@ -69,6 +64,14 @@ void main() {
       await fake.remove(prefKey);
       expect(await fake.contains(prefKey), false);
       expect(await fake.contains('a key'), false);
+    });
+    test('keys', () async {
+      final fake = JsonCacheFake();
+      // update data
+      await fake.refresh(profKey, profData);
+      await fake.refresh(prefKey, prefData);
+
+      expect(await fake.keys(), [profKey, prefKey]);
     });
     group('remove', () {
       test('default ctor', () async {

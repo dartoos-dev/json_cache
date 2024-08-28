@@ -5,9 +5,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   SharedPreferences.setMockInitialValues({});
   group('JsonCacheSharedPreferences', () {
+    const profKey = 'profile';
+    const prefKey = 'preferences';
+    const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
+    const prefData = <String, dynamic>{
+      'theme': 'dark',
+      'notifications': {'enabled': true},
+    };
     test('clear, value, refresh', () async {
-      const profKey = 'profile';
-      const profData = <String, Object>{'id': 1, 'name': 'John Due'};
       final JsonCacheSharedPreferences prefsCache =
           JsonCacheSharedPreferences(await SharedPreferences.getInstance());
       await prefsCache.refresh(profKey, profData);
@@ -19,13 +24,6 @@ void main() {
     });
 
     test('contains', () async {
-      const profKey = 'profile';
-      const prefKey = 'preferences';
-      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
-      final prefData = <String, dynamic>{
-        'theme': 'dark',
-        'notifications': {'enabled': true},
-      };
       final JsonCacheSharedPreferences prefs =
           JsonCacheSharedPreferences(await SharedPreferences.getInstance());
       // update data
@@ -43,14 +41,17 @@ void main() {
       await prefs.remove(prefKey);
       expect(await prefs.contains(prefKey), false);
     });
+
+    test('keys', () async {
+      final JsonCacheSharedPreferences prefs =
+          JsonCacheSharedPreferences(await SharedPreferences.getInstance());
+      // update data
+      await prefs.refresh(profKey, profData);
+      await prefs.refresh(prefKey, prefData);
+
+      expect(await prefs.keys(), [profKey, prefKey]);
+    });
     test('remove', () async {
-      const profKey = 'profile';
-      const prefKey = 'preferences';
-      final profData = <String, Object>{'id': 1, 'name': 'John Due'};
-      final prefData = <String, Object>{
-        'theme': 'dark',
-        'notifications': {'enabled': true},
-      };
       final JsonCacheSharedPreferences prefsCache =
           JsonCacheSharedPreferences(await SharedPreferences.getInstance());
       await prefsCache.refresh(profKey, profData);

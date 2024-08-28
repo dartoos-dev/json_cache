@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:json_cache/json_cache.dart';
@@ -46,5 +47,10 @@ class JsonCacheSharedPreferences implements JsonCache {
   @override
   Future<bool> contains(String key) async {
     return _sharedPreferences.containsKey(key);
+  }
+
+  @override
+  Future<UnmodifiableListView<String>> keys() async {
+    return UnmodifiableListView(_sharedPreferences.getKeys());
   }
 }

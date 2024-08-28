@@ -11,10 +11,15 @@ void main() {
     await tearDownTestHive();
   });
   group('JsonCacheHive', () {
+    const profKey = 'profile';
+    const prefKey = 'preferences';
+    const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
+    const prefData = <String, dynamic>{
+      'theme': 'dark',
+      'notifications': {'enabled': true},
+    };
     test('clear, value, refresh', () async {
       final box = await Hive.openBox<String>('test-clear-value-refresh');
-      const profKey = 'profile';
-      const profData = <String, Object>{'id': 1, 'name': 'John Due'};
       final JsonCacheHive hiveCache = JsonCacheHive(box);
       await hiveCache.refresh(profKey, profData);
       var prof = await hiveCache.value(profKey);
@@ -25,13 +30,6 @@ void main() {
     });
 
     test('contains', () async {
-      const profKey = 'profile';
-      const prefKey = 'preferences';
-      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
-      final prefData = <String, dynamic>{
-        'theme': 'dark',
-        'notifications': {'enabled': true},
-      };
       final box = await Hive.openBox<String>('test-contains-method');
       final JsonCacheHive hiveCache = JsonCacheHive(box);
       // update data
@@ -49,14 +47,17 @@ void main() {
       await hiveCache.remove(prefKey);
       expect(await hiveCache.contains(prefKey), false);
     });
+
+    test('keys', () async {
+      final box = await Hive.openBox<String>('test-contains-method');
+      final JsonCacheHive hiveCache = JsonCacheHive(box);
+      // update data
+      await hiveCache.refresh(profKey, profData);
+      await hiveCache.refresh(prefKey, prefData);
+
+      expect(await hiveCache.keys(), [prefKey, profKey]);
+    });
     test('remove', () async {
-      const profKey = 'profile';
-      const prefKey = 'preferences';
-      final profData = <String, Object>{'id': 1, 'name': 'John Due'};
-      final prefData = <String, Object>{
-        'theme': 'dark',
-        'notifications': {'enabled': true},
-      };
       final box = await Hive.openBox<String>('test-remove');
       final hiveCache = JsonCacheHive(box);
       await hiveCache.refresh(profKey, profData);

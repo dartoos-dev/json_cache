@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:json_cache/json_cache.dart';
 
 /// In-memory cache without synchronization.
@@ -49,5 +51,10 @@ class JsonCacheFake implements JsonCache {
   @override
   Future<bool> contains(String key) async {
     return _memory.containsKey(key);
+  }
+
+  @override
+  Future<UnmodifiableListView<String>> keys() async {
+    return UnmodifiableListView(_memory.keys);
   }
 }

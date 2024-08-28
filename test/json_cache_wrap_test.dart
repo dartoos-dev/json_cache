@@ -9,6 +9,11 @@ void main() {
   group('JsonCacheWrap', () {
     const profKey = 'profile';
     const prefKey = 'preferences';
+    const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
+    const prefData = <String, dynamic>{
+      'theme': 'dark',
+      'notifications': {'enabled': true},
+    };
     group('clear, value and refresh', () {
       test('default ctor', () async {
         const Map<String, dynamic> data = <String, dynamic>{
@@ -25,11 +30,6 @@ void main() {
       });
     });
     test('contains', () async {
-      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
-      final prefData = <String, dynamic>{
-        'theme': 'dark',
-        'notifications': {'enabled': true},
-      };
       final wrap = JsonCacheTestWrap();
 
       // update data
@@ -45,12 +45,16 @@ void main() {
       expect(await wrap.contains(prefKey), false);
       expect(await wrap.contains('a key'), false);
     });
+    test('keys', () async {
+      final wrap = JsonCacheTestWrap();
+
+      // update data
+      await wrap.refresh(profKey, profData);
+      await wrap.refresh(prefKey, prefData);
+
+      expect(await wrap.keys(), [profKey, prefKey]);
+    });
     test('remove', () async {
-      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
-      final prefData = <String, dynamic>{
-        'theme': 'dark',
-        'notifications': {'enabled': true},
-      };
       final wrap = JsonCacheTestWrap();
       await wrap.refresh(profKey, profData);
       await wrap.refresh(prefKey, prefData);

@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:json_cache/json_cache.dart';
 
 /// Decorator Envelope of [JsonCache].
@@ -30,4 +32,8 @@ abstract class JsonCacheWrap implements JsonCache {
   /// Forwards to the [JsonCache.contains] of its wrapped instance.
   @override
   Future<bool> contains(String key) => _wrapped.contains(key);
+
+  /// Forwards to the [JsonCache.keys] of its wrapped instance.
+  @override
+  Future<UnmodifiableListView<String>> keys() => _wrapped.keys();
 }

@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:json_cache/json_cache.dart';
 
 /// Hollow (empty) [JsonCache] — It is intended to serve as a placeholder for
@@ -38,4 +40,9 @@ class JsonCacheHollow implements JsonCache {
   /// Always returns `false`.
   @override
   Future<bool> contains(String key) async => false;
+
+  /// An empty list of keys.
+  @override
+  Future<UnmodifiableListView<String>> keys() async =>
+      UnmodifiableListView(const []);
 }

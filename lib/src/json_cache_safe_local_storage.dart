@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_dynamic_calls
 
+import 'dart:collection';
+
 import 'package:json_cache/json_cache.dart';
 import 'package:safe_local_storage/safe_local_storage.dart';
 
@@ -41,6 +43,14 @@ class JsonCacheSafeLocalStorage implements JsonCache {
   @override
   Future<Map<String, dynamic>?> value(String key) async {
     return (await _cachedData)[key] as Map<String, dynamic>?;
+  }
+
+  @override
+  Future<UnmodifiableListView<String>> keys() async {
+    final data = await _cachedData;
+    return UnmodifiableListView(
+      data.keys.map((k) => k as String),
+    );
   }
 
   /// Gets the cached data stored in the local storage file.

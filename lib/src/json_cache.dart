@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 /// Represents cached data in json format.
 ///
 ///> Cache is a hardware or software component that stores data so that future
@@ -25,4 +27,9 @@ abstract class JsonCache {
   ///
   /// Returns `true` if there is cached data at [key]; `false` otherwise.
   Future<bool> contains(String key);
+
+  /// Lists all keys.
+  ///
+  /// Returns an **unmodifiable** list of cache keys without duplicates.
+  Future<UnmodifiableListView<String>> keys();
 }
