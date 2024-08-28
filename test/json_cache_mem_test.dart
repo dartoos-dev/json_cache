@@ -111,11 +111,6 @@ void main() {
       });
     });
     test('contains', () async {
-      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
-      final prefData = <String, dynamic>{
-        'theme': 'dark',
-        'notifications': {'enabled': true},
-      };
       final memCache = JsonCacheMem();
       // update data
       await memCache.refresh(profKey, profData);
@@ -131,11 +126,6 @@ void main() {
       expect(await memCache.contains('a key'), false);
     });
     test('keys', () async {
-      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
-      final prefData = <String, dynamic>{
-        'theme': 'dark',
-        'notifications': {'enabled': true},
-      };
       final memCache = JsonCacheMem();
       // update data
       await memCache.refresh(profKey, profData);

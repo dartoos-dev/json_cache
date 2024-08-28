@@ -5,9 +5,13 @@ import 'fake_local_storage.dart';
 
 void main() {
   group('JsonCacheLocalStorage', () {
+    const profKey = 'profile';
+    const profData = <String, Object>{'id': 1, 'name': 'John Due'};
+    const prefData = <String, dynamic>{
+      'theme': 'dark',
+      'notifications': {'enabled': true},
+    };
     test('clear, recover and refresh', () async {
-      const profKey = 'profile';
-      const profData = <String, Object>{'id': 1, 'name': 'John Due'};
       final JsonCacheLocalStorage jsonCache = _fakeInstance;
       await jsonCache.refresh(profKey, profData);
       var prof = await jsonCache.value(profKey);
@@ -18,13 +22,7 @@ void main() {
     });
 
     test('contains', () async {
-      const profKey = 'profile';
       const prefKey = 'preferences';
-      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
-      final prefData = <String, dynamic>{
-        'theme': 'dark',
-        'notifications': {'enabled': true},
-      };
       final JsonCacheLocalStorage jsonCache = _fakeInstance;
       // update data
       await jsonCache.refresh(profKey, profData);
@@ -41,14 +39,18 @@ void main() {
       await jsonCache.remove(prefKey);
       expect(await jsonCache.contains(prefKey), false);
     });
-    test('remove', () async {
-      const profKey = 'profile';
+
+    test('keys', () async {
       const prefKey = 'preferences';
-      final profData = <String, Object>{'id': 1, 'name': 'John Due'};
-      final prefData = <String, Object>{
-        'theme': 'dark',
-        'notifications': {'enabled': true},
-      };
+      final JsonCacheLocalStorage jsonCache = _fakeInstance;
+      // update data
+      await jsonCache.refresh(profKey, profData);
+      await jsonCache.refresh(prefKey, prefData);
+
+      expect(await jsonCache.keys(), [profKey, prefKey]);
+    });
+    test('remove', () async {
+      const prefKey = 'preferences';
       final JsonCacheLocalStorage jsonCache = _fakeInstance;
       await jsonCache.refresh(profKey, profData);
       await jsonCache.refresh(prefKey, prefData);

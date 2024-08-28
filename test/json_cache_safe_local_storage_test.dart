@@ -123,6 +123,13 @@ void main() {
         },
       );
 
+      test('keys', () async {
+        // update data
+        await jsonCacheSafeLocalStorage.refresh(profKey, profData);
+        await jsonCacheSafeLocalStorage.refresh(prefKey, prefData);
+
+        expect(await jsonCacheSafeLocalStorage.keys(), [profKey, prefKey]);
+      });
       test(
         'clear',
         () async {

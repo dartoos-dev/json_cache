@@ -90,9 +90,14 @@ class FlutterSecureStorageMock implements FlutterSecureStorage {
     WebOptions? webOptions,
     MacOsOptions? mOptions,
     WindowsOptions? wOptions,
-  }) {
-    // TODO: implement readAll
-    throw UnimplementedError();
+  }) async {
+    // final jsonObj = await _fakeCache.value(key);
+    final keys = await _fakeCache.keys();
+    final data = <String, String>{};
+    for (final key in keys) {
+      data[key] = json.encode(await _fakeCache.value(key));
+    }
+    return data;
   }
 
   @override

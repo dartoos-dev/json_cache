@@ -42,6 +42,20 @@ void main() {
       // Check if the interaction occurred only once.
       verify(() => jsonCacheMock.contains('aKey')).called(1);
     });
+    test('keys should throw "JsonCacheException"', () async {
+      final JsonCacheTry jsonCacheTry = JsonCacheTry(jsonCacheMock);
+      // Stub the 'contains' method.
+      when(() => jsonCacheMock.keys()).thenThrow(Exception('Cache Failure'));
+      // Verify no interactions have occurred.
+      verifyNever(() => jsonCacheMock.keys());
+      // Interact with the jsonCacheTry instance.
+      expect(
+        () async => jsonCacheTry.keys(),
+        throwsA(const TypeMatcher<JsonCacheException>()),
+      );
+      // Check if the interaction occurred only once.
+      verify(() => jsonCacheMock.keys()).called(1);
+    });
     test('refresh should throw "JsonCacheException"', () async {
       final JsonCacheTry jsonCacheTry = JsonCacheTry(jsonCacheMock);
       // Stub the 'refresh' method.

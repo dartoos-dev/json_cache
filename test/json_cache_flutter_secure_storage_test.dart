@@ -5,12 +5,17 @@ import 'flutter_secure_storage_mock.dart';
 
 void main() {
   group('JsonCacheFlutterSecureStorage', () {
+    const profKey = 'profile';
+    const prefKey = 'preferences';
+    const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
+    const prefData = <String, dynamic>{
+      'theme': 'dark',
+      'notifications': {'enabled': true},
+    };
     test('clear, value, refresh', () async {
       final secStorageMock = FlutterSecureStorageMock();
       final JsonCacheFlutterSecureStorage flutterSecureCache =
           JsonCacheFlutterSecureStorage(secStorageMock);
-      const profKey = 'profile';
-      const profData = <String, Object>{'id': 1, 'name': 'John Due'};
       await flutterSecureCache.refresh(profKey, profData);
       expect(secStorageMock.writeInvokations, 1);
 
@@ -27,13 +32,6 @@ void main() {
     });
 
     test('contains', () async {
-      const profKey = 'profile';
-      const prefKey = 'preferences';
-      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
-      final prefData = <String, dynamic>{
-        'theme': 'dark',
-        'notifications': {'enabled': true},
-      };
       final secStorageMock = FlutterSecureStorageMock();
       final JsonCacheFlutterSecureStorage flutterSecureCache =
           JsonCacheFlutterSecureStorage(secStorageMock);
@@ -52,17 +50,20 @@ void main() {
       await flutterSecureCache.remove(prefKey);
       expect(await flutterSecureCache.contains(prefKey), false);
     });
+    test('keys', () async {
+      final secStorageMock = FlutterSecureStorageMock();
+      final JsonCacheFlutterSecureStorage flutterSecureCache =
+          JsonCacheFlutterSecureStorage(secStorageMock);
+      // update data
+      await flutterSecureCache.refresh(profKey, profData);
+      await flutterSecureCache.refresh(prefKey, prefData);
+
+      expect(await flutterSecureCache.keys(), [profKey, prefKey]);
+    });
     test('remove', () async {
       final secStorageMock = FlutterSecureStorageMock();
       final JsonCacheFlutterSecureStorage flutterSecureCache =
           JsonCacheFlutterSecureStorage(secStorageMock);
-      const profKey = 'profile';
-      const prefKey = 'preferences';
-      final profData = <String, Object>{'id': 1, 'name': 'John Due'};
-      final prefData = <String, Object>{
-        'theme': 'dark',
-        'notifications': {'enabled': true},
-      };
       await flutterSecureCache.refresh(profKey, profData);
       await flutterSecureCache.refresh(prefKey, prefData);
       expect(secStorageMock.writeInvokations, 2);

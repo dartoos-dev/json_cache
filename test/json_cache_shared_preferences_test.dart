@@ -7,8 +7,8 @@ void main() {
   group('JsonCacheSharedPreferences', () {
     const profKey = 'profile';
     const prefKey = 'preferences';
-    final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
-    final prefData = <String, dynamic>{
+    const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
+    const prefData = <String, dynamic>{
       'theme': 'dark',
       'notifications': {'enabled': true},
     };
