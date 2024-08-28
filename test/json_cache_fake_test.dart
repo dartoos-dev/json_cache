@@ -70,6 +70,19 @@ void main() {
       expect(await fake.contains(prefKey), false);
       expect(await fake.contains('a key'), false);
     });
+    test('keys', () async {
+      final profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
+      final prefData = <String, dynamic>{
+        'theme': 'dark',
+        'notifications': {'enabled': true},
+      };
+      final fake = JsonCacheFake();
+      // update data
+      await fake.refresh(profKey, profData);
+      await fake.refresh(prefKey, prefData);
+
+      expect(await fake.keys(), [profKey, prefKey]);
+    });
     group('remove', () {
       test('default ctor', () async {
         final JsonCacheFake fakeCache = JsonCacheFake();

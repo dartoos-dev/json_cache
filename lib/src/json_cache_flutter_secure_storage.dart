@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -39,6 +40,11 @@ class JsonCacheFlutterSecureStorage implements JsonCache {
 
   @override
   Future<bool> contains(String key) async {
-    return _storage.containsKey(key: key);
+    return await _storage.containsKey(key: key);
+  }
+
+  @override
+  Future<UnmodifiableListView<String>> keys() async {
+    return UnmodifiableListView((await _storage.readAll()).keys);
   }
 }

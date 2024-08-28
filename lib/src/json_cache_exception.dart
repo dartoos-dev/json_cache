@@ -11,7 +11,7 @@ class JsonCacheException<T extends Object> implements Exception {
 
   /// The original exception that indicated the failure of the caching
   /// operation.
-  final Exception? exception;
+  final Object? exception;
 
   /// Returns [extra] along with the original exception message.
   @override

@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:json_cache/json_cache.dart';
 
 /// A [JsonCache] decorator that provides improved information about
@@ -97,6 +99,21 @@ class JsonCacheTry implements JsonCache {
       Error.throwWithStackTrace(
         JsonCacheException(
           extra: "Error checking for cached data at index '$key'.",
+          exception: ex,
+        ),
+        st,
+      );
+    }
+  }
+
+  @override
+  Future<UnmodifiableListView<String>> keys() async {
+    try {
+      return await _wrapped.keys();
+    } on Exception catch (ex, st) {
+      Error.throwWithStackTrace(
+        JsonCacheException(
+          extra: "Error retreiving the cache keys.",
           exception: ex,
         ),
         st,

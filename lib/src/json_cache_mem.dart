@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:json_cache/json_cache.dart';
 import 'package:mutex/mutex.dart';
@@ -93,8 +94,6 @@ class JsonCacheMem implements JsonCache {
   static final _shrMutex = ReadWriteMutex();
 
   /// Frees up storage space in both the level2 cache and in-memory cache.
-  ///
-  /// Throws [JsonCacheException] to indicate operation failure.
   @override
   Future<void> clear() async {
     await _mutex.protectWrite(() async {
@@ -105,8 +104,6 @@ class JsonCacheMem implements JsonCache {
 
   /// Updates the data located at [key] in both the _level 2_ cache and
   /// in-memory cache.
-  ///
-  /// Throws [JsonCacheException] to indicate operation failure.
   @override
   Future<void> refresh(String key, Map<String, dynamic> data) async {
     // ATTENTION: It is safer to copy the content of [data] before calling an
@@ -158,6 +155,13 @@ class JsonCacheMem implements JsonCache {
     return _mutex.protectRead(() async {
       final bool foundInMemory = _memory.containsKey(key);
       return foundInMemory ? foundInMemory : await _level2.contains(key);
+    });
+  }
+
+  @override
+  Future<UnmodifiableListView<String>> keys() {
+    return _mutex.protectRead(() async {
+      return UnmodifiableListView(_memory.keys);
     });
   }
 }

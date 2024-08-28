@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:json_cache/json_cache.dart';
@@ -44,4 +45,15 @@ final class JsonCacheLocalStorage implements JsonCache {
 
   @override
   Future<bool> contains(String key) async => _storage.getItem(key) != null;
+
+  @override
+  Future<UnmodifiableListView<String>> keys() async {
+    return UnmodifiableListView(
+      List.generate(
+        _storage.length,
+        (int i) => _storage.key(i)!,
+        growable: false,
+      ),
+    );
+  }
 }

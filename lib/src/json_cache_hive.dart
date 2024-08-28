@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:hive/hive.dart';
@@ -36,5 +37,10 @@ class JsonCacheHive implements JsonCache {
   @override
   Future<bool> contains(String key) async {
     return _box.containsKey(key);
+  }
+
+  @override
+  Future<UnmodifiableListView<String>> keys() async {
+    return UnmodifiableListView(_box.keys.map((k) => k as String));
   }
 }
