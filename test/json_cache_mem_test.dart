@@ -23,7 +23,7 @@ class _JsonCacheThrowsAfterN extends JsonCacheWrap {
 
 void main() {
   SharedPreferences.setMockInitialValues({});
-  group('JsonCacheMem', () {
+  group('JsonCacheMem:', () {
     const profKey = 'profile';
     const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
     const prefKey = 'preferences';
@@ -36,19 +36,19 @@ void main() {
       prefKey: prefData,
     };
 
-    group('JsonCacheMem.init constructor', () {
+    group('"init" constructor', () {
       const data = <String, Map<String, dynamic>?>{
         'firstRow': <String, dynamic>{'row1': true},
         'secondRow': <String, dynamic>{'row2': false},
       };
-      test('data initialization — deep copy', () async {
+      test('should perform a deep copy of the input data', () async {
         final init = <String, Map<String, dynamic>?>{};
         final JsonCacheMem initMemCache =
             JsonCacheMem.init(data, level2: JsonCacheFake.mem(init));
         await initMemCache.value('x'); // wait...
         expect(init, data);
       });
-      test('rollback on error', () async {
+      test('should rollback on error', () async {
         final init = <String, Map<String, dynamic>?>{};
         final JsonCacheMem initMemCache = JsonCacheMem.init(
           data,
@@ -60,7 +60,7 @@ void main() {
         /// logic of the init constructor.
         expect(init.isEmpty, true);
       });
-      test('onInitError callback', () async {
+      test('should invoke "onInitError" callback on error', () async {
         final init = <String, Map<String, dynamic>?>{};
         bool invoked = false;
         final JsonCacheMem initMemCache = JsonCacheMem.init(
@@ -75,8 +75,8 @@ void main() {
         expect(invoked, true);
       });
     });
-    group('clear', () {
-      test('default ctor', () async {
+    group('"clear" method', () {
+      test('should clear all data when default constructed', () async {
         final JsonCacheMem memCache = JsonCacheMem();
         await memCache.refresh(profKey, profData);
         await memCache.refresh(prefKey, prefData);
@@ -86,7 +86,8 @@ void main() {
         final cachedPref = await memCache.value(prefKey);
         expect(cachedPref, isNull);
       });
-      test('init ctor', () async {
+      test('should clear all data when built with the "init" constructor',
+          () async {
         final JsonCacheMem initMemCache = JsonCacheMem.init(data);
         await initMemCache.refresh(profKey, profData);
         await initMemCache.refresh(prefKey, prefData);
@@ -96,7 +97,8 @@ void main() {
         final cachedPref = await initMemCache.value(prefKey);
         expect(cachedPref, isNull);
       });
-      test('mem ctor', () async {
+      test('should clear all data when built with the "mem" constructor',
+          () async {
         final copy = Map<String, Map<String, dynamic>?>.of(data);
         final JsonCacheMem memCache = JsonCacheMem.mem(copy);
         await memCache.clear();
@@ -110,31 +112,52 @@ void main() {
         expect(copy.isEmpty, true);
       });
     });
-    test('contains', () async {
-      final memCache = JsonCacheMem();
-      // update data
-      await memCache.refresh(profKey, profData);
-      await memCache.refresh(prefKey, prefData);
+    group('"contains" method', () {
+      test('“contains” method should test “true” against data keys', () async {
+        final memCache = JsonCacheMem();
+        // update data
+        await memCache.refresh(profKey, profData);
+        await memCache.refresh(prefKey, prefData);
 
-      // test for `true`
-      expect(await memCache.contains(profKey), true);
-      expect(await memCache.contains(prefKey), true);
+        // test for `true`
+        expect(await memCache.contains(profKey), true);
+        expect(await memCache.contains(prefKey), true);
+      });
+      test('“contains” method should test “false” against removed keys',
+          () async {
+        final memCache = JsonCacheMem();
+        // update data
+        await memCache.refresh(profKey, profData);
+        await memCache.refresh(prefKey, prefData);
 
-      // test for `false`
-      await memCache.remove(prefKey);
-      expect(await memCache.contains(prefKey), false);
-      expect(await memCache.contains('a key'), false);
+        // test for `false`
+        await memCache.remove(prefKey);
+        expect(await memCache.contains(prefKey), false);
+        expect(await memCache.contains('a key'), false);
+      });
     });
-    test('keys', () async {
-      final memCache = JsonCacheMem();
-      // update data
-      await memCache.refresh(profKey, profData);
-      await memCache.refresh(prefKey, prefData);
-
-      expect(await memCache.keys(), [profKey, prefKey]);
+    group('method "keys"', () {
+      late JsonCacheMem memCache;
+      setUp(() async {
+        memCache = JsonCacheMem();
+        // update data
+        await memCache.refresh(profKey, profData);
+        await memCache.refresh(prefKey, prefData);
+      });
+      test('should return the inserted keys', () async {
+        expect(await memCache.keys(), [profKey, prefKey]);
+      });
+      test('should keep the returned keys immutable', () async {
+        final keys = await memCache.keys();
+        // This should not change the 'keys' variable.
+        await memCache
+            .refresh('info', {'This is very important information.': true});
+        expect(keys, [profKey, prefKey]);
+      });
     });
-    group('remove', () {
-      test('default ctor', () async {
+    group('method "remove"', () {
+      test('should remove the cache line by key when default constructed',
+          () async {
         final JsonCacheMem memCache = JsonCacheMem();
         await memCache.refresh(profKey, profData);
         await memCache.refresh(prefKey, prefData);
@@ -145,7 +168,9 @@ void main() {
         final cachedPref = await memCache.value(prefKey);
         expect(cachedPref, isNull);
       });
-      test('init ctor', () async {
+      test(
+          'should remove the cache line by key when built with the "init" constructor',
+          () async {
         final JsonCacheMem initMemCache = JsonCacheMem.init(data);
         await initMemCache.refresh(profKey, profData);
         await initMemCache.refresh(prefKey, prefData);
@@ -159,7 +184,8 @@ void main() {
       });
     });
     group('refresh and value', () {
-      test('default ctor', () async {
+      test('should update and retrieve the new values when default constructed',
+          () async {
         final JsonCacheMem memCache = JsonCacheMem();
         await memCache.refresh(profKey, profData);
         await memCache.refresh(prefKey, prefData);
@@ -170,7 +196,9 @@ void main() {
         final cachedPref = await memCache.value(prefKey);
         expect(cachedPref, prefData);
       });
-      test('init ctor', () async {
+      test(
+          'should update and retrieve the new values when built with the "init" constructor',
+          () async {
         final JsonCacheMem initMemCache = JsonCacheMem.init(data);
         await initMemCache.refresh(profKey, profData);
         await initMemCache.refresh(prefKey, prefData);
@@ -181,7 +209,9 @@ void main() {
         final cachedPref = await initMemCache.value(prefKey);
         expect(cachedPref, prefData);
       });
-      test('mem ctor', () async {
+      test(
+          'should update and retrieve the new values when built with the "mem" constructor',
+          () async {
         final mem = <String, Map<String, dynamic>?>{};
         final JsonCacheMem memCache = JsonCacheMem.mem(mem);
         await memCache.refresh(profKey, profData);

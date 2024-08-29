@@ -161,7 +161,7 @@ class JsonCacheMem implements JsonCache {
   @override
   Future<UnmodifiableListView<String>> keys() {
     return _mutex.protectRead(() async {
-      return UnmodifiableListView(_memory.keys);
+      return UnmodifiableListView(_memory.keys.toList(growable: false));
     });
   }
 }

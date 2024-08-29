@@ -4,7 +4,7 @@ import 'package:json_cache/json_cache.dart';
 import 'flutter_secure_storage_mock.dart';
 
 void main() {
-  group('JsonCacheFlutterSecureStorage', () {
+  group('JsonCacheFlutterSecureStorage:', () {
     const profKey = 'profile';
     const prefKey = 'preferences';
     const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
@@ -50,15 +50,26 @@ void main() {
       await flutterSecureCache.remove(prefKey);
       expect(await flutterSecureCache.contains(prefKey), false);
     });
-    test('keys', () async {
-      final secStorageMock = FlutterSecureStorageMock();
-      final JsonCacheFlutterSecureStorage flutterSecureCache =
-          JsonCacheFlutterSecureStorage(secStorageMock);
-      // update data
-      await flutterSecureCache.refresh(profKey, profData);
-      await flutterSecureCache.refresh(prefKey, prefData);
 
-      expect(await flutterSecureCache.keys(), [profKey, prefKey]);
+    group('method "keys"', () {
+      late JsonCacheFlutterSecureStorage flutterSecureCache;
+      setUp(() async {
+        flutterSecureCache =
+            JsonCacheFlutterSecureStorage(FlutterSecureStorageMock());
+        // update data
+        await flutterSecureCache.refresh(profKey, profData);
+        await flutterSecureCache.refresh(prefKey, prefData);
+      });
+      test('should return the inserted keys', () async {
+        expect(await flutterSecureCache.keys(), [profKey, prefKey]);
+      });
+      test('should keep the returned keys immutable', () async {
+        final keys = await flutterSecureCache.keys();
+        // This should not change the 'keys' variable.
+        await flutterSecureCache
+            .refresh('info', {'This is very important information.': true});
+        expect(keys, [profKey, prefKey]);
+      });
     });
     test('remove', () async {
       final secStorageMock = FlutterSecureStorageMock();

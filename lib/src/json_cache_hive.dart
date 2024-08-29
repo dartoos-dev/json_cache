@@ -41,6 +41,8 @@ class JsonCacheHive implements JsonCache {
 
   @override
   Future<UnmodifiableListView<String>> keys() async {
-    return UnmodifiableListView(_box.keys.map((k) => k as String));
+    return UnmodifiableListView(
+      _box.keys.map((k) => k as String).toList(growable: false),
+    );
   }
 }

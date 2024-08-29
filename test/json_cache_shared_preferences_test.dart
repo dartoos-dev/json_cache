@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   SharedPreferences.setMockInitialValues({});
-  group('JsonCacheSharedPreferences', () {
+  group('JsonCacheSharedPreferences:', () {
     const profKey = 'profile';
     const prefKey = 'preferences';
     const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
@@ -42,14 +42,25 @@ void main() {
       expect(await prefs.contains(prefKey), false);
     });
 
-    test('keys', () async {
-      final JsonCacheSharedPreferences prefs =
-          JsonCacheSharedPreferences(await SharedPreferences.getInstance());
-      // update data
-      await prefs.refresh(profKey, profData);
-      await prefs.refresh(prefKey, prefData);
-
-      expect(await prefs.keys(), [profKey, prefKey]);
+    group('method "keys"', () {
+      late JsonCacheSharedPreferences prefsCache;
+      setUp(() async {
+        prefsCache =
+            JsonCacheSharedPreferences(await SharedPreferences.getInstance());
+        // update data
+        await prefsCache.refresh(profKey, profData);
+        await prefsCache.refresh(prefKey, prefData);
+      });
+      test('should return the inserted keys', () async {
+        expect(await prefsCache.keys(), [profKey, prefKey]);
+      });
+      test('should keep the returned keys immutable', () async {
+        final keys = await prefsCache.keys();
+        // This should not change the 'keys' variable.
+        await prefsCache
+            .refresh('info', {'This is very important information.': true});
+        expect(keys, [profKey, prefKey]);
+      });
     });
     test('remove', () async {
       final JsonCacheSharedPreferences prefsCache =

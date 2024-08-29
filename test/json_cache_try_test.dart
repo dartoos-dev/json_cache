@@ -5,7 +5,7 @@ import 'package:mocktail/mocktail.dart';
 class JsonCacheMock extends Mock implements JsonCache {}
 
 void main() {
-  group('JsonCacheTry', () {
+  group('JsonCacheTry:', () {
     final jsonCacheMock = JsonCacheMock();
     test('should avoid JsonCacheTry as the wrapped instance', () async {
       expect(

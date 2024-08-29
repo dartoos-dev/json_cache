@@ -28,8 +28,8 @@ abstract class JsonCache {
   /// Returns `true` if there is cached data at [key]; `false` otherwise.
   Future<bool> contains(String key);
 
-  /// Lists all keys.
+  /// The cache keys.
   ///
-  /// Returns an **unmodifiable** list of cache keys without duplicates.
+  /// Returns an **unmodifiable** list of all cache keys without duplicates.
   Future<UnmodifiableListView<String>> keys();
 }

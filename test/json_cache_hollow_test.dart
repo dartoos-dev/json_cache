@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:json_cache/json_cache.dart';
 
 void main() {
-  group('JsonCacheHollow', () {
+  group('JsonCacheHollow:', () {
     const profKey = 'profile';
     const prefKey = 'preferences';
     const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
@@ -36,11 +36,17 @@ void main() {
       expect(await fake.contains('a key'), false);
     });
     test('keys', () async {
-      const fake = JsonCacheHollow();
-      await fake.refresh(profKey, profData);
-      await fake.refresh(prefKey, prefData);
+      const hollowCache = JsonCacheHollow();
+      await hollowCache.refresh(profKey, profData);
+      await hollowCache.refresh(prefKey, prefData);
 
-      expect(await fake.keys(), const []);
+      final keys = await hollowCache.keys();
+      expect(keys, const []);
+
+      // This should not change the 'keys' variable.
+      await hollowCache
+          .refresh('info', {'This is very important information.': true});
+      expect(keys, const []);
     });
     test('remove', () async {
       const JsonCacheHollow hollowCache = JsonCacheHollow();
