@@ -10,7 +10,7 @@ void main() {
   tearDown(() async {
     await tearDownTestHive();
   });
-  group('JsonCacheHive', () {
+  group('JsonCacheHive:', () {
     const profKey = 'profile';
     const prefKey = 'preferences';
     const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
@@ -47,15 +47,25 @@ void main() {
       await hiveCache.remove(prefKey);
       expect(await hiveCache.contains(prefKey), false);
     });
-
-    test('keys', () async {
-      final box = await Hive.openBox<String>('test-contains-method');
-      final JsonCacheHive hiveCache = JsonCacheHive(box);
-      // update data
-      await hiveCache.refresh(profKey, profData);
-      await hiveCache.refresh(prefKey, prefData);
-
-      expect(await hiveCache.keys(), [prefKey, profKey]);
+    group('method "keys"', () {
+      late JsonCacheHive hiveCache;
+      setUp(() async {
+        final box = await Hive.openBox<String>('test-keys-method');
+        hiveCache = JsonCacheHive(box);
+        // update data
+        await hiveCache.refresh(profKey, profData);
+        await hiveCache.refresh(prefKey, prefData);
+      });
+      test('should return the inserted keys', () async {
+        expect(await hiveCache.keys(), [prefKey, profKey]);
+      });
+      test('should keep the returned keys immutable', () async {
+        final keys = await hiveCache.keys();
+        // This should not change the 'keys' variable.
+        await hiveCache
+            .refresh('info', {'This is very important information.': true});
+        expect(keys, [prefKey, profKey]);
+      });
     });
     test('remove', () async {
       final box = await Hive.openBox<String>('test-remove');

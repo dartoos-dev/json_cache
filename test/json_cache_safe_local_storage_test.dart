@@ -38,7 +38,7 @@ void main() {
   );
 
   group(
-    'JsonCacheSafeLocalStorage',
+    'JsonCacheSafeLocalStorage:',
     () {
       test(
         '"refresh", "value", "remove" with one piece of data',
@@ -129,6 +129,23 @@ void main() {
         await jsonCacheSafeLocalStorage.refresh(prefKey, prefData);
 
         expect(await jsonCacheSafeLocalStorage.keys(), [profKey, prefKey]);
+      });
+      group('method "keys"', () {
+        setUp(() async {
+          // update data
+          await jsonCacheSafeLocalStorage.refresh(profKey, profData);
+          await jsonCacheSafeLocalStorage.refresh(prefKey, prefData);
+        });
+        test('should return the inserted keys', () async {
+          expect(await jsonCacheSafeLocalStorage.keys(), [profKey, prefKey]);
+        });
+        test('should keep the returned keys immutable', () async {
+          final keys = await jsonCacheSafeLocalStorage.keys();
+          // This should not change the 'keys' variable.
+          await jsonCacheSafeLocalStorage
+              .refresh('info', {'This is very important information.': true});
+          expect(keys, [profKey, prefKey]);
+        });
       });
       test(
         'clear',

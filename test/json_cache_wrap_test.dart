@@ -6,7 +6,7 @@ class JsonCacheTestWrap extends JsonCacheWrap {
 }
 
 void main() {
-  group('JsonCacheWrap', () {
+  group('JsonCacheWrap:', () {
     const profKey = 'profile';
     const prefKey = 'preferences';
     const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};

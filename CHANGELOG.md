@@ -7,35 +7,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Method "keys" for listing all cache keys —
+  [152](https://github.com/dartoos-dev/json_cache/issues/152)
+
 ### Changed
 
-- update linting rules —
+- Mehtod "keys" returns an immutable copy of the underlying cache keys —
+  [165](https://github.com/dartoos-dev/json_cache/issues/152)
+
+- Update linting rules —
   [162](https://github.com/dartoos-dev/json_cache/issues/154).
  
-
 ## [3.0.2] - 2024-08-19
 
 ### Changed
 
-- Bump up dependencies —
+- Updated dependencies —
   [154](https://github.com/dartoos-dev/json_cache/issues/154).
 
 ### Fixed
 
-- Removed code warnings and upgraded dart SDK range and each dependency to latest resolvable version available - [148](https://github.com/dartoos-dev/json_cache/issues/148).
+- Remove code warnings and upgrade the dart SDK range. In addition, 
+  dependencies were updated to the latest resolvable version —
+  [148](https://github.com/dartoos-dev/json_cache/issues/148).
 
 ## [3.0.1] - 2023-08-10
 
 ### Fixed
   
-- removed unused package 'cross_local_storage' from pubspec —
+- Removed unused package 'cross_local_storage' from pubspec —
   [144](https://github.com/dartoos-dev/json_cache/issues/144). 
 
 ## [3.0.0] - 2023-08-10
 
 ### Removed
 
-- support for the 'cross_local_storage' package — **BREAKING CHANGE** —
+- Support for the 'cross_local_storage' package — **BREAKING CHANGE** —
   [140](https://github.com/dartoos-dev/json_cache/issues/140).
 
 ### Fixed

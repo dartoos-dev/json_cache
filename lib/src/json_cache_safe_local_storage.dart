@@ -47,9 +47,8 @@ class JsonCacheSafeLocalStorage implements JsonCache {
 
   @override
   Future<UnmodifiableListView<String>> keys() async {
-    final data = await _cachedData;
     return UnmodifiableListView(
-      data.keys.map((k) => k as String),
+      (await _cachedData).keys.map((k) => k as String),
     );
   }
 

@@ -4,8 +4,9 @@ import 'package:json_cache/json_cache.dart';
 import 'fake_local_storage.dart';
 
 void main() {
-  group('JsonCacheLocalStorage', () {
+  group('JsonCacheLocalStorage:', () {
     const profKey = 'profile';
+    const prefKey = 'preferences';
     const profData = <String, Object>{'id': 1, 'name': 'John Due'};
     const prefData = <String, dynamic>{
       'theme': 'dark',
@@ -40,14 +41,24 @@ void main() {
       expect(await jsonCache.contains(prefKey), false);
     });
 
-    test('keys', () async {
-      const prefKey = 'preferences';
-      final JsonCacheLocalStorage jsonCache = _fakeInstance;
-      // update data
-      await jsonCache.refresh(profKey, profData);
-      await jsonCache.refresh(prefKey, prefData);
-
-      expect(await jsonCache.keys(), [profKey, prefKey]);
+    group('method "keys"', () {
+      late JsonCacheLocalStorage localStorageCache;
+      setUp(() async {
+        localStorageCache = JsonCacheLocalStorage(FakeLocalStorage());
+        // update data
+        await localStorageCache.refresh(profKey, profData);
+        await localStorageCache.refresh(prefKey, prefData);
+      });
+      test('should return the inserted keys', () async {
+        expect(await localStorageCache.keys(), [profKey, prefKey]);
+      });
+      test('should keep the returned keys immutable', () async {
+        final keys = await localStorageCache.keys();
+        // This should not change the 'keys' variable.
+        await localStorageCache
+            .refresh('info', {'This is very important information.': true});
+        expect(keys, [profKey, prefKey]);
+      });
     });
     test('remove', () async {
       const prefKey = 'preferences';

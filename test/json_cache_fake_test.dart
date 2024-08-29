@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:json_cache/json_cache.dart';
 
 void main() {
-  group('JsonCacheFake', () {
+  group('JsonCacheFake:', () {
     const profKey = 'profile';
     const prefKey = 'preferences';
     const profData = <String, dynamic>{'id': 1, 'name': 'John Due'};
@@ -65,13 +65,24 @@ void main() {
       expect(await fake.contains(prefKey), false);
       expect(await fake.contains('a key'), false);
     });
-    test('keys', () async {
-      final fake = JsonCacheFake();
-      // update data
-      await fake.refresh(profKey, profData);
-      await fake.refresh(prefKey, prefData);
-
-      expect(await fake.keys(), [profKey, prefKey]);
+    group('method "keys"', () {
+      late JsonCacheFake fakeCache;
+      setUp(() async {
+        fakeCache = JsonCacheFake();
+        // update data
+        await fakeCache.refresh(profKey, profData);
+        await fakeCache.refresh(prefKey, prefData);
+      });
+      test('should return the inserted keys', () async {
+        expect(await fakeCache.keys(), [profKey, prefKey]);
+      });
+      test('should keep the returned keys immutable', () async {
+        final keys = await fakeCache.keys();
+        // This should not change the 'keys' variable.
+        await fakeCache
+            .refresh('info', {'This is very important information.': true});
+        expect(keys, [profKey, prefKey]);
+      });
     });
     group('remove', () {
       test('default ctor', () async {

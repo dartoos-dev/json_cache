@@ -55,6 +55,6 @@ class JsonCacheFake implements JsonCache {
 
   @override
   Future<UnmodifiableListView<String>> keys() async {
-    return UnmodifiableListView(_memory.keys);
+    return UnmodifiableListView(List.unmodifiable(_memory.keys));
   }
 }
