@@ -5,7 +5,7 @@ import 'package:json_cache/json_cache.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Persistent preferences file cache.
-class JsonCacheSharedPreferences implements JsonCache {
+final class JsonCacheSharedPreferences implements JsonCache {
   /// Sets the [SharedPreferences] instance.
   const JsonCacheSharedPreferences(this._sharedPreferences);
 

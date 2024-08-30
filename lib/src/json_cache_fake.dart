@@ -7,7 +7,7 @@ import 'package:json_cache/json_cache.dart';
 /// It is intended for unit testing and prototyping.
 ///
 /// **Warning**: do not use it in production code. It is not thread-safe.
-class JsonCacheFake implements JsonCache {
+final class JsonCacheFake implements JsonCache {
   /// Shares a static memory with other instances.
   JsonCacheFake() : this.mem(_shrMem);
 

@@ -16,7 +16,7 @@ import 'package:json_cache/json_cache.dart';
 /// > - Hollow blocks are used because they are lighter
 /// > - a hollow log
 /// > — [Cambridge Dictionary](https://dictionary.cambridge.org/dictionary/english/hollow)
-class JsonCacheHollow implements JsonCache {
+final class JsonCacheHollow implements JsonCache {
   /// This const constructor ensures that there will be only one
   /// [JsonCacheHollow] instance throughout the program.
   const JsonCacheHollow();

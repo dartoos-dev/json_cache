@@ -4,7 +4,7 @@ import 'package:json_cache/json_cache.dart';
 
 /// A [JsonCache] decorator that provides improved information about
 /// cache-related failures by throwing [JsonCacheException].
-class JsonCacheTry implements JsonCache {
+final class JsonCacheTry implements JsonCache {
   /// Sets [wrapped] as the instance to which this object will forward all
   /// method calls.
   ///

@@ -9,17 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Method "keys" for listing all cache keys —
+- Method `keys` for listing all cache keys —
   [152](https://github.com/dartoos-dev/json_cache/issues/152)
 
 ### Changed
 
-- Mehtod "keys" returns an immutable copy of the underlying cache keys —
-  [165](https://github.com/dartoos-dev/json_cache/issues/152)
+- Make `JsonCache` a Dart interface and mark implementations as `final` — **BREAKING CHANGE** —
+  [168](https://github.com/dartoos-dev/json_cache/issues/168).
 
 - Update linting rules —
   [162](https://github.com/dartoos-dev/json_cache/issues/154).
  
+### Fixed
+
+- Mehtod `keys` returns an immutable copy of the underlying cache keys —
+  [165](https://github.com/dartoos-dev/json_cache/issues/152)
+
 ## [3.0.2] - 2024-08-19
 
 ### Changed
