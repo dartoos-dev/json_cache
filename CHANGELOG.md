@@ -18,12 +18,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   [168](https://github.com/dartoos-dev/json_cache/issues/168).
 
 - Update linting rules —
-  [162](https://github.com/dartoos-dev/json_cache/issues/154).
+  [162](https://github.com/dartoos-dev/json_cache/issues/162).
+
+- Update README — [167](https://github.com/dartoos-dev/json_cache/issues/167).
  
 ### Fixed
 
 - Mehtod `keys` returns an immutable copy of the underlying cache keys —
-  [165](https://github.com/dartoos-dev/json_cache/issues/152)
+  [165](https://github.com/dartoos-dev/json_cache/issues/165).
 
 ## [3.0.2] - 2024-08-19
 

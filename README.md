@@ -72,12 +72,12 @@ that can be selected and grouped in various combinations to meet specific cache
 requirements.
 
 [JsonCache](https://pub.dev/documentation/json_cache/latest/json_cache/JsonCache-class.html)
-is the core interface of this package and represents the concept of cached data.
-It is defined as:
+is the core Dart interface of this package and represents the concept of cached
+data. It is defined as:
 
 ```dart
 /// Represents cached data in json format.
-abstract class JsonCache {
+abstract interface class JsonCache {
   /// Frees up storage space — deletes all keys and values.
   Future<void> clear();
 
@@ -97,6 +97,11 @@ abstract class JsonCache {
   ///
   /// Returns `true` if there is cached data at [key]; `false` otherwise.
   Future<bool> contains(String key);
+ 
+  /// The cache keys.
+  ///
+  /// Returns an **unmodifiable** list of all cache keys without duplicates.
+  Future<UnmodifiableListView<String>> keys();
 }
 ```
 
@@ -281,9 +286,14 @@ is an implementation on top of the
 [localstorage](https://pub.dev/packages/localstorage) package.
 
 ```dart
+import 'package:flutter/material.dart';
+import 'package:localstorage/localstorage.dart';
+
   …
   final LocalStorage storage = LocalStorage('my_data');
-  final JsonCache jsonCache = JsonCacheMem(JsonCacheLocalStorage(storage));
+  WidgetsFlutterBinding.ensureInitialized();
+  await initLocalStorage();
+  final JsonCache jsonCache = JsonCacheMem(JsonCacheLocalStorage(localStorage));
   …
 ```
 
