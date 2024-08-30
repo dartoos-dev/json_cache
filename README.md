@@ -290,12 +290,10 @@ import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 
   …
-  final LocalStorage storage = LocalStorage('my_data');
   WidgetsFlutterBinding.ensureInitialized();
   await initLocalStorage();
   final JsonCache jsonCache = JsonCacheMem(JsonCacheLocalStorage(localStorage));
   …
-```
 
 ### JsonCacheSafeLocalStorage
 
