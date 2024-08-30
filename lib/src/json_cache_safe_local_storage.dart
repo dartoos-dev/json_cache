@@ -8,7 +8,7 @@ import 'package:safe_local_storage/safe_local_storage.dart';
 /// Implementation on top of the SafeLocalStorage package.
 ///
 /// See: [Safe local storage](https://pub.dev/packages/safe_local_storage)
-class JsonCacheSafeLocalStorage implements JsonCache {
+final class JsonCacheSafeLocalStorage implements JsonCache {
   /// Encapsulates a [SafeLocalStorage] instance.
   const JsonCacheSafeLocalStorage(this._localStorage);
 

@@ -1,5 +1,5 @@
 /// An exception to indicate cache operation failures.
-class JsonCacheException<T extends Object> implements Exception {
+final class JsonCacheException<T extends Object> implements Exception {
   /// Sets [extra] as the aditional information and [exception] as the original
   /// exception.
   const JsonCacheException({required this.extra, this.exception});

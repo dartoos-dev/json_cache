@@ -9,12 +9,16 @@ import 'package:mutex/mutex.dart';
 /// [JsonCacheMem.init] initialization error callback.
 typedef OnInitError = FutureOr<Null> Function(Object, StackTrace);
 
+/// {@template json_cache_mem}
+///
 /// Thread-safe in-memory [JsonCache] decorator.
 ///
 /// It is a kind of _level 1_ cache.
 ///
 /// It encapsulates a slower cache and keeps its own data in-memory.
-class JsonCacheMem implements JsonCache {
+///
+/// {@endtemplate}
+final class JsonCacheMem implements JsonCache {
   /// In-memory _level 1_ cache with an optional _level 2_ instance.
   ///
   /// **Note**: if you do not pass an object to the parameter [level2], the data
