@@ -14,4 +14,3 @@ linter:
     cancel_subscriptions: true
     # Good packages document everything
     public_member_api_docs: true
-    package_api_docs: true

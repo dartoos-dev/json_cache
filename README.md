@@ -294,6 +294,7 @@ import 'package:localstorage/localstorage.dart';
   await initLocalStorage();
   final JsonCache jsonCache = JsonCacheMem(JsonCacheLocalStorage(localStorage));
   …
+```
 
 ### JsonCacheSafeLocalStorage
 

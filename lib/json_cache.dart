@@ -1,5 +1,5 @@
 /// A collection of [JsonCache] decorators.
-library json_cache;
+library;
 
 export 'src/json_cache.dart';
 export 'src/json_cache_exception.dart';

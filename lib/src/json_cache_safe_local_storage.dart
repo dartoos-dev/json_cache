@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_dynamic_calls
 
 import 'dart:collection';
+import 'dart:io';
 
 import 'package:json_cache/json_cache.dart';
 import 'package:safe_local_storage/safe_local_storage.dart';
@@ -55,5 +56,14 @@ final class JsonCacheSafeLocalStorage implements JsonCache {
   /// Gets the cached data stored in the local storage file.
   Future<Map<dynamic, dynamic>> get _cachedData async {
     return await _localStorage.read() as Map<dynamic, dynamic>;
+  }
+}
+
+/// Adds resource release methods.
+extension DisposeSafeLocalStorage on SafeLocalStorage {
+  /// Deletes the file with the stored data.
+  Future<void> delete() async {
+    await write({});
+    await File(path).delete(recursive: true);
   }
 }

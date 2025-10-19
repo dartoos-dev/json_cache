@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+
+- Update linting rules.
+- Update dependencies — [175](https://github.com/dartoos-dev/json_cache/issues/175).
+
 ### Fixed
 
 - minor error in README file —
