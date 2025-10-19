@@ -7,13 +7,13 @@ class JsonCacheMock extends Mock implements JsonCache {}
 void main() {
   group('JsonCacheTry:', () {
     final jsonCacheMock = JsonCacheMock();
-    test('should avoid JsonCacheTry as the wrapped instance', () async {
+    test('should avoid JsonCacheTry as the wrapped instance', () {
       expect(
         () => JsonCacheTry(JsonCacheTry(jsonCacheMock)),
         throwsAssertionError,
       );
     });
-    test('clear should throw "JsonCacheException"', () async {
+    test('clear should throw "JsonCacheException"', () {
       final JsonCacheTry jsonCacheTry = JsonCacheTry(jsonCacheMock);
       // Stub the 'clear' method.
       when(() => jsonCacheMock.clear()).thenThrow(Exception('Cache Failure'));
@@ -21,13 +21,13 @@ void main() {
       verifyNever(() => jsonCacheMock.clear());
       // Interact with the jsonCacheTry instance.
       expect(
-        () async => jsonCacheTry.clear(),
+        () => jsonCacheTry.clear(),
         throwsA(const TypeMatcher<JsonCacheException>()),
       );
       // Check if the interaction occurred only once.
       verify(() => jsonCacheMock.clear()).called(1);
     });
-    test('contains should throw "JsonCacheException"', () async {
+    test('contains should throw "JsonCacheException"', () {
       final JsonCacheTry jsonCacheTry = JsonCacheTry(jsonCacheMock);
       // Stub the 'contains' method.
       when(() => jsonCacheMock.contains('aKey'))
@@ -36,13 +36,13 @@ void main() {
       verifyNever(() => jsonCacheMock.contains('aKey'));
       // Interact with the jsonCacheTry instance.
       expect(
-        () async => jsonCacheTry.contains('aKey'),
+        () => jsonCacheTry.contains('aKey'),
         throwsA(const TypeMatcher<JsonCacheException>()),
       );
       // Check if the interaction occurred only once.
       verify(() => jsonCacheMock.contains('aKey')).called(1);
     });
-    test('keys should throw "JsonCacheException"', () async {
+    test('keys should throw "JsonCacheException"', () {
       final JsonCacheTry jsonCacheTry = JsonCacheTry(jsonCacheMock);
       // Stub the 'contains' method.
       when(() => jsonCacheMock.keys()).thenThrow(Exception('Cache Failure'));
@@ -50,13 +50,13 @@ void main() {
       verifyNever(() => jsonCacheMock.keys());
       // Interact with the jsonCacheTry instance.
       expect(
-        () async => jsonCacheTry.keys(),
+        () => jsonCacheTry.keys(),
         throwsA(const TypeMatcher<JsonCacheException>()),
       );
       // Check if the interaction occurred only once.
       verify(() => jsonCacheMock.keys()).called(1);
     });
-    test('refresh should throw "JsonCacheException"', () async {
+    test('refresh should throw "JsonCacheException"', () {
       final JsonCacheTry jsonCacheTry = JsonCacheTry(jsonCacheMock);
       // Stub the 'refresh' method.
       when(() => jsonCacheMock.refresh('aKey', {}))
@@ -65,13 +65,13 @@ void main() {
       verifyNever(() => jsonCacheMock.refresh('aKey', {}));
       // Interact with the jsonCacheTry instance.
       expect(
-        () async => jsonCacheTry.refresh('aKey', {}),
+        () => jsonCacheTry.refresh('aKey', {}),
         throwsA(const TypeMatcher<JsonCacheException>()),
       );
       // Check if the interaction occurred only once.
       verify(() => jsonCacheMock.refresh('aKey', {})).called(1);
     });
-    test('remove should throw "JsonCacheException"', () async {
+    test('remove should throw "JsonCacheException"', () {
       final JsonCacheTry jsonCacheTry = JsonCacheTry(jsonCacheMock);
       // Stub the 'remove' method.
       when(() => jsonCacheMock.remove('aKey'))
@@ -80,13 +80,13 @@ void main() {
       verifyNever(() => jsonCacheMock.remove('aKey'));
       // Interact with the jsonCacheTry instance.
       expect(
-        () async => jsonCacheTry.remove('aKey'),
+        () => jsonCacheTry.remove('aKey'),
         throwsA(const TypeMatcher<JsonCacheException>()),
       );
       // Check if the interaction occurred only once.
       verify(() => jsonCacheMock.remove('aKey')).called(1);
     });
-    test('value should throw "JsonCacheException"', () async {
+    test('value should throw "JsonCacheException"', () {
       final JsonCacheTry jsonCacheTry = JsonCacheTry(jsonCacheMock);
       // Stub the 'value' method.
       when(() => jsonCacheMock.value('aKey'))
@@ -95,7 +95,7 @@ void main() {
       verifyNever(() => jsonCacheMock.value('aKey'));
       // Interact with the jsonCacheTry instance.
       expect(
-        () async => jsonCacheTry.value('aKey'),
+        () => jsonCacheTry.value('aKey'),
         throwsA(const TypeMatcher<JsonCacheException>()),
       );
       // Check if the interaction occurred only once.

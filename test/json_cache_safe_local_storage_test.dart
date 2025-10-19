@@ -14,7 +14,7 @@ void main() {
   late JsonCacheSafeLocalStorage jsonCacheSafeLocalStorage;
 
   // Profile data
-  const profKey = 'profile';
+  const profileKey = 'profile';
   const profData = {
     'name': 'John Doe',
     'age': 23,
@@ -22,14 +22,14 @@ void main() {
   };
 
   // App preferences data
-  const prefKey = 'preferences';
+  const preferencesKey = 'preferences';
   const prefData = {
     'theme': 'light',
     'notifications': {'enabled': true},
   };
 
   setUp(
-    () async {
+    () {
       tempDir = Directory.systemTemp;
       tempFile = File('${tempDir.path}/temp_file.json');
       storage = SafeLocalStorage(tempFile.path);
@@ -44,18 +44,18 @@ void main() {
         '"refresh", "value", "remove" with one piece of data',
         () async {
           // Insert a single piece of data into the cache
-          await jsonCacheSafeLocalStorage.refresh(profKey, profData);
+          await jsonCacheSafeLocalStorage.refresh(profileKey, profData);
 
           // Check if the data has been inserted into the cache.
           final profileRetrieved =
-              await jsonCacheSafeLocalStorage.value(profKey);
+              await jsonCacheSafeLocalStorage.value(profileKey);
           expect(profileRetrieved, equals(profData));
 
           // Remove the single piece of data stored.
-          await jsonCacheSafeLocalStorage.remove(profKey);
+          await jsonCacheSafeLocalStorage.remove(profileKey);
 
           // No data should remain in the cache.
-          final cachedValue = await jsonCacheSafeLocalStorage.value(profKey);
+          final cachedValue = await jsonCacheSafeLocalStorage.value(profileKey);
           expect(cachedValue, isNull);
         },
       );
@@ -64,27 +64,27 @@ void main() {
         '"refresh", "value", "remove" with multiple data',
         () async {
           // Insert multiple data into the cache
-          await jsonCacheSafeLocalStorage.refresh(profKey, profData);
-          await jsonCacheSafeLocalStorage.refresh(prefKey, prefData);
+          await jsonCacheSafeLocalStorage.refresh(profileKey, profData);
+          await jsonCacheSafeLocalStorage.refresh(preferencesKey, prefData);
 
           // Check if multiple data has been inserted into the cache.
           final profileRetrieved =
-              await jsonCacheSafeLocalStorage.value(profKey);
+              await jsonCacheSafeLocalStorage.value(profileKey);
           expect(profileRetrieved, equals(profData));
 
           final preferencesRetrived =
-              await jsonCacheSafeLocalStorage.value(prefKey);
+              await jsonCacheSafeLocalStorage.value(preferencesKey);
           expect(preferencesRetrived, prefData);
 
           // Remove data from the cache.
-          await jsonCacheSafeLocalStorage.remove(profKey);
-          await jsonCacheSafeLocalStorage.remove(prefKey);
+          await jsonCacheSafeLocalStorage.remove(profileKey);
+          await jsonCacheSafeLocalStorage.remove(preferencesKey);
 
           final removedProfValue =
-              await jsonCacheSafeLocalStorage.value(profKey);
+              await jsonCacheSafeLocalStorage.value(profileKey);
           expect(removedProfValue, isNull);
           final removedPrefValue =
-              await jsonCacheSafeLocalStorage.value(prefKey);
+              await jsonCacheSafeLocalStorage.value(preferencesKey);
           expect(removedPrefValue, isNull);
         },
       );
@@ -93,11 +93,12 @@ void main() {
         'contains',
         () async {
           // Insert a single piece of data into the cache.
-          await jsonCacheSafeLocalStorage.refresh(profKey, profData);
+          await jsonCacheSafeLocalStorage.refresh(profileKey, profData);
 
           // Check
-          expect(await jsonCacheSafeLocalStorage.contains(profKey), true);
-          expect(await jsonCacheSafeLocalStorage.contains(prefKey), false);
+          expect(await jsonCacheSafeLocalStorage.contains(profileKey), true);
+          expect(
+              await jsonCacheSafeLocalStorage.contains(preferencesKey), false);
 
           // Test for keys that doesn't exist
           expect(await jsonCacheSafeLocalStorage.contains('generickey'), false);
@@ -105,64 +106,71 @@ void main() {
           expect(await jsonCacheSafeLocalStorage.contains('PREFKEY'), false);
 
           // Insert a new piece of data into the cache to test more than one key stored.
-          await jsonCacheSafeLocalStorage.refresh(prefKey, prefData);
+          await jsonCacheSafeLocalStorage.refresh(preferencesKey, prefData);
 
           // Check for multiple data.
-          expect(await jsonCacheSafeLocalStorage.contains(profKey), true);
-          expect(await jsonCacheSafeLocalStorage.contains(prefKey), true);
+          expect(await jsonCacheSafeLocalStorage.contains(profileKey), true);
+          expect(
+              await jsonCacheSafeLocalStorage.contains(preferencesKey), true);
 
           // Remove data from the cache.
-          await jsonCacheSafeLocalStorage.remove(profKey);
-          expect(await jsonCacheSafeLocalStorage.contains(profKey), false);
-          expect(await jsonCacheSafeLocalStorage.contains(prefKey), true);
+          await jsonCacheSafeLocalStorage.remove(profileKey);
+          expect(await jsonCacheSafeLocalStorage.contains(profileKey), false);
+          expect(
+              await jsonCacheSafeLocalStorage.contains(preferencesKey), true);
 
           // Remove data from the cache.
-          await jsonCacheSafeLocalStorage.remove(prefKey);
-          expect(await jsonCacheSafeLocalStorage.contains(profKey), false);
-          expect(await jsonCacheSafeLocalStorage.contains(prefKey), false);
+          await jsonCacheSafeLocalStorage.remove(preferencesKey);
+          expect(await jsonCacheSafeLocalStorage.contains(profileKey), false);
+          expect(
+              await jsonCacheSafeLocalStorage.contains(preferencesKey), false);
         },
       );
 
       test('keys', () async {
         // update data
-        await jsonCacheSafeLocalStorage.refresh(profKey, profData);
-        await jsonCacheSafeLocalStorage.refresh(prefKey, prefData);
+        await jsonCacheSafeLocalStorage.refresh(profileKey, profData);
+        await jsonCacheSafeLocalStorage.refresh(preferencesKey, prefData);
 
-        expect(await jsonCacheSafeLocalStorage.keys(), [profKey, prefKey]);
+        expect(
+          await jsonCacheSafeLocalStorage.keys(),
+          [profileKey, preferencesKey],
+        );
       });
       group('method "keys"', () {
         setUp(() async {
           // update data
-          await jsonCacheSafeLocalStorage.refresh(profKey, profData);
-          await jsonCacheSafeLocalStorage.refresh(prefKey, prefData);
+          await jsonCacheSafeLocalStorage.refresh(profileKey, profData);
+          await jsonCacheSafeLocalStorage.refresh(preferencesKey, prefData);
         });
         test('should return the inserted keys', () async {
-          expect(await jsonCacheSafeLocalStorage.keys(), [profKey, prefKey]);
+          expect(await jsonCacheSafeLocalStorage.keys(),
+              [profileKey, preferencesKey]);
         });
         test('should keep the returned keys immutable', () async {
           final keys = await jsonCacheSafeLocalStorage.keys();
           // This should not change the 'keys' variable.
           await jsonCacheSafeLocalStorage
               .refresh('info', {'This is very important information.': true});
-          expect(keys, [profKey, prefKey]);
+          expect(keys, [profileKey, preferencesKey]);
         });
       });
       test(
         'clear',
         () async {
           // Insert multiple data into the cache.
-          await jsonCacheSafeLocalStorage.refresh(profKey, profData);
-          await jsonCacheSafeLocalStorage.refresh(prefKey, prefData);
+          await jsonCacheSafeLocalStorage.refresh(profileKey, profData);
+          await jsonCacheSafeLocalStorage.refresh(preferencesKey, prefData);
 
           // Clear it. All data should be deleted with the file.
           await jsonCacheSafeLocalStorage.clear();
 
           // No data should remain in the cache.
-          final cachedValue = await jsonCacheSafeLocalStorage.value(profKey);
+          final cachedValue = await jsonCacheSafeLocalStorage.value(profileKey);
           expect(cachedValue, isNull);
 
           // Insert a single piece of data into the cache. This refresh avoids errors on operational systems.
-          await jsonCacheSafeLocalStorage.refresh(profKey, profData);
+          await jsonCacheSafeLocalStorage.refresh(profileKey, profData);
         },
       );
     },
